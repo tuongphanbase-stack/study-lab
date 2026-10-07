@@ -58,3 +58,19 @@ https://tuongphanbase-stack.github.io/study-lab/
 ## License
 
 Feel free to use, modify, and share.
+
+## Progress and quizzes
+
+`lab.js`, `lab-quizzes.js` and `lab.css` are loaded on every page:
+
+- **Progress tracking:** a ✓ beside finished lessons in the sidebar, a
+  progress bar, and a "Continue: next lesson" button on the overview page.
+  Progress is saved in your browser (nothing is sent anywhere).
+- **Quiz at the end of each lesson:** 3 questions with an explanation for
+  every answer. Getting all 3 right marks the lesson as done (or use
+  "Mark lesson as done").
+- **Next lesson** button at the end of every lesson.
+- Lesson pages now fit on phone screens.
+
+Run `node tests/lab-quizzes.test.js` to check the quiz data.
+

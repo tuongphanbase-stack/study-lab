@@ -192,6 +192,7 @@
   .codeline.active::before{content:"\25b8";color:var(--accent);opacity:1;font-weight:700;text-align:center;font-size:12px;}
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
+<link rel="stylesheet" href="lab.css">
 </head>
 <body>
 <div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">consistent-hashing</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
@@ -597,5 +598,7 @@ initKeyNames.forEach(name=>{ keyCount++; keys.push({name, hash: hashOf(name)}); 
 render();
 
 </script>
+<script src="lab-quizzes.js"></script>
+<script src="lab.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 A hub page linking to twenty-two small, single-file, dependency-free visualizers — each one takes a CS concept that's usually taught with static diagrams and makes it interactive.
 
-**[View it live →](https://tuongphantrue.github.io/study-lab/)**
+**[View it live →](https://tuongphanbase-stack.github.io/study-lab/)**
 
 ## What's inside
 
@@ -33,7 +33,7 @@ A hub page linking to twenty-two small, single-file, dependency-free visualizers
 
 `index.html` is the hub — a light, card-based landing page that links out to each page above.
 
-No frameworks, no build step, no dependencies other than Google Fonts. Every page is its own self-contained HTML file with its `<style>` and `<script>` inline, same approach as [big-o-explained](https://github.com/tuongphantrue/big-o-explained) and [sorting-algorithms](https://github.com/tuongphantrue/sorting-algorithms).
+No frameworks, no build step, no dependencies other than Google Fonts. Every page is its own self-contained HTML file with its `<style>` and `<script>` inline, same approach as [big-o-explained](https://github.com/tuongphanbase-stack/big-o-explained) and [sorting-algorithms](https://github.com/tuongphanbase-stack/sorting-algorithms).
 
 ## Running it locally
 
@@ -41,12 +41,12 @@ Just open `index.html` in a browser — no server or install required. Every lin
 
 ## Deploying with GitHub Pages
 
-1. Go to **Settings → Pages** on [github.com/tuongphantrue/study-lab](https://github.com/tuongphantrue/study-lab).
+1. Go to **Settings → Pages** on [github.com/tuongphanbase-stack/study-lab](https://github.com/tuongphanbase-stack/study-lab).
 2. Under **Source**, choose the branch you pushed to (usually `main`) and the `/ (root)` folder.
 3. Save. The site is live at:
 
 ```
-https://tuongphantrue.github.io/study-lab/
+https://tuongphanbase-stack.github.io/study-lab/
 ```
 
 ## Adding another topic

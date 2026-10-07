@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bitwise-ops — study://lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f7fb; --card:#ffffff; --border:#e5e7eb;
+    --text:#14151a; --muted:#5c5e68; --dim:#9598a3;
+    --accent:#2563eb; --accent-soft:#eff6ff; --accent-dark:#1d4ed8;
+    --good:#16a34a;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-soft);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  .navbar-outer{background:var(--card);border-bottom:1px solid var(--border);}
+  nav{display:flex;align-items:center;gap:10px;padding:14px 24px;}
+  nav .tile{width:26px;height:26px;border-radius:7px;background:var(--accent-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+  nav a.back{font-weight:600;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:100px;border:1px solid var(--border);transition:all .15s ease;}
+  nav a.back:hover{color:var(--accent-dark);border-color:var(--accent);}
+  nav .navsearch{
+    display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--dim);font-size:13px;max-width:260px;margin-left:auto;
+  }
+  nav .navsearch .kbd{
+    margin-left:auto;font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);
+    border-radius:4px;padding:2px 6px;color:var(--dim);
+  }
+  @media (max-width:700px){ nav .navsearch{display:none;} }
+  nav .crumb{color:var(--dim);font-size:13px;}
+  nav .crumb-current{font-weight:600;color:var(--text);font-size:13px;}
+  header{margin:0;padding:20px 32px 12px;}
+  h1{font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  h1 span{color:var(--text);}
+  p.sub{color:var(--muted);max-width:68ch;line-height:1.5;font-size:14px;margin-top:0;}
+  main{margin:0;padding:8px 32px 80px;}
+
+  .explain{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin:22px 0;box-shadow:var(--shadow);}
+  .explain h2{font-weight:700;font-size:16px;margin:0 0 12px;}
+  .explain p{color:var(--muted);font-size:15px;line-height:1.75;margin:0 0 12px;}
+  .explain p:last-child{margin-bottom:0;}
+  .explain ul{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75;}
+  .explain li{margin-bottom:8px;}
+  .explain code{background:var(--accent-soft);border-radius:5px;padding:2px 7px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+  .example-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;}
+  .example-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:8px;}
+  .example-box p{margin:0 0 8px;font-size:14px;color:var(--text);line-height:1.65;}
+  .example-box p:last-child{margin-bottom:0;}
+  .example-box code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 20px;font-size:14px;}
+  input, select{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-size:14px;padding:11px 14px;border-radius:10px;box-shadow:var(--shadow);
+  }
+  input{width:80px;}
+  button{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-weight:600;font-size:14px;padding:11px 18px;border-radius:100px;
+    cursor:pointer;transition:all .15s ease;box-shadow:var(--shadow);
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);}
+  button.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+  .panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:var(--shadow);}
+  .operand{margin-bottom:20px;}
+  .operand .label{font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:10px;font-weight:600;}
+  .bits{display:flex;gap:5px;}
+  .bit{
+    width:46px;height:54px;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:19px;font-weight:700;border-radius:8px;
+    background:var(--bg-soft);border:1px solid var(--border);color:var(--dim);
+    cursor:pointer;user-select:none;transition:all .15s ease;
+  }
+  .bit.on{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .bit.result{background:var(--good);color:#fff;border-color:var(--good);}
+  .bit.result.zero{background:var(--bg-soft);color:var(--dim);border-color:var(--border);}
+  .opline{text-align:center;font-family:var(--mono);font-weight:700;font-size:22px;color:var(--accent);margin:8px 0 16px;}
+  .divider{border:none;border-top:1px solid var(--border);margin:16px 0;}
+  .decimals{font-size:14px;color:var(--muted);margin-top:18px;}
+  .decimals b{color:var(--text);}
+  .hint{font-size:13px;color:var(--dim);margin-top:12px;}
+
+  .layout{display:flex;align-items:flex-start;position:relative;}
+  .sidebar{transition:width .18s ease, padding .18s ease, opacity .18s ease;}
+  .sidebar.collapsed{width:0;padding:0;opacity:0;overflow:hidden;border-right:none;}
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-track{background:transparent;}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .sidebar::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+  .sidebar{scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+  .navtoggle{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--muted);font-size:13px;flex-shrink:0;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .navtoggle:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle.active{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .sidebar{
+    width:230px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);
+    padding:18px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar a.navitem{
+    display:block;padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;
+    font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .12s ease;
+  }
+  .sidebar a.navitem:hover{background:var(--bg-soft);color:var(--text);}
+  .sidebar a.navitem.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;}
+  .sidebar a.navitem.overview{font-weight:700;color:var(--text);margin-bottom:14px;padding-left:12px;}
+  .sidebar a.navitem.overview.active{background:var(--accent-soft);color:var(--accent-dark);}
+  .navgroup{margin-bottom:18px;}
+  .navgroup-label{
+    font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;
+    letter-spacing:.07em;padding:7px 12px;margin-bottom:2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease;
+  }
+  .navgroup-label:hover{background:var(--bg-soft);color:var(--muted);}
+  .navgroup-label .chev{
+    font-size:14px;font-weight:700;color:var(--dim);text-transform:none;letter-spacing:0;
+    transition:transform .15s ease,color .12s ease;display:inline-block;line-height:1;
+  }
+  .navgroup-label:hover .chev{color:var(--accent-dark);}
+  .navgroup.collapsed .navitem{display:none;}
+  .navgroup.collapsed .chev{transform:rotate(-90deg);}
+  .main-content{flex:1;min-width:0;}
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    .navtoggle{display:none;}
+    .sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+    .navgroup{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px;}
+    .navgroup-label{width:100%;}
+    .sidebar a.navitem.overview{margin-bottom:0;}
+  }
+
+  .codebox{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0 8px;box-shadow:var(--shadow);}
+  .codetabs{display:flex;gap:2px;background:var(--bg-soft);padding:5px 6px 0;overflow-x:auto;}
+  .codetab{background:transparent;border:none;color:var(--dim);font-family:var(--mono);font-size:11.5px;font-weight:600;
+    padding:6px 11px;border-radius:5px 5px 0 0;cursor:pointer;white-space:nowrap;}
+  .codetab.active{background:var(--card);color:var(--text);}
+  .codetab:hover:not(.active){color:var(--text);}
+  pre.codeblock{margin:0;padding:12px 16px;overflow:auto;height:420px;min-height:160px;max-height:85vh;resize:vertical;}
+  pre.codeblock code{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;}
+  .code-heading{font-weight:700;font-size:14px;margin:32px 0 8px;color:var(--text);}
+
+  .speedctl{display:flex;align-items:center;gap:8px;margin-left:auto;font-size:13px;color:var(--muted);}
+  .speedctl select{padding:8px 10px;}
+  @media (max-width:640px){ .speedctl{margin-left:0;} }
+
+  .codeline{display:block;}
+  .tok-comment{color:#6a737d;}
+  .tok-string{color:#032f62;}
+  .tok-keyword{color:#d73a49;font-weight:600;}
+  .tok-number{color:#005cc5;}
+  .tok-function{color:#6f42c1;}
+  .code-explain{
+    display:none;align-items:flex-start;gap:8px;padding:10px 16px;
+    background:var(--accent-soft);color:var(--accent-dark);font-size:12.5px;
+    line-height:1.5;border-top:1px solid var(--border);font-family:var(--sans);
+  }
+  .code-explain.show{display:flex;}
+  .code-explain .ico{flex-shrink:0;}
+
+  .codebox{box-shadow:0 1px 2px rgba(16,24,40,.05),0 8px 20px rgba(16,24,40,.07);}
+  .code-dots{display:flex;gap:6px;padding:0 8px 0 2px;align-items:center;}
+  .code-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .code-dots span:nth-child(1){background:#ff5f56;}
+  .code-dots span:nth-child(2){background:#ffbd2e;}
+  .code-dots span:nth-child(3){background:#27c93f;}
+  .copy-btn{
+    margin-left:auto;background:var(--card);border:1px solid var(--border);color:var(--dim);
+    font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:6px;
+    cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;
+    transition:all .15s ease;
+  }
+  .copy-btn:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .copy-btn.copied{color:#16a34a;border-color:#16a34a;background:#e6f7ec;}
+  pre.codeblock code{counter-reset:line;display:block;}
+  .codeline{counter-increment:line;display:block;position:relative;padding-left:2.6em;border-radius:4px;}
+  .codeline::before{
+    content:counter(line);position:absolute;left:0;top:0;width:2em;text-align:right;
+    color:var(--dim);opacity:.45;font-size:11px;user-select:none;
+  }
+  .codeline.active{background:var(--accent-soft);}
+  .codeline.active::before{content:"\25b8";color:var(--accent);opacity:1;font-weight:700;text-align:center;font-size:12px;}
+  .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">bitwise-ops</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="layout">
+<aside class="sidebar">
+  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <div class="navgroup">
+    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html">Pathfinding</a>
+    <a class="navitem" href="searching.html">Searching</a>
+    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html">Recursion</a>
+    <a class="navitem active" href="bitwise.html">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html">Data Structures</a>
+    <a class="navitem" href="trie.html">Trie</a>
+    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html">Union-Find</a>
+    <a class="navitem" href="hashtable.html">Hash Table</a>
+    <a class="navitem" href="lru-cache.html">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html">Sliding Window</a>
+    <a class="navitem" href="dp.html">Dynamic Programming</a>
+    <a class="navitem" href="regex.html">Regex Engine</a>
+    <a class="navitem" href="fsm.html">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+  </div>
+</aside>
+<div class="main-content">
+<header>
+  <h1>Bitwise<span>-ops</span></h1>
+  <p class="sub">Click any bit to flip it, pick an operation, and watch the result form one bit at a time — the same logic your CPU runs on every integer, just at 8-bit scale.</p>
+</header>
+<main>
+  <div class="explain">
+    <h2>How it works</h2>
+    <p>A number stored in binary is just a row of 0s and 1s. Each column is worth double the one to its right — 128, 64, 32, 16, 8, 4, 2, 1 for 8 bits. Every operation below works one column at a time, comparing only the two bits directly above each other.</p>
+    <ul>
+      <li><code>AND</code> — the result bit is 1 only when <b style="color:var(--text)">both</b> input bits are 1. Useful for clearing specific bits while keeping the rest.</li>
+      <li><code>OR</code> — the result bit is 1 when <b style="color:var(--text)">either</b> input bit is 1. Useful for turning specific bits on.</li>
+      <li><code>XOR</code> — the result bit is 1 when the two input bits are <b style="color:var(--text)">different</b>. Useful for flipping bits, or spotting what changed between two values.</li>
+      <li><code>NOT</code> — flips every bit: 0 becomes 1, and 1 becomes 0.</li>
+      <li><code>&lt;&lt;</code> and <code>&gt;&gt;</code> — shift every bit one spot left or right. Shifting left doubles the number; shifting right cuts it in half.</li>
+    </ul>
+    <div class="example-box">
+      <div class="example-label">Example</div>
+      <p><code>5</code> is <code>0101</code> in binary, <code>3</code> is <code>0011</code>. Column by column: <code>0&amp;0=0</code>, <code>1&amp;0=0</code>, <code>0&amp;1=0</code>, <code>1&amp;1=1</code>. So <code>5 AND 3 = 0001</code>, which is <code>1</code> — only the last column had a 1 in both numbers.</p>
+    </div>
+
+  </div>
+<div class="controls">
+    <label>A <input type="number" id="valA" value="203" min="0" max="255"></label>
+    <label>B <input type="number" id="valB" value="90" min="0" max="255"></label>
+    <select id="op">
+      <option value="and">AND</option>
+      <option value="or">OR</option>
+      <option value="xor">XOR</option>
+      <option value="not">NOT (A only)</option>
+      <option value="shl">A &lt;&lt; 1</option>
+      <option value="shr">A &gt;&gt; 1</option>
+    </select>
+    <button class="primary" id="run">▶ Compute</button>
+    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+  </div>
+
+  <div class="panel">
+    <div class="operand">
+      <div class="label">A</div>
+      <div class="bits" id="bitsA"></div>
+    </div>
+    <div class="operand" id="bRow">
+      <div class="label">B</div>
+      <div class="bits" id="bitsB"></div>
+    </div>
+    <div class="opline" id="opline">AND</div>
+    <hr class="divider">
+    <div class="operand">
+      <div class="label">result</div>
+      <div class="bits" id="bitsR"></div>
+    </div>
+    <div class="decimals" id="decimals"></div>
+  </div>
+  <div class="hint">click bits in A or B to edit them directly before computing</div>
+<div class="code-heading">Code</div>
+<div class="codebox">
+  <div class="codetabs">
+    <span class="code-dots"><span></span><span></span><span></span></span>
+    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab" data-lang="python">Python</button>
+    <button class="codetab" data-lang="js">JavaScript</button>
+    <button class="codetab" data-lang="java">Java</button>
+    <button class="codetab" data-lang="cpp">C++</button>
+    <button class="copy-btn">⧉ Copy</button>
+  </div>
+  <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">AND(a, b): result bit is 1 only if both bits are 1     // masks: keeps shared bits</span>
+<span class="codeline" data-line="1">OR(a, b):  result bit is 1 if either bit is 1                // combines: turns bits on</span>
+<span class="codeline" data-line="2">XOR(a, b): result bit is 1 if the bits differ                // toggles: flips differing bits</span>
+<span class="codeline" data-line="3">NOT(a):    flips every bit                                    // 0 becomes 1, 1 becomes 0</span>
+<span class="codeline" data-line="4">a &lt;&lt; n:    shift bits left by n   (multiplies by 2^n)         // fills new low bits with 0</span>
+<span class="codeline" data-line="5">a &gt;&gt; n:    shift bits right by n  (divides by 2^n)            // discards the low bits shifted out</span></code></pre>
+  <pre class="codeblock" data-lang="python" style="display:none"><code><span class="codeline" data-line="0">a, b = 0b11001011, 0b01011010   # two 8-bit values written in binary</span>
+<span class="codeline" data-line="1"></span>
+<span class="codeline" data-line="2">a &amp; b        # AND -&gt; masks: keep only bits set in both a and b</span>
+<span class="codeline" data-line="3">a | b        # OR  -&gt; combine: set bits present in either a or b</span>
+<span class="codeline" data-line="4">a ^ b        # XOR -&gt; toggle: set bits where a and b differ</span>
+<span class="codeline" data-line="5">~a           # NOT -&gt; flips every bit (Python ints are infinite-width,</span>
+<span class="codeline" data-line="6">             #        so this looks different from a fixed 8-bit flip)</span>
+<span class="codeline" data-line="7">a &lt;&lt; 1       # shift left  -&gt; multiply by 2, a 0 fills the new low bit</span>
+<span class="codeline" data-line="8">a &gt;&gt; 1       # shift right -&gt; divide by 2 (integer division), low bit is discarded</span></code></pre>
+  <pre class="codeblock" data-lang="js" style="display:none"><code><span class="codeline" data-line="0">const a = 0b11001011, b = 0b01011010;   // two 8-bit values written in binary</span>
+<span class="codeline" data-line="1"></span>
+<span class="codeline" data-line="2">a &amp; b;        // AND -&gt; masks: keep only bits set in both a and b</span>
+<span class="codeline" data-line="3">a | b;        // OR  -&gt; combine: set bits present in either a or b</span>
+<span class="codeline" data-line="4">a ^ b;        // XOR -&gt; toggle: set bits where a and b differ</span>
+<span class="codeline" data-line="5">~a &amp; 0xFF;    // NOT -&gt; flip every bit, masked to 8 bits so it displays cleanly</span>
+<span class="codeline" data-line="6">a &lt;&lt; 1;       // shift left  -&gt; multiply by 2, a 0 fills the new low bit</span>
+<span class="codeline" data-line="7">a &gt;&gt; 1;       // shift right -&gt; divide by 2 (integer division), low bit is discarded</span></code></pre>
+  <pre class="codeblock" data-lang="java" style="display:none"><code><span class="codeline" data-line="0">int a = 0b11001011, b = 0b01011010;   // two 8-bit values written in binary</span>
+<span class="codeline" data-line="1"></span>
+<span class="codeline" data-line="2">a &amp; b;        // AND -&gt; masks: keep only bits set in both a and b</span>
+<span class="codeline" data-line="3">a | b;        // OR  -&gt; combine: set bits present in either a or b</span>
+<span class="codeline" data-line="4">a ^ b;        // XOR -&gt; toggle: set bits where a and b differ</span>
+<span class="codeline" data-line="5">~a &amp; 0xFF;    // NOT -&gt; flip every bit, masked to 8 bits so it displays cleanly</span>
+<span class="codeline" data-line="6">a &lt;&lt; 1;       // shift left  -&gt; multiply by 2, a 0 fills the new low bit</span>
+<span class="codeline" data-line="7">a &gt;&gt; 1;       // shift right -&gt; divide by 2 (integer division), low bit is discarded</span></code></pre>
+  <pre class="codeblock" data-lang="cpp" style="display:none"><code><span class="codeline" data-line="0">unsigned char a = 0b11001011, b = 0b01011010;   // two 8-bit values written in binary</span>
+<span class="codeline" data-line="1"></span>
+<span class="codeline" data-line="2">a &amp; b;        // AND -&gt; masks: keep only bits set in both a and b</span>
+<span class="codeline" data-line="3">a | b;        // OR  -&gt; combine: set bits present in either a or b</span>
+<span class="codeline" data-line="4">a ^ b;        // XOR -&gt; toggle: set bits where a and b differ</span>
+<span class="codeline" data-line="5">~a;           // NOT -&gt; flip every bit (unsigned char wraps naturally at 8 bits)</span>
+<span class="codeline" data-line="6">a &lt;&lt; 1;       // shift left  -&gt; multiply by 2, a 0 fills the new low bit</span>
+<span class="codeline" data-line="7">a &gt;&gt; 1;       // shift right -&gt; divide by 2 (integer division), low bit is discarded</span></code></pre>
+  <div class="code-explain" id="codeExplainBar"><span class="ico">💡</span><span id="codeExplainText"></span></div>
+</div>
+</main>
+</div>
+</div>
+<script>
+let __lastHighlightMap = null;
+
+function highlightLine(mapping) {
+  __lastHighlightMap = mapping;
+  applyHighlight();
+}
+
+function commentInLine(text) {
+  let idx = text.indexOf('//');
+  if (idx !== -1) return text.slice(idx + 2).trim();
+  idx = text.indexOf('#');
+  if (idx !== -1) return text.slice(idx + 1).trim();
+  return null;
+}
+
+function extractExplanation(target) {
+  const own = commentInLine(target.textContent);
+  if (own) return own;
+  const next = target.nextElementSibling;
+  if (next && next.classList.contains('codeline')) {
+    const fromNext = commentInLine(next.textContent);
+    if (fromNext) return fromNext;
+  }
+  const prev = target.previousElementSibling;
+  if (prev && prev.classList.contains('codeline')) {
+    const fromPrev = commentInLine(prev.textContent);
+    if (fromPrev) return fromPrev;
+  }
+  return null;
+}
+
+function applyHighlight() {
+  const box = document.querySelector('.codebox');
+  const bar = document.getElementById('codeExplainBar');
+  const barText = document.getElementById('codeExplainText');
+  if (!box || !__lastHighlightMap) { if (bar) bar.classList.remove('show'); return; }
+  const activeTab = box.querySelector('.codetab.active');
+  const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+  const lineNum = __lastHighlightMap[lang];
+  box.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  if (lineNum === undefined || lineNum === null) { if (bar) bar.classList.remove('show'); return; }
+  const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+  if (!activeBlock) return;
+  const target = activeBlock.querySelector('.codeline[data-line="' + lineNum + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (bar && barText) {
+      const explanation = extractExplanation(target);
+      if (explanation) { barText.textContent = explanation; bar.classList.add('show'); }
+      else { bar.classList.remove('show'); }
+    }
+  }
+}
+
+function clearHighlight() {
+  __lastHighlightMap = null;
+  document.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  const bar = document.getElementById('codeExplainBar');
+  if (bar) bar.classList.remove('show');
+}
+
+document.querySelectorAll('.codetabs').forEach(tabs=>{
+  tabs.addEventListener('click', e=>{
+    const btn = e.target.closest('.codetab');
+    if(!btn) return;
+    const box = tabs.parentElement;
+    tabs.querySelectorAll('.codetab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    box.querySelectorAll('.codeblock').forEach(p=>{
+      p.style.display = p.dataset.lang===btn.dataset.lang ? 'block' : 'none';
+    });
+    applyHighlight();
+  });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.closest('.codebox');
+    if (!box) return;
+    const activeTab = box.querySelector('.codetab.active');
+    const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+    const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+    if (!activeBlock) return;
+    const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.classList.add('copied');
+      btn.textContent = '\u2713 Copied';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+    }).catch(() => {});
+  });
+});
+
+function syntaxHighlight(text) {
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const pattern = /(\/\/.*$|#(?![a-zA-Z]).*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b\d+\.?\d*n?\b)|(\b(?:function|def|return|if|else|elif|while|for|in|not|and|or|class|struct|new|const|let|var|async|await|import|from|export|default|static|public|private|protected|void|int|long|double|float|boolean|bool|char|string|String|true|false|True|False|None|null|nullptr|this|self|break|continue|switch|case|try|catch|throw|extends|implements|interface|enum|namespace|using|template|typename|auto|is|lambda|global|raise|except|finally|yield|del|pass|with|as|instanceof|typeof|super|package)\b)|(\b[A-Za-z_$][\w$]*)(?=\s*\()/gm;
+  return text.replace(pattern, (m, comment, str, num, kw, fn) => {
+    if (comment) return '<span class="tok-comment">'+comment+'</span>';
+    if (str) return '<span class="tok-string">'+str+'</span>';
+    if (num) return '<span class="tok-number">'+num+'</span>';
+    if (kw) return '<span class="tok-keyword">'+kw+'</span>';
+    if (fn) return '<span class="tok-function">'+fn+'</span>';
+    return m;
+  });
+}
+document.querySelectorAll('.codeline').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+document.querySelectorAll('.explain code').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+
+document.querySelectorAll('.navgroup-label').forEach(label => {
+  label.addEventListener('click', () => {
+    label.parentElement.classList.toggle('collapsed');
+  });
+});
+
+(() => {
+  const layout = document.querySelector('.layout');
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (!layout || !sidebar || !toggle) return;
+  const KEY = 'studylab-sidebar-collapsed';
+  if (localStorage.getItem(KEY) === '1') {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('active');
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = sidebar.classList.toggle('collapsed');
+    toggle.classList.toggle('active', collapsed);
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  });
+})();
+</script>
+<script>
+let animSpeed = 1;
+document.getElementById('speedSelect').addEventListener('change', (e) => {
+  animSpeed = parseFloat(e.target.value);
+});
+
+function toBits(n){ return n.toString(2).padStart(8,'0').split('').map(Number); }
+function fromBits(bits){ return parseInt(bits.join(''),2); }
+
+let A = Math.floor(Math.random()*256), B = Math.floor(Math.random()*256);
+
+function renderOperand(id, value, editable){
+  const el = document.getElementById(id);
+  const bits = toBits(value & 255);
+  el.innerHTML = bits.map((b,i)=>`<div class="bit ${b?'on':''}" data-i="${i}">${b}</div>`).join('');
+  if(editable){
+    [...el.children].forEach(child=>{
+      child.onclick = ()=>{
+        const i = +child.dataset.i;
+        const current = toBits(id==='bitsA'?A:B);
+        current[i] = current[i]?0:1;
+        const newVal = fromBits(current);
+        if(id==='bitsA'){ A=newVal; document.getElementById('valA').value=A; }
+        else { B=newVal; document.getElementById('valB').value=B; }
+        renderOperand(id, id==='bitsA'?A:B, true);
+      };
+    });
+  }
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r, ms / animSpeed)); }
+
+const opLabels = {and:'AND', or:'OR', xor:'XOR', not:'NOT A', shl:'A << 1', shr:'A >> 1'};
+
+document.getElementById('op').addEventListener('change', ()=>{
+  const op = document.getElementById('op').value;
+  document.getElementById('bRow').style.display = (op==='not'||op==='shl'||op==='shr') ? 'none' : 'block';
+  document.getElementById('opline').textContent = opLabels[op];
+});
+
+async function compute(){
+  document.getElementById('run').disabled = true;
+  clearHighlight();
+  A = Math.max(0, Math.min(255, +document.getElementById('valA').value||0));
+  B = Math.max(0, Math.min(255, +document.getElementById('valB').value||0));
+  renderOperand('bitsA', A, true);
+  renderOperand('bitsB', B, true);
+  const op = document.getElementById('op').value;
+  document.getElementById('opline').textContent = opLabels[op];
+  const opLineMap = {
+    and: {pseudo:0, python:2, js:2, java:2, cpp:2},
+    or:  {pseudo:1, python:3, js:3, java:3, cpp:3},
+    xor: {pseudo:2, python:4, js:4, java:4, cpp:4},
+    not: {pseudo:3, python:5, js:5, java:5, cpp:5},
+    shl: {pseudo:4, python:7, js:6, java:6, cpp:6},
+    shr: {pseudo:5, python:8, js:7, java:7, cpp:7}
+  };
+  highlightLine(opLineMap[op]);
+
+  const bitsA = toBits(A), bitsB = toBits(B);
+  let resultBits = new Array(8).fill(0);
+  const rEl = document.getElementById('bitsR');
+  rEl.innerHTML = Array.from({length:8},()=>`<div class="bit"></div>`).join('');
+  const rChildren = [...rEl.children];
+
+  for(let i=0;i<8;i++){
+    let bit;
+    if(op==='and') bit = bitsA[i] & bitsB[i];
+    else if(op==='or') bit = bitsA[i] | bitsB[i];
+    else if(op==='xor') bit = bitsA[i] ^ bitsB[i];
+    else if(op==='not') bit = bitsA[i] ? 0 : 1;
+    else if(op==='shl') bit = i<7 ? bitsA[i+1] : 0;
+    else if(op==='shr') bit = i>0 ? bitsA[i-1] : 0;
+    resultBits[i] = bit;
+    rChildren[i].textContent = bit;
+    rChildren[i].classList.add(bit? 'result' : 'result zero');
+    await sleep(160);
+  }
+
+  const rVal = fromBits(resultBits);
+  document.getElementById('decimals').innerHTML =
+    `A = <b>${A}</b>` + ((op!=='not'&&op!=='shl'&&op!=='shr') ? ` &nbsp; B = <b>${B}</b>` : '') +
+    ` &nbsp; result = <b>${rVal}</b>`;
+  document.getElementById('run').disabled = false;
+}
+
+document.getElementById('run').onclick = compute;
+document.getElementById('valA').value = A;
+document.getElementById('valB').value = B;
+renderOperand('bitsA', A, true);
+renderOperand('bitsB', B, true);
+compute();
+</script>
+</body></html>

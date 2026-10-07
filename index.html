@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>study://lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f7fb; --card:#ffffff; --border:#e5e7eb;
+    --text:#14151a; --muted:#5c5e68; --dim:#9598a3;
+    --accent:#2563eb; --accent-soft:#eff6ff; --accent-dark:#1d4ed8;
+    --good:#16a34a;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(16,24,40,.04);
+    --shadow-hover:0 4px 10px rgba(20,21,26,.06), 0 20px 44px rgba(79,70,229,.14);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-soft);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;
+    background:var(--card);border-bottom:1px solid var(--border);
+  }
+  .navbar-outer{background:var(--card);border-bottom:1px solid var(--border);}
+  nav .logo{font-weight:700;font-size:15px;text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:-0.01em;}
+  nav .logo .tile{
+    width:30px;height:30px;border-radius:8px;background:var(--accent-dark);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;
+  }
+  nav .logo .pill{
+    background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;
+    padding:6px 14px;font-weight:600;color:var(--text);
+  }
+  nav .ghlink{
+    font-weight:600;font-size:13.5px;color:var(--muted);text-decoration:none;
+    padding:8px 16px;border-radius:100px;border:1px solid var(--border);background:var(--card);
+    transition:all .15s ease;
+  }
+  nav .ghlink:hover{color:var(--accent-dark);border-color:var(--accent);}
+  nav .navsearch{
+    display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--dim);font-size:13px;flex:1;max-width:320px;margin:0 20px;
+  }
+  nav .navsearch .kbd{
+    margin-left:auto;font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);
+    border-radius:4px;padding:2px 6px;color:var(--dim);
+  }
+  @media (max-width:700px){ nav .navsearch{display:none;} }
+
+  .hero{margin:0;padding:24px 32px 16px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;
+    font-weight:600;color:var(--accent-dark);background:var(--card);border:1px solid var(--accent);
+    padding:6px 12px;border-radius:100px;margin-bottom:20px;
+  }
+  h1{font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  h1 span{color:var(--accent);}
+  .lede{color:var(--muted);max-width:60ch;line-height:1.5;font-size:14px;margin:0;}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-weight:600;font-size:15px;padding:13px 24px;border-radius:100px;text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;transition:all .15s ease;border:1px solid transparent;
+  }
+  .btn.primary{background:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);}
+  .btn.primary:hover{background:var(--accent-dark);transform:translateY(-1px);}
+  .btn.ghost{background:var(--card);color:var(--text);border-color:var(--border);box-shadow:var(--shadow);}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);}
+
+  main{margin:0;padding:24px 32px 90px;}
+  .grid-heading{font-size:13px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:32px 0 18px;}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:600px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:26px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;
+    box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    position:relative;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:var(--accent-soft);}
+  .card .num{
+    font-family:var(--mono);font-size:12px;color:var(--dim);margin-bottom:14px;
+  }
+  .card h3{font-size:19px;font-weight:700;margin:0 0 10px;letter-spacing:-0.01em;}
+  .card p{font-size:14.5px;color:var(--muted);line-height:1.6;margin:0 0 20px;flex-grow:1;}
+  .card .foot{display:flex;align-items:center;justify-content:space-between;font-size:13px;}
+  .card .tag{
+    font-family:var(--mono);font-size:11.5px;color:var(--accent-dark);background:var(--card);
+    border:1px solid var(--accent-soft);padding:4px 10px;border-radius:100px;font-weight:600;
+  }
+  .card .go{font-weight:700;color:var(--dim);transition:color .15s ease, transform .15s ease;}
+  .card:hover .go{color:var(--accent);transform:translateX(3px);}
+
+  footer{
+    margin:0;padding:40px 32px 60px;color:var(--dim);
+    font-size:13px;line-height:1.8;border-top:1px solid var(--border);
+  }
+  footer a{color:var(--muted);text-decoration:underline;text-underline-offset:2px;}
+  footer a:hover{color:var(--accent);}
+
+  .layout{display:flex;align-items:flex-start;position:relative;}
+  .sidebar{transition:width .18s ease, padding .18s ease, opacity .18s ease;}
+  .sidebar.collapsed{width:0;padding:0;opacity:0;overflow:hidden;border-right:none;}
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-track{background:transparent;}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .sidebar::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+  .sidebar{scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+  .navtoggle{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--muted);font-size:13px;flex-shrink:0;margin-right:2px;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .navtoggle:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle.active{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .sidebar{
+    width:230px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);
+    padding:18px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar a.navitem{
+    display:block;padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;
+    font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .12s ease;
+  }
+  .sidebar a.navitem:hover{background:var(--bg-soft);color:var(--text);}
+  .sidebar a.navitem.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;}
+  .sidebar a.navitem.overview{font-weight:700;color:var(--text);margin-bottom:14px;padding-left:12px;}
+  .sidebar a.navitem.overview.active{background:var(--accent-soft);color:var(--accent-dark);}
+  .navgroup{margin-bottom:18px;}
+  .navgroup-label{
+    font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;
+    letter-spacing:.07em;padding:7px 12px;margin-bottom:2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease;
+  }
+  .navgroup-label:hover{background:var(--bg-soft);color:var(--muted);}
+  .navgroup-label .chev{
+    font-size:14px;font-weight:700;color:var(--dim);text-transform:none;letter-spacing:0;
+    transition:transform .15s ease,color .12s ease;display:inline-block;line-height:1;
+  }
+  .navgroup-label:hover .chev{color:var(--accent-dark);}
+  .navgroup.collapsed .navitem{display:none;}
+  .navgroup.collapsed .chev{transform:rotate(-90deg);}
+  .main-content{flex:1;min-width:0;}
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    .navtoggle{display:none;}
+    .sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+    .navgroup{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px;}
+    .navgroup-label{width:100%;}
+    .sidebar a.navitem.overview{margin-bottom:0;}
+  }
+</style>
+</head>
+<body>
+<div class="navbar-outer">
+<nav>
+  <button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">☰</button>
+  <a class="logo" href="index.html"><span class="tile">◆</span><span class="pill">study://lab</span></a>
+  <span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span>
+  <a class="ghlink" href="https://github.com/tuongphantrue" target="_blank" rel="noopener">GitHub ↗</a>
+</nav>
+</div>
+
+<div class="layout">
+<aside class="sidebar">
+  <a class="navitem overview active" href="index.html">◆ Overview</a>
+  <div class="navgroup">
+    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html">Pathfinding</a>
+    <a class="navitem" href="searching.html">Searching</a>
+    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html">Recursion</a>
+    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html">Data Structures</a>
+    <a class="navitem" href="trie.html">Trie</a>
+    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html">Union-Find</a>
+    <a class="navitem" href="hashtable.html">Hash Table</a>
+    <a class="navitem" href="lru-cache.html">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html">Sliding Window</a>
+    <a class="navitem" href="dp.html">Dynamic Programming</a>
+    <a class="navitem" href="regex.html">Regex Engine</a>
+    <a class="navitem" href="fsm.html">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+  </div>
+</aside>
+<div class="main-content">
+<div class="hero">
+  <h1>Learn CS concepts by <span>watching them run</span></h1>
+  <p class="lede">22 interactive visualizers for algorithms and data structures — pick a topic below to get started.</p>
+</div>
+
+<main>
+  <div class="grid-heading" id="topics">all topics</div>
+  <div class="grid">
+
+    <a class="card" href="pathfinding.html">
+      <div class="num">01</div>
+      <h3>Pathfinding</h3>
+      <p>BFS, DFS, Dijkstra &amp; A* racing across a grid you draw walls on.</p>
+      <div class="foot"><span class="tag">O(V+E)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="searching.html">
+      <div class="num">02</div>
+      <h3>Searching</h3>
+      <p>Linear vs. binary search, step by step, side by side.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="data-structures.html">
+      <div class="num">03</div>
+      <h3>Data Structures</h3>
+      <p>Stack, queue, linked list &amp; binary tree — push, pop, insert, live.</p>
+      <div class="foot"><span class="tag">O(1)–O(n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="recursion.html">
+      <div class="num">04</div>
+      <h3>Recursion</h3>
+      <p>Watch the call stack grow and shrink: fibonacci &amp; N-Queens backtracking.</p>
+      <div class="foot"><span class="tag">O(2ⁿ)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="graph-algorithms.html">
+      <div class="num">05</div>
+      <h3>Graph Algorithms</h3>
+      <p>Dijkstra's shortest path &amp; Kruskal's MST on a node-edge graph.</p>
+      <div class="foot"><span class="tag">O(E log V)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="hashtable.html">
+      <div class="num">06</div>
+      <h3>Hash Table</h3>
+      <p>Buckets, hash collisions, chaining &amp; live resizing.</p>
+      <div class="foot"><span class="tag">O(1) avg</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="regex.html">
+      <div class="num">07</div>
+      <h3>Regex Engine</h3>
+      <p>Step through a pattern matching a string, character by character.</p>
+      <div class="foot"><span class="tag">O(nm)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="dp.html">
+      <div class="num">08</div>
+      <h3>Dynamic Programming</h3>
+      <p>Memoization tables filling in live: fibonacci, knapsack, edit distance.</p>
+      <div class="foot"><span class="tag">O(n·W)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="bitwise.html">
+      <div class="num">09</div>
+      <h3>Bitwise Ops</h3>
+      <p>AND / OR / XOR / shifts, one bit at a time, on an 8-bit grid.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+    </a>
+
+  </div>
+
+  <div class="grid-heading">more topics</div>
+  <div class="grid">
+
+    <a class="card" href="sorting-comparison.html">
+      <div class="num">10</div>
+      <h3>Sorting Comparison</h3>
+      <p>Quicksort, merge sort &amp; heap sort race on the same array, side by side.</p>
+      <div class="foot"><span class="tag">O(n log n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="trie.html">
+      <div class="num">11</div>
+      <h3>Trie</h3>
+      <p>A prefix tree with live autocomplete — type a prefix, see matching words light up.</p>
+      <div class="foot"><span class="tag">O(k)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="heap.html">
+      <div class="num">12</div>
+      <h3>Heap / Priority Queue</h3>
+      <p>Insert and extract-min with live sift-up / sift-down animations.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="union-find.html">
+      <div class="num">13</div>
+      <h3>Union-Find</h3>
+      <p>Union groups together and watch path compression flatten the tree.</p>
+      <div class="foot"><span class="tag">~O(1)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="sliding-window.html">
+      <div class="num">14</div>
+      <h3>Sliding Window</h3>
+      <p>Two pointers sweep a string to find the longest substring without repeats.</p>
+      <div class="foot"><span class="tag">O(n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="topological-sort.html">
+      <div class="num">15</div>
+      <h3>Topological Sort</h3>
+      <p>Kahn's algorithm schedules tasks in dependency order on a live DAG.</p>
+      <div class="foot"><span class="tag">O(V+E)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="lru-cache.html">
+      <div class="num">16</div>
+      <h3>LRU Cache</h3>
+      <p>Hash map + linked list combo — watch eviction happen when the cache overflows.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="segment-tree.html">
+      <div class="num">17</div>
+      <h3>Segment Tree</h3>
+      <p>Range-sum queries answered in log time by pre-combining ranges into a tree.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="bloom-filter.html">
+      <div class="num">18</div>
+      <h3>Bloom Filter</h3>
+      <p>Multiple hash functions light up bits — no keys stored, but false positives possible.</p>
+      <div class="foot"><span class="tag">O(k)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="consistent-hashing.html">
+      <div class="num">19</div>
+      <h3>Consistent Hashing</h3>
+      <p>Servers and keys share a ring, so adding a server barely disturbs the rest.</p>
+      <div class="foot"><span class="tag">O(1/N)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="big-number-exponentiation.html">
+      <div class="num">20</div>
+      <h3>Fast Exponentiation</h3>
+      <p>Exponentiation by squaring — walking the exponent's binary digits.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="fsm.html">
+      <div class="num">21</div>
+      <h3>Finite State Machine</h3>
+      <p>A turnstile simulator — states plus a transition table, one input at a time.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+    </a>
+
+    <a class="card" href="huffman-coding.html">
+      <div class="num">22</div>
+      <h3>Huffman Coding</h3>
+      <p>Build a compression tree live from character frequencies, then see the encoded bits.</p>
+      <div class="foot"><span class="tag">O(n log n)</span><span class="go">Open →</span></div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  Built to sit alongside <a href="https://github.com/tuongphantrue/big-o-explained">big-o-explained</a> and <a href="https://github.com/tuongphantrue/sorting-algorithms">sorting-algorithms</a> — plain HTML/CSS/JS, no frameworks.
+</footer>
+</div>
+</div>
+<script>
+document.querySelectorAll('.navgroup-label').forEach(label => {
+  label.addEventListener('click', () => {
+    label.parentElement.classList.toggle('collapsed');
+  });
+});
+
+(() => {
+  const layout = document.querySelector('.layout');
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (!layout || !sidebar || !toggle) return;
+  const KEY = 'studylab-sidebar-collapsed';
+  if (localStorage.getItem(KEY) === '1') {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('active');
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = sidebar.classList.toggle('collapsed');
+    toggle.classList.toggle('active', collapsed);
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  });
+})();
+</script>
+</body>
+</html>

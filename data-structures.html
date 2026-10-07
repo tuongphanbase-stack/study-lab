@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>data-structures — study://lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f7fb; --card:#ffffff; --border:#e5e7eb;
+    --text:#14151a; --muted:#5c5e68; --dim:#9598a3;
+    --accent:#2563eb; --accent-soft:#eff6ff; --accent-dark:#1d4ed8;
+    --good:#16a34a;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-soft);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  .navbar-outer{background:var(--card);border-bottom:1px solid var(--border);}
+  nav{display:flex;align-items:center;gap:10px;padding:14px 24px;}
+  nav .tile{width:26px;height:26px;border-radius:7px;background:var(--accent-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+  nav a.back{font-weight:600;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:100px;border:1px solid var(--border);transition:all .15s ease;}
+  nav a.back:hover{color:var(--accent-dark);border-color:var(--accent);}
+  nav .navsearch{
+    display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--dim);font-size:13px;max-width:260px;margin-left:auto;
+  }
+  nav .navsearch .kbd{
+    margin-left:auto;font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);
+    border-radius:4px;padding:2px 6px;color:var(--dim);
+  }
+  @media (max-width:700px){ nav .navsearch{display:none;} }
+  nav .crumb{color:var(--dim);font-size:13px;}
+  nav .crumb-current{font-weight:600;color:var(--text);font-size:13px;}
+  header{margin:0;padding:20px 32px 12px;}
+  h1{font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  h1 span{color:var(--text);}
+  p.sub{color:var(--muted);max-width:68ch;line-height:1.5;font-size:14px;margin-top:0;}
+  main{margin:0;padding:8px 32px 80px;}
+
+  .explain{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin:22px 0;box-shadow:var(--shadow);}
+  .explain h2{font-weight:700;font-size:16px;margin:0 0 12px;}
+  .explain ul{margin:0;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75;}
+  .explain li{margin-bottom:10px;}
+  .explain li:last-child{margin-bottom:0;}
+  .explain code{background:var(--accent-soft);border-radius:5px;padding:2px 7px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+  .example-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;}
+  .example-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:8px;}
+  .example-box p{margin:0 0 8px;font-size:14px;color:var(--text);line-height:1.65;}
+  .example-box p:last-child{margin-bottom:0;}
+  .example-box code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+
+  .tabs{display:flex;gap:8px;margin:20px 0 16px;font-size:14px;flex-wrap:wrap;}
+  .tab{background:var(--card);border:1px solid var(--border);color:var(--muted);font-weight:600;padding:10px 16px;border-radius:100px;cursor:pointer;box-shadow:var(--shadow);transition:all .15s ease;}
+  .tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px;font-size:14px;}
+  input{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-size:14px;padding:11px 14px;border-radius:10px;width:90px;box-shadow:var(--shadow);
+  }
+  button{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-weight:600;font-size:14px;padding:11px 18px;border-radius:100px;
+    cursor:pointer;transition:all .15s ease;box-shadow:var(--shadow);
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);}
+  button.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+
+  .stage{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    min-height:280px;padding:28px;display:flex;align-items:center;justify-content:center;
+    overflow:auto;box-shadow:var(--shadow);
+  }
+  .view{display:none;width:100%;}
+  .view.active{display:block;}
+  .node{
+    font-family:var(--mono);font-size:14px;background:var(--accent-soft);border:1px solid var(--accent);
+    border-radius:8px;padding:10px 16px;color:var(--accent-dark);font-weight:600;animation:pop .2s ease;
+  }
+  @keyframes pop{ from{transform:scale(.7);opacity:0;} to{transform:scale(1);opacity:1;} }
+  #stackView{display:flex;flex-direction:column-reverse;gap:8px;align-items:center;min-height:240px;justify-content:flex-start;}
+  #queueView{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  #queueView .arrow{color:var(--dim);font-weight:700;}
+  #listView{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  #listView .arrow{color:var(--dim);font-family:var(--mono);}
+  #treeView{width:100%;text-align:center;}
+  svg{max-width:100%;}
+  .tnode circle{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2;}
+  .tnode text{fill:var(--accent-dark);font-family:var(--mono);font-size:12px;font-weight:600;}
+  .tedge{stroke:var(--border);stroke-width:2;}
+  .hint{font-size:13px;color:var(--dim);margin-top:14px;}
+
+  .layout{display:flex;align-items:flex-start;position:relative;}
+  .sidebar{transition:width .18s ease, padding .18s ease, opacity .18s ease;}
+  .sidebar.collapsed{width:0;padding:0;opacity:0;overflow:hidden;border-right:none;}
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-track{background:transparent;}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .sidebar::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+  .sidebar{scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+  .navtoggle{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--muted);font-size:13px;flex-shrink:0;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .navtoggle:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle.active{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .sidebar{
+    width:230px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);
+    padding:18px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar a.navitem{
+    display:block;padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;
+    font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .12s ease;
+  }
+  .sidebar a.navitem:hover{background:var(--bg-soft);color:var(--text);}
+  .sidebar a.navitem.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;}
+  .sidebar a.navitem.overview{font-weight:700;color:var(--text);margin-bottom:14px;padding-left:12px;}
+  .sidebar a.navitem.overview.active{background:var(--accent-soft);color:var(--accent-dark);}
+  .navgroup{margin-bottom:18px;}
+  .navgroup-label{
+    font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;
+    letter-spacing:.07em;padding:7px 12px;margin-bottom:2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease;
+  }
+  .navgroup-label:hover{background:var(--bg-soft);color:var(--muted);}
+  .navgroup-label .chev{
+    font-size:14px;font-weight:700;color:var(--dim);text-transform:none;letter-spacing:0;
+    transition:transform .15s ease,color .12s ease;display:inline-block;line-height:1;
+  }
+  .navgroup-label:hover .chev{color:var(--accent-dark);}
+  .navgroup.collapsed .navitem{display:none;}
+  .navgroup.collapsed .chev{transform:rotate(-90deg);}
+  .main-content{flex:1;min-width:0;}
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    .navtoggle{display:none;}
+    .sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+    .navgroup{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px;}
+    .navgroup-label{width:100%;}
+    .sidebar a.navitem.overview{margin-bottom:0;}
+  }
+
+  .codebox{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0 8px;box-shadow:var(--shadow);}
+  .codetabs{display:flex;gap:2px;background:var(--bg-soft);padding:5px 6px 0;overflow-x:auto;}
+  .codetab{background:transparent;border:none;color:var(--dim);font-family:var(--mono);font-size:11.5px;font-weight:600;
+    padding:6px 11px;border-radius:5px 5px 0 0;cursor:pointer;white-space:nowrap;}
+  .codetab.active{background:var(--card);color:var(--text);}
+  .codetab:hover:not(.active){color:var(--text);}
+  pre.codeblock{margin:0;padding:12px 16px;overflow:auto;height:420px;min-height:160px;max-height:85vh;resize:vertical;}
+  pre.codeblock code{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;}
+  .code-heading{font-weight:700;font-size:14px;margin:32px 0 8px;color:var(--text);}
+
+  .codeline{display:block;}
+  .tok-comment{color:#6a737d;}
+  .tok-string{color:#032f62;}
+  .tok-keyword{color:#d73a49;font-weight:600;}
+  .tok-number{color:#005cc5;}
+  .tok-function{color:#6f42c1;}
+  .code-explain{
+    display:none;align-items:flex-start;gap:8px;padding:10px 16px;
+    background:var(--accent-soft);color:var(--accent-dark);font-size:12.5px;
+    line-height:1.5;border-top:1px solid var(--border);font-family:var(--sans);
+  }
+  .code-explain.show{display:flex;}
+  .code-explain .ico{flex-shrink:0;}
+
+  .codebox{box-shadow:0 1px 2px rgba(16,24,40,.05),0 8px 20px rgba(16,24,40,.07);}
+  .code-dots{display:flex;gap:6px;padding:0 8px 0 2px;align-items:center;}
+  .code-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .code-dots span:nth-child(1){background:#ff5f56;}
+  .code-dots span:nth-child(2){background:#ffbd2e;}
+  .code-dots span:nth-child(3){background:#27c93f;}
+  .copy-btn{
+    margin-left:auto;background:var(--card);border:1px solid var(--border);color:var(--dim);
+    font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:6px;
+    cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;
+    transition:all .15s ease;
+  }
+  .copy-btn:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .copy-btn.copied{color:#16a34a;border-color:#16a34a;background:#e6f7ec;}
+  pre.codeblock code{counter-reset:line;display:block;}
+  .codeline{counter-increment:line;display:block;position:relative;padding-left:2.6em;border-radius:4px;}
+  .codeline::before{
+    content:counter(line);position:absolute;left:0;top:0;width:2em;text-align:right;
+    color:var(--dim);opacity:.45;font-size:11px;user-select:none;
+  }
+  .codeline.active{background:var(--accent-soft);}
+  .codeline.active::before{content:"\25b8";color:var(--accent);opacity:1;font-weight:700;text-align:center;font-size:12px;}
+  .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">data-structures</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="layout">
+<aside class="sidebar">
+  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <div class="navgroup">
+    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html">Pathfinding</a>
+    <a class="navitem" href="searching.html">Searching</a>
+    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html">Recursion</a>
+    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
+    <a class="navitem active" href="data-structures.html">Data Structures</a>
+    <a class="navitem" href="trie.html">Trie</a>
+    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html">Union-Find</a>
+    <a class="navitem" href="hashtable.html">Hash Table</a>
+    <a class="navitem" href="lru-cache.html">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html">Sliding Window</a>
+    <a class="navitem" href="dp.html">Dynamic Programming</a>
+    <a class="navitem" href="regex.html">Regex Engine</a>
+    <a class="navitem" href="fsm.html">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+  </div>
+</aside>
+<div class="main-content">
+<header>
+  <h1>Data<span>-structures</span></h1>
+  <p class="sub">The same handful of operations, four different shapes. Push a stack, enqueue a queue, insert into a linked list, or drop a value into a binary search tree.</p>
+</header>
+<main>
+  <div class="explain">
+    <h2>How it works</h2>
+    <ul>
+      <li><b style="color:var(--text)">Stack (LIFO)</b> — imagine a stack of plates. You can only add or remove from the top. <code>push</code> adds a new plate, <code>pop</code> removes the top one. A program's call stack works exactly this way (see the recursion page).</li>
+      <li><b style="color:var(--text)">Queue (FIFO)</b> — imagine a checkout line. People join at the back and leave from the front. <code>enqueue</code> adds to the back, <code>dequeue</code> removes from the front. This is exactly what BFS uses to explore in order.</li>
+      <li><b style="color:var(--text)">Linked list</b> — instead of one big block of memory like an array, each item ("node") just points to the next one. Adding or removing at either end is fast, since nothing needs to shift over. The tradeoff: to reach item 5, you have to walk through items 1 through 4 first.</li>
+      <li><b style="color:var(--text)">Binary search tree</b> — every node follows one rule: smaller values go left, larger values go right. To insert a value, start at the top and keep going left or right based on that rule, until you find an empty spot. On a balanced tree, this takes about <code>log(n)</code> steps.</li>
+    </ul>
+    <div class="example-box">
+      <div class="example-label">Example</div>
+      <p><b style="color:var(--text)">Stack:</b> push <code>1</code>, then <code>2</code>, then <code>3</code>. Calling <code>pop</code> returns <code>3</code> first — the last thing added comes off first.</p>
+      <p><b style="color:var(--text)">Queue:</b> enqueue <code>1</code>, then <code>2</code>, then <code>3</code>. Calling <code>dequeue</code> returns <code>1</code> first — the first thing added comes off first.</p>
+      <p><b style="color:var(--text)">BST:</b> insert <code>5</code>, then <code>3</code>, then <code>8</code>. <code>3</code> is smaller than <code>5</code> so it becomes the left child; <code>8</code> is larger so it becomes the right child.</p>
+    </div>
+
+  </div>
+<div class="tabs">
+    <div class="tab active" data-tab="stack">stack</div>
+    <div class="tab" data-tab="queue">queue</div>
+    <div class="tab" data-tab="list">linked list</div>
+    <div class="tab" data-tab="tree">binary tree</div>
+  </div>
+
+  <div class="controls">
+    <input type="number" id="val" placeholder="value" value="7">
+    <button class="primary" id="add">add</button>
+    <button id="remove">remove</button>
+    <button id="clear">clear</button>
+  </div>
+
+  <div class="stage">
+    <div class="view active" id="stackWrap"><div id="stackView"></div></div>
+    <div class="view" id="queueWrap"><div id="queueView"></div></div>
+    <div class="view" id="listWrap"><div id="listView"></div></div>
+    <div class="view" id="treeWrap"><div id="treeView"></div></div>
+  </div>
+  <div class="hint" id="hint">push(7) adds to the top · pop() removes from the top — LIFO</div>
+<div class="code-heading">Code</div>
+<div class="codebox">
+  <div class="codetabs">
+    <span class="code-dots"><span></span><span></span><span></span></span>
+    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab" data-lang="python">Python</button>
+    <button class="codetab" data-lang="js">JavaScript</button>
+    <button class="codetab" data-lang="java">Java</button>
+    <button class="codetab" data-lang="cpp">C++</button>
+    <button class="copy-btn">⧉ Copy</button>
+  </div>
+  <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">// Stack (LIFO) - only the top is ever touched</span>
+<span class="codeline" data-line="1">push(stack, value): stack.append(value)      // add to the top</span>
+<span class="codeline" data-line="2">pop(stack): return stack.removeLast()         // remove from the top</span>
+<span class="codeline" data-line="3"></span>
+<span class="codeline" data-line="4">// Queue (FIFO) - added at the back, removed from the front</span>
+<span class="codeline" data-line="5">enqueue(queue, value): queue.append(value)    // add to the back</span>
+<span class="codeline" data-line="6">dequeue(queue): return queue.removeFirst()     // remove from the front</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">// Binary search tree insert - keeps left &lt; node &lt; right everywhere</span>
+<span class="codeline" data-line="9">function insert(node, value):</span>
+<span class="codeline" data-line="10">    if node is null: return newNode(value)         // found an empty spot: place it here</span>
+<span class="codeline" data-line="11">    if value &lt; node.value: node.left &lt;- insert(node.left, value)    // go left if smaller</span>
+<span class="codeline" data-line="12">    else: node.right &lt;- insert(node.right, value)                    // go right otherwise</span>
+<span class="codeline" data-line="13">    return node                                     // return node so the parent link updates</span></code></pre>
+  <pre class="codeblock" data-lang="python" style="display:none"><code><span class="codeline" data-line="0"># Stack (LIFO) - Python lists work directly, both ends O(1) amortized</span>
+<span class="codeline" data-line="1">stack = []</span>
+<span class="codeline" data-line="2">stack.append(7)   # push: add to the top</span>
+<span class="codeline" data-line="3">stack.pop()        # pop: remove from the top</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5"># Queue (FIFO) - use deque for O(1) on both ends (lists are O(n) at the front)</span>
+<span class="codeline" data-line="6">from collections import deque</span>
+<span class="codeline" data-line="7">queue = deque()</span>
+<span class="codeline" data-line="8">queue.append(7)     # enqueue: add to the back</span>
+<span class="codeline" data-line="9">queue.popleft()      # dequeue: remove from the front</span>
+<span class="codeline" data-line="10"></span>
+<span class="codeline" data-line="11"># Binary search tree insert</span>
+<span class="codeline" data-line="12">class Node:</span>
+<span class="codeline" data-line="13">    def __init__(self, value):</span>
+<span class="codeline" data-line="14">        self.value = value   # the stored value</span>
+<span class="codeline" data-line="15">        self.left = None      # subtree of smaller values</span>
+<span class="codeline" data-line="16">        self.right = None     # subtree of larger (or equal) values</span>
+<span class="codeline" data-line="17"></span>
+<span class="codeline" data-line="18">def insert(node, value):</span>
+<span class="codeline" data-line="19">    if node is None:</span>
+<span class="codeline" data-line="20">        return Node(value)          # found an empty spot: place the new node here</span>
+<span class="codeline" data-line="21">    if value &lt; node.value:</span>
+<span class="codeline" data-line="22">        node.left = insert(node.left, value)    # smaller: recurse into the left subtree</span>
+<span class="codeline" data-line="23">    else:</span>
+<span class="codeline" data-line="24">        node.right = insert(node.right, value)  # otherwise: recurse into the right subtree</span>
+<span class="codeline" data-line="25">    return node   # hand back the (possibly updated) subtree to the caller</span></code></pre>
+  <pre class="codeblock" data-lang="js" style="display:none"><code><span class="codeline" data-line="0">// Stack (LIFO) - arrays work directly, both ends O(1)</span>
+<span class="codeline" data-line="1">const stack = [];</span>
+<span class="codeline" data-line="2">stack.push(7);   // push: add to the top</span>
+<span class="codeline" data-line="3">stack.pop();      // pop: remove from the top</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">// Queue (FIFO) - shift() is O(n) here; a linked list gives true O(1) dequeue</span>
+<span class="codeline" data-line="6">const queue = [];</span>
+<span class="codeline" data-line="7">queue.push(7);    // enqueue: add to the back</span>
+<span class="codeline" data-line="8">queue.shift();     // dequeue: remove from the front</span>
+<span class="codeline" data-line="9"></span>
+<span class="codeline" data-line="10">// Binary search tree insert</span>
+<span class="codeline" data-line="11">class Node {</span>
+<span class="codeline" data-line="12">  constructor(value) {</span>
+<span class="codeline" data-line="13">    this.value = value;   // the stored value</span>
+<span class="codeline" data-line="14">    this.left = null;      // subtree of smaller values</span>
+<span class="codeline" data-line="15">    this.right = null;     // subtree of larger (or equal) values</span>
+<span class="codeline" data-line="16">  }</span>
+<span class="codeline" data-line="17">}</span>
+<span class="codeline" data-line="18"></span>
+<span class="codeline" data-line="19">function insert(node, value) {</span>
+<span class="codeline" data-line="20">  if (!node) return new Node(value);   // found an empty spot: place the new node here</span>
+<span class="codeline" data-line="21">  if (value &lt; node.value) node.left = insert(node.left, value);   // smaller: go left</span>
+<span class="codeline" data-line="22">  else node.right = insert(node.right, value);                     // otherwise: go right</span>
+<span class="codeline" data-line="23">  return node;   // hand back the (possibly updated) subtree to the caller</span>
+<span class="codeline" data-line="24">}</span></code></pre>
+  <pre class="codeblock" data-lang="java" style="display:none"><code><span class="codeline" data-line="0">// Stack (LIFO) - ArrayDeque is the recommended stack implementation in Java</span>
+<span class="codeline" data-line="1">Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();</span>
+<span class="codeline" data-line="2">stack.push(7);   // push: add to the top</span>
+<span class="codeline" data-line="3">stack.pop();      // pop: remove from the top</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">// Queue (FIFO)</span>
+<span class="codeline" data-line="6">Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();</span>
+<span class="codeline" data-line="7">queue.offer(7);   // enqueue: add to the back</span>
+<span class="codeline" data-line="8">queue.poll();      // dequeue: remove from the front</span>
+<span class="codeline" data-line="9"></span>
+<span class="codeline" data-line="10">// Binary search tree insert</span>
+<span class="codeline" data-line="11">class Node {</span>
+<span class="codeline" data-line="12">    int value;         // the stored value</span>
+<span class="codeline" data-line="13">    Node left, right;  // subtrees of smaller / larger-or-equal values</span>
+<span class="codeline" data-line="14">    Node(int value) { this.value = value; }</span>
+<span class="codeline" data-line="15">}</span>
+<span class="codeline" data-line="16"></span>
+<span class="codeline" data-line="17">static Node insert(Node node, int value) {</span>
+<span class="codeline" data-line="18">    if (node == null) return new Node(value);   // found an empty spot: place it here</span>
+<span class="codeline" data-line="19">    if (value &lt; node.value) node.left = insert(node.left, value);   // smaller: go left</span>
+<span class="codeline" data-line="20">    else node.right = insert(node.right, value);                     // otherwise: go right</span>
+<span class="codeline" data-line="21">    return node;   // hand back the (possibly updated) subtree to the caller</span>
+<span class="codeline" data-line="22">}</span></code></pre>
+  <pre class="codeblock" data-lang="cpp" style="display:none"><code><span class="codeline" data-line="0">// Stack (LIFO)</span>
+<span class="codeline" data-line="1">stack&lt;int&gt; s;</span>
+<span class="codeline" data-line="2">s.push(7);  // push: add to the top</span>
+<span class="codeline" data-line="3">s.pop();     // pop: remove from the top</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">// Queue (FIFO)</span>
+<span class="codeline" data-line="6">queue&lt;int&gt; q;</span>
+<span class="codeline" data-line="7">q.push(7);  // enqueue: add to the back</span>
+<span class="codeline" data-line="8">q.pop();     // dequeue: remove from the front</span>
+<span class="codeline" data-line="9"></span>
+<span class="codeline" data-line="10">// Binary search tree insert</span>
+<span class="codeline" data-line="11">struct Node {</span>
+<span class="codeline" data-line="12">    int value;                     // the stored value</span>
+<span class="codeline" data-line="13">    Node* left = nullptr;          // subtree of smaller values</span>
+<span class="codeline" data-line="14">    Node* right = nullptr;         // subtree of larger (or equal) values</span>
+<span class="codeline" data-line="15">    Node(int v) : value(v) {}</span>
+<span class="codeline" data-line="16">};</span>
+<span class="codeline" data-line="17"></span>
+<span class="codeline" data-line="18">Node* insert(Node* node, int value) {</span>
+<span class="codeline" data-line="19">    if (!node) return new Node(value);   // found an empty spot: place it here</span>
+<span class="codeline" data-line="20">    if (value &lt; node-&gt;value) node-&gt;left = insert(node-&gt;left, value);   // smaller: go left</span>
+<span class="codeline" data-line="21">    else node-&gt;right = insert(node-&gt;right, value);                      // otherwise: go right</span>
+<span class="codeline" data-line="22">    return node;   // hand back the (possibly updated) subtree to the caller</span>
+<span class="codeline" data-line="23">}</span></code></pre>
+  <div class="code-explain" id="codeExplainBar"><span class="ico">💡</span><span id="codeExplainText"></span></div>
+</div>
+</main>
+</div>
+</div>
+<script>
+let __lastHighlightMap = null;
+
+function highlightLine(mapping) {
+  __lastHighlightMap = mapping;
+  applyHighlight();
+}
+
+function commentInLine(text) {
+  let idx = text.indexOf('//');
+  if (idx !== -1) return text.slice(idx + 2).trim();
+  idx = text.indexOf('#');
+  if (idx !== -1) return text.slice(idx + 1).trim();
+  return null;
+}
+
+function extractExplanation(target) {
+  const own = commentInLine(target.textContent);
+  if (own) return own;
+  const next = target.nextElementSibling;
+  if (next && next.classList.contains('codeline')) {
+    const fromNext = commentInLine(next.textContent);
+    if (fromNext) return fromNext;
+  }
+  const prev = target.previousElementSibling;
+  if (prev && prev.classList.contains('codeline')) {
+    const fromPrev = commentInLine(prev.textContent);
+    if (fromPrev) return fromPrev;
+  }
+  return null;
+}
+
+function applyHighlight() {
+  const box = document.querySelector('.codebox');
+  const bar = document.getElementById('codeExplainBar');
+  const barText = document.getElementById('codeExplainText');
+  if (!box || !__lastHighlightMap) { if (bar) bar.classList.remove('show'); return; }
+  const activeTab = box.querySelector('.codetab.active');
+  const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+  const lineNum = __lastHighlightMap[lang];
+  box.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  if (lineNum === undefined || lineNum === null) { if (bar) bar.classList.remove('show'); return; }
+  const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+  if (!activeBlock) return;
+  const target = activeBlock.querySelector('.codeline[data-line="' + lineNum + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (bar && barText) {
+      const explanation = extractExplanation(target);
+      if (explanation) { barText.textContent = explanation; bar.classList.add('show'); }
+      else { bar.classList.remove('show'); }
+    }
+  }
+}
+
+function clearHighlight() {
+  __lastHighlightMap = null;
+  document.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  const bar = document.getElementById('codeExplainBar');
+  if (bar) bar.classList.remove('show');
+}
+
+document.querySelectorAll('.codetabs').forEach(tabs=>{
+  tabs.addEventListener('click', e=>{
+    const btn = e.target.closest('.codetab');
+    if(!btn) return;
+    const box = tabs.parentElement;
+    tabs.querySelectorAll('.codetab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    box.querySelectorAll('.codeblock').forEach(p=>{
+      p.style.display = p.dataset.lang===btn.dataset.lang ? 'block' : 'none';
+    });
+    applyHighlight();
+  });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.closest('.codebox');
+    if (!box) return;
+    const activeTab = box.querySelector('.codetab.active');
+    const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+    const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+    if (!activeBlock) return;
+    const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.classList.add('copied');
+      btn.textContent = '\u2713 Copied';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+    }).catch(() => {});
+  });
+});
+
+function syntaxHighlight(text) {
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const pattern = /(\/\/.*$|#(?![a-zA-Z]).*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b\d+\.?\d*n?\b)|(\b(?:function|def|return|if|else|elif|while|for|in|not|and|or|class|struct|new|const|let|var|async|await|import|from|export|default|static|public|private|protected|void|int|long|double|float|boolean|bool|char|string|String|true|false|True|False|None|null|nullptr|this|self|break|continue|switch|case|try|catch|throw|extends|implements|interface|enum|namespace|using|template|typename|auto|is|lambda|global|raise|except|finally|yield|del|pass|with|as|instanceof|typeof|super|package)\b)|(\b[A-Za-z_$][\w$]*)(?=\s*\()/gm;
+  return text.replace(pattern, (m, comment, str, num, kw, fn) => {
+    if (comment) return '<span class="tok-comment">'+comment+'</span>';
+    if (str) return '<span class="tok-string">'+str+'</span>';
+    if (num) return '<span class="tok-number">'+num+'</span>';
+    if (kw) return '<span class="tok-keyword">'+kw+'</span>';
+    if (fn) return '<span class="tok-function">'+fn+'</span>';
+    return m;
+  });
+}
+document.querySelectorAll('.codeline').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+document.querySelectorAll('.explain code').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+
+document.querySelectorAll('.navgroup-label').forEach(label => {
+  label.addEventListener('click', () => {
+    label.parentElement.classList.toggle('collapsed');
+  });
+});
+
+(() => {
+  const layout = document.querySelector('.layout');
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (!layout || !sidebar || !toggle) return;
+  const KEY = 'studylab-sidebar-collapsed';
+  if (localStorage.getItem(KEY) === '1') {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('active');
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = sidebar.classList.toggle('collapsed');
+    toggle.classList.toggle('active', collapsed);
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  });
+})();
+</script>
+<script>
+let mode = 'stack';
+let stack = [], queue = [], list = [], tree = null;
+
+const hints = {
+  stack: 'push(v) adds to the top · pop() removes from the top — LIFO',
+  queue: 'enqueue(v) adds to the back · dequeue() removes from the front — FIFO',
+  list: 'insert(v) appends a new node · remove() drops the tail node · each box points to the next',
+  tree: 'insert(v) walks left if smaller, right if larger, until it finds an empty spot (binary search tree)'
+};
+
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick = ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    mode = t.dataset.tab;
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById(mode==='stack'?'stackWrap':mode==='queue'?'queueWrap':mode==='list'?'listWrap':'treeWrap').classList.add('active');
+    document.getElementById('hint').textContent = hints[mode];
+  };
+});
+
+function renderStack(){
+  const el = document.getElementById('stackView');
+  el.innerHTML = stack.map(v=>`<div class="node">${v}</div>`).join('');
+}
+function renderQueue(){
+  const el = document.getElementById('queueView');
+  el.innerHTML = queue.map((v,i)=> `<div class="node">${v}</div>` + (i<queue.length-1?'<span class="arrow">→</span>':'')).join('');
+}
+function renderList(){
+  const el = document.getElementById('listView');
+  el.innerHTML = list.map((v,i)=> `<div class="node">${v}</div>` + (i<list.length-1?'<span class="arrow"> → </span>':' → <span class="arrow">null</span>')).join('') || '<span class="arrow">empty → null</span>';
+}
+
+function treeInsert(node, v){
+  if(!node) return {v, left:null, right:null};
+  if(v < node.v) node.left = treeInsert(node.left, v);
+  else if(v > node.v) node.right = treeInsert(node.right, v);
+  return node;
+}
+function renderTree(){
+  const el = document.getElementById('treeView');
+  if(!tree){ el.innerHTML = '<span style="color:var(--dim);font-family:var(--mono);font-size:13px;">empty tree</span>'; return; }
+  const positions = [];
+  function layout(node, depth, xMin, xMax){
+    if(!node) return;
+    const x = (xMin+xMax)/2;
+    const y = 40 + depth*70;
+    node._x = x; node._y = y;
+    positions.push(node);
+    layout(node.left, depth+1, xMin, x);
+    layout(node.right, depth+1, x, xMax);
+  }
+  layout(tree, 0, 20, 620);
+  let edges = '';
+  let nodes = '';
+  function draw(node){
+    if(!node) return;
+    if(node.left){ edges += `<line class="tedge" x1="${node._x}" y1="${node._y}" x2="${node.left._x}" y2="${node.left._y}"/>`; draw(node.left); }
+    if(node.right){ edges += `<line class="tedge" x1="${node._x}" y1="${node._y}" x2="${node.right._x}" y2="${node.right._y}"/>`; draw(node.right); }
+  }
+  draw(tree);
+  positions.forEach(n=>{
+    nodes += `<g class="tnode"><circle cx="${n._x}" cy="${n._y}" r="18"/><text x="${n._x}" y="${n._y+4}" text-anchor="middle">${n.v}</text></g>`;
+  });
+  const maxY = Math.max(...positions.map(n=>n._y)) + 40;
+  el.innerHTML = `<svg viewBox="0 0 640 ${maxY}" width="100%" height="${Math.min(maxY,320)}">${edges}${nodes}</svg>`;
+}
+
+document.getElementById('add').onclick = ()=>{
+  const v = document.getElementById('val').value || Math.floor(Math.random()*90);
+  if(mode==='stack'){ stack.push(v); renderStack(); }
+  else if(mode==='queue'){ queue.push(v); renderQueue(); }
+  else if(mode==='list'){ list.push(v); renderList(); }
+  else if(mode==='tree'){ tree = treeInsert(tree, +v); renderTree(); }
+};
+document.getElementById('remove').onclick = ()=>{
+  if(mode==='stack'){ stack.pop(); renderStack(); }
+  else if(mode==='queue'){ queue.shift(); renderQueue(); }
+  else if(mode==='list'){ list.pop(); renderList(); }
+  else if(mode==='tree'){ tree = null; renderTree(); } // BST deletion is out of scope; reset instead
+};
+document.getElementById('clear').onclick = ()=>{
+  stack=[]; queue=[]; list=[]; tree=null;
+  renderStack(); renderQueue(); renderList(); renderTree();
+};
+
+renderStack(); renderQueue(); renderList(); renderTree();
+</script>
+</body></html>

@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>trie — study://lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f7fb; --card:#ffffff; --border:#e5e7eb;
+    --text:#14151a; --muted:#5c5e68; --dim:#9598a3;
+    --accent:#2563eb; --accent-soft:#eff6ff; --accent-dark:#1d4ed8;
+    --good:#16a34a; --good-soft:#e6f7ec;
+    --bad:#e11d48; --bad-soft:#fdeaee;
+    --warn:#f59e0b; --warn-soft:#fef3e0;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-soft);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  .navbar-outer{background:var(--card);border-bottom:1px solid var(--border);}
+  nav{display:flex;align-items:center;gap:10px;padding:14px 24px;}
+  nav .tile{width:26px;height:26px;border-radius:7px;background:var(--accent-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+  nav a.back{font-weight:600;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:100px;border:1px solid var(--border);transition:all .15s ease;}
+  nav a.back:hover{color:var(--accent-dark);border-color:var(--accent);}
+  nav .navsearch{
+    display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--dim);font-size:13px;max-width:260px;margin-left:auto;
+  }
+  nav .navsearch .kbd{
+    margin-left:auto;font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);
+    border-radius:4px;padding:2px 6px;color:var(--dim);
+  }
+  @media (max-width:700px){ nav .navsearch{display:none;} }
+  nav .crumb{color:var(--dim);font-size:13px;}
+  nav .crumb-current{font-weight:600;color:var(--text);font-size:13px;}
+  header{margin:0;padding:20px 32px 12px;}
+  h1{font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  h1 span{color:var(--text);}
+  p.sub{color:var(--muted);max-width:68ch;line-height:1.5;font-size:14px;margin-top:0;}
+  main{margin:0;padding:8px 32px 80px;}
+
+  .explain{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin:22px 0;box-shadow:var(--shadow);}
+  .explain h2{font-weight:700;font-size:16px;margin:0 0 12px;}
+  .explain p{color:var(--muted);font-size:15px;line-height:1.75;margin:0 0 12px;}
+  .explain p:last-child{margin-bottom:0;}
+  .explain ul{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75;}
+  .explain li{margin-bottom:8px;}
+  .explain code{background:var(--accent-soft);border-radius:5px;padding:2px 7px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+  .example-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;}
+  .example-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:8px;}
+  .example-box p{margin:0 0 8px;font-size:14px;color:var(--text);line-height:1.65;}
+  .example-box p:last-child{margin-bottom:0;}
+  .example-box code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+
+  .tabs{display:flex;gap:8px;margin:20px 0 16px;font-size:14px;flex-wrap:wrap;}
+  .tab{background:var(--card);border:1px solid var(--border);color:var(--muted);font-weight:600;padding:10px 16px;border-radius:100px;cursor:pointer;box-shadow:var(--shadow);transition:all .15s ease;}
+  .tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 16px;font-size:14px;}
+  input, select{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-size:14px;padding:11px 14px;border-radius:10px;box-shadow:var(--shadow);
+  }
+  button{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-weight:600;font-size:14px;padding:11px 18px;border-radius:100px;
+    cursor:pointer;transition:all .15s ease;box-shadow:var(--shadow);
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);}
+  button.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+  button:disabled{opacity:.4;cursor:not-allowed;}
+
+  .panel, .stage{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow);}
+  .status{font-size:13px;color:var(--muted);margin-top:14px;}
+  .status b{color:var(--text);}
+  .hint{font-size:13px;color:var(--dim);margin-top:8px;}
+  svg text{font-family:var(--mono);}
+
+
+  #tree{width:100%;overflow:auto;min-height:260px;}
+  svg text{fill:var(--text);font-size:13px;font-weight:600;}
+  .tnode circle{fill:var(--accent-soft);stroke:var(--border);stroke-width:2;}
+  .tnode.path circle{fill:var(--accent);stroke:var(--accent);}
+  .tnode.path text{fill:#fff;}
+  .tnode.end circle{stroke:var(--good);stroke-width:3;}
+  .tedge{stroke:var(--border);stroke-width:2;}
+  .tedge.path{stroke:var(--accent);stroke-width:3;}
+  .wordlist{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .wordchip{font-family:var(--mono);font-size:12.5px;background:var(--accent-soft);color:var(--accent-dark);border:1px solid var(--accent);border-radius:100px;padding:6px 14px;font-weight:600;}
+  .suggestions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .sugg{font-family:var(--mono);font-size:13px;background:var(--good-soft);color:var(--good);border:1px solid var(--good);border-radius:100px;padding:6px 14px;font-weight:600;}
+
+
+  .layout{display:flex;align-items:flex-start;position:relative;}
+  .sidebar{transition:width .18s ease, padding .18s ease, opacity .18s ease;}
+  .sidebar.collapsed{width:0;padding:0;opacity:0;overflow:hidden;border-right:none;}
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-track{background:transparent;}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .sidebar::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+  .sidebar{scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+  .navtoggle{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--muted);font-size:13px;flex-shrink:0;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .navtoggle:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle.active{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .sidebar{
+    width:230px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);
+    padding:18px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar a.navitem{
+    display:block;padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;
+    font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .12s ease;
+  }
+  .sidebar a.navitem:hover{background:var(--bg-soft);color:var(--text);}
+  .sidebar a.navitem.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;}
+  .sidebar a.navitem.overview{font-weight:700;color:var(--text);margin-bottom:14px;padding-left:12px;}
+  .sidebar a.navitem.overview.active{background:var(--accent-soft);color:var(--accent-dark);}
+  .navgroup{margin-bottom:18px;}
+  .navgroup-label{
+    font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;
+    letter-spacing:.07em;padding:7px 12px;margin-bottom:2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease;
+  }
+  .navgroup-label:hover{background:var(--bg-soft);color:var(--muted);}
+  .navgroup-label .chev{
+    font-size:14px;font-weight:700;color:var(--dim);text-transform:none;letter-spacing:0;
+    transition:transform .15s ease,color .12s ease;display:inline-block;line-height:1;
+  }
+  .navgroup-label:hover .chev{color:var(--accent-dark);}
+  .navgroup.collapsed .navitem{display:none;}
+  .navgroup.collapsed .chev{transform:rotate(-90deg);}
+  .main-content{flex:1;min-width:0;}
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    .navtoggle{display:none;}
+    .sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+    .navgroup{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px;}
+    .navgroup-label{width:100%;}
+    .sidebar a.navitem.overview{margin-bottom:0;}
+  }
+
+  .codebox{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0 8px;box-shadow:var(--shadow);}
+  .codetabs{display:flex;gap:2px;background:var(--bg-soft);padding:5px 6px 0;overflow-x:auto;}
+  .codetab{background:transparent;border:none;color:var(--dim);font-family:var(--mono);font-size:11.5px;font-weight:600;
+    padding:6px 11px;border-radius:5px 5px 0 0;cursor:pointer;white-space:nowrap;}
+  .codetab.active{background:var(--card);color:var(--text);}
+  .codetab:hover:not(.active){color:var(--text);}
+  pre.codeblock{margin:0;padding:12px 16px;overflow:auto;height:420px;min-height:160px;max-height:85vh;resize:vertical;}
+  pre.codeblock code{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;}
+  .code-heading{font-weight:700;font-size:14px;margin:32px 0 8px;color:var(--text);}
+
+  .codeline{display:block;}
+  .tok-comment{color:#6a737d;}
+  .tok-string{color:#032f62;}
+  .tok-keyword{color:#d73a49;font-weight:600;}
+  .tok-number{color:#005cc5;}
+  .tok-function{color:#6f42c1;}
+  .code-explain{
+    display:none;align-items:flex-start;gap:8px;padding:10px 16px;
+    background:var(--accent-soft);color:var(--accent-dark);font-size:12.5px;
+    line-height:1.5;border-top:1px solid var(--border);font-family:var(--sans);
+  }
+  .code-explain.show{display:flex;}
+  .code-explain .ico{flex-shrink:0;}
+
+  .codebox{box-shadow:0 1px 2px rgba(16,24,40,.05),0 8px 20px rgba(16,24,40,.07);}
+  .code-dots{display:flex;gap:6px;padding:0 8px 0 2px;align-items:center;}
+  .code-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .code-dots span:nth-child(1){background:#ff5f56;}
+  .code-dots span:nth-child(2){background:#ffbd2e;}
+  .code-dots span:nth-child(3){background:#27c93f;}
+  .copy-btn{
+    margin-left:auto;background:var(--card);border:1px solid var(--border);color:var(--dim);
+    font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:6px;
+    cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;
+    transition:all .15s ease;
+  }
+  .copy-btn:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .copy-btn.copied{color:#16a34a;border-color:#16a34a;background:#e6f7ec;}
+  pre.codeblock code{counter-reset:line;display:block;}
+  .codeline{counter-increment:line;display:block;position:relative;padding-left:2.6em;border-radius:4px;}
+  .codeline::before{
+    content:counter(line);position:absolute;left:0;top:0;width:2em;text-align:right;
+    color:var(--dim);opacity:.45;font-size:11px;user-select:none;
+  }
+  .codeline.active{background:var(--accent-soft);}
+  .codeline.active::before{content:"\25b8";color:var(--accent);opacity:1;font-weight:700;text-align:center;font-size:12px;}
+  .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">trie</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="layout">
+<aside class="sidebar">
+  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <div class="navgroup">
+    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html">Pathfinding</a>
+    <a class="navitem" href="searching.html">Searching</a>
+    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html">Recursion</a>
+    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html">Data Structures</a>
+    <a class="navitem active" href="trie.html">Trie</a>
+    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html">Union-Find</a>
+    <a class="navitem" href="hashtable.html">Hash Table</a>
+    <a class="navitem" href="lru-cache.html">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html">Sliding Window</a>
+    <a class="navitem" href="dp.html">Dynamic Programming</a>
+    <a class="navitem" href="regex.html">Regex Engine</a>
+    <a class="navitem" href="fsm.html">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+  </div>
+</aside>
+<div class="main-content">
+<header>
+  <h1>Trie<span> (Prefix Tree)</span></h1>
+  <p class="sub">Insert words and watch shared prefixes branch off the same path. Type a prefix below to see live autocomplete pulled straight from the tree.</p>
+</header>
+<main>
+  <div class="explain">
+    <h2>How it works</h2>
+    <p>A trie stores words one letter at a time, and words that start the same way share the same path. For example, inserting <code>"cat"</code> and then <code>"car"</code> creates one shared path for <code>c → a</code>, which then splits into two branches: one for <code>t</code>, one for <code>r</code>.</p>
+    <p>Each node keeps a small flag marking whether a full word ends there. That's how the trie tells the difference between <code>"car"</code> (a real word) and <code>"ca"</code> (just a step on the way to something else).</p>
+    <p><b style="color:var(--text)">Autocomplete works like this:</b> walk down the tree following the letters you've typed so far. Once you reach that point, collect every complete word found anywhere below it. Since you only ever look inside that one branch — never the rest of the tree — it stays fast even with a huge number of words stored.</p>
+    <div class="example-box">
+      <div class="example-label">Example</div>
+      <p>Insert <code>"cat"</code>, <code>"car"</code>, and <code>"dog"</code>. The trie now has two branches from the root: one for <code>c → a</code> (which splits into <code>t</code> and <code>r</code>), and one for <code>d → o → g</code>. Typing the prefix <code>"ca"</code> and asking for matches walks down to the shared <code>c → a</code> node, then finds both <code>"cat"</code> and <code>"car"</code> underneath it.</p>
+    </div>
+
+  </div>
+
+<div class="controls">
+    <input type="text" id="word" placeholder="word to insert" value="cat">
+    <button class="primary" id="insert">insert</button>
+    <button id="reset">reset</button>
+  </div>
+  <div class="panel"><div id="tree"></div></div>
+  <div class="wordlist" id="wordlist"></div>
+  <div class="controls" style="margin-top:20px;">
+    <input type="text" id="prefix" placeholder="type a prefix..." value="ca">
+  </div>
+  <div class="suggestions" id="suggestions"></div>
+  <div class="hint">insert a few words, then type a prefix below to see live autocomplete</div>
+
+<div class="code-heading">Code</div>
+<div class="codebox">
+  <div class="codetabs">
+    <span class="code-dots"><span></span><span></span><span></span></span>
+    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab" data-lang="python">Python</button>
+    <button class="codetab" data-lang="js">JavaScript</button>
+    <button class="codetab" data-lang="java">Java</button>
+    <button class="codetab" data-lang="cpp">C++</button>
+    <button class="copy-btn">⧉ Copy</button>
+  </div>
+  <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function insert(root, word):</span>
+<span class="codeline" data-line="1">    node &lt;- root</span>
+<span class="codeline" data-line="2">    for each character c in word:</span>
+<span class="codeline" data-line="3">        if node.children[c] does not exist:</span>
+<span class="codeline" data-line="4">            node.children[c] &lt;- newNode()      // create the branch the first time it's needed</span>
+<span class="codeline" data-line="5">        node &lt;- node.children[c]               // descend into that branch</span>
+<span class="codeline" data-line="6">    node.isEnd &lt;- true                        // mark the final node as a complete word</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">function search(root, prefix):</span>
+<span class="codeline" data-line="9">    node &lt;- root</span>
+<span class="codeline" data-line="10">    for each character c in prefix:</span>
+<span class="codeline" data-line="11">        if node.children[c] does not exist: return not found   // prefix isn't in the trie</span>
+<span class="codeline" data-line="12">        node &lt;- node.children[c]               // descend one letter at a time</span>
+<span class="codeline" data-line="13">    return node  // walk further from here to collect all words under this prefix</span></code></pre>
+  <pre class="codeblock" data-lang="python" style="display:none"><code><span class="codeline" data-line="0">class TrieNode:</span>
+<span class="codeline" data-line="1">    def __init__(self):</span>
+<span class="codeline" data-line="2">        self.children = {}    # letter -&gt; child TrieNode</span>
+<span class="codeline" data-line="3">        self.is_end = False    # True if a word ends exactly at this node</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">class Trie:</span>
+<span class="codeline" data-line="6">    def __init__(self):</span>
+<span class="codeline" data-line="7">        self.root = TrieNode()   # the empty-prefix starting point</span>
+<span class="codeline" data-line="8"></span>
+<span class="codeline" data-line="9">    def insert(self, word):</span>
+<span class="codeline" data-line="10">        node = self.root</span>
+<span class="codeline" data-line="11">        for ch in word:</span>
+<span class="codeline" data-line="12">            node = node.children.setdefault(ch, TrieNode())  # create branch if missing</span>
+<span class="codeline" data-line="13">        node.is_end = True   # mark the final node as a complete word</span>
+<span class="codeline" data-line="14"></span>
+<span class="codeline" data-line="15">    def starts_with(self, prefix):</span>
+<span class="codeline" data-line="16">        node = self.root</span>
+<span class="codeline" data-line="17">        for ch in prefix:</span>
+<span class="codeline" data-line="18">            if ch not in node.children:</span>
+<span class="codeline" data-line="19">                return []       # prefix isn't in the trie at all</span>
+<span class="codeline" data-line="20">            node = node.children[ch]   # descend one letter at a time</span>
+<span class="codeline" data-line="21">        return self._collect(node, prefix)   # gather every word below this point</span>
+<span class="codeline" data-line="22"></span>
+<span class="codeline" data-line="23">    def _collect(self, node, prefix):</span>
+<span class="codeline" data-line="24">        words = [prefix] if node.is_end else []   # this node itself might be a word</span>
+<span class="codeline" data-line="25">        for ch, child in node.children.items():     # recurse into every branch</span>
+<span class="codeline" data-line="26">            words += self._collect(child, prefix + ch)</span>
+<span class="codeline" data-line="27">        return words</span></code></pre>
+  <pre class="codeblock" data-lang="js" style="display:none"><code><span class="codeline" data-line="0">class TrieNode {</span>
+<span class="codeline" data-line="1">  constructor() {</span>
+<span class="codeline" data-line="2">    this.children = {};   // letter -&gt; child TrieNode</span>
+<span class="codeline" data-line="3">    this.isEnd = false;    // true if a word ends exactly at this node</span>
+<span class="codeline" data-line="4">  }</span>
+<span class="codeline" data-line="5">}</span>
+<span class="codeline" data-line="6"></span>
+<span class="codeline" data-line="7">class Trie {</span>
+<span class="codeline" data-line="8">  constructor() { this.root = new TrieNode(); }   // the empty-prefix starting point</span>
+<span class="codeline" data-line="9"></span>
+<span class="codeline" data-line="10">  insert(word) {</span>
+<span class="codeline" data-line="11">    let node = this.root;</span>
+<span class="codeline" data-line="12">    for (const ch of word) {</span>
+<span class="codeline" data-line="13">      if (!node.children[ch]) node.children[ch] = new TrieNode(); // create branch if missing</span>
+<span class="codeline" data-line="14">      node = node.children[ch];   // descend into that branch</span>
+<span class="codeline" data-line="15">    }</span>
+<span class="codeline" data-line="16">    node.isEnd = true;   // mark the final node as a complete word</span>
+<span class="codeline" data-line="17">  }</span>
+<span class="codeline" data-line="18"></span>
+<span class="codeline" data-line="19">  startsWith(prefix) {</span>
+<span class="codeline" data-line="20">    let node = this.root;</span>
+<span class="codeline" data-line="21">    for (const ch of prefix) {</span>
+<span class="codeline" data-line="22">      if (!node.children[ch]) return [];   // prefix isn't in the trie at all</span>
+<span class="codeline" data-line="23">      node = node.children[ch];             // descend one letter at a time</span>
+<span class="codeline" data-line="24">    }</span>
+<span class="codeline" data-line="25">    return this.collect(node, prefix);   // gather every word below this point</span>
+<span class="codeline" data-line="26">  }</span>
+<span class="codeline" data-line="27"></span>
+<span class="codeline" data-line="28">  collect(node, prefix) {</span>
+<span class="codeline" data-line="29">    let words = node.isEnd ? [prefix] : [];   // this node itself might be a word</span>
+<span class="codeline" data-line="30">    for (const ch in node.children) {           // recurse into every branch</span>
+<span class="codeline" data-line="31">      words = words.concat(this.collect(node.children[ch], prefix + ch));</span>
+<span class="codeline" data-line="32">    }</span>
+<span class="codeline" data-line="33">    return words;</span>
+<span class="codeline" data-line="34">  }</span>
+<span class="codeline" data-line="35">}</span></code></pre>
+  <pre class="codeblock" data-lang="java" style="display:none"><code><span class="codeline" data-line="0">class TrieNode {</span>
+<span class="codeline" data-line="1">    Map&lt;Character, TrieNode&gt; children = new HashMap&lt;&gt;();   // letter -&gt; child node</span>
+<span class="codeline" data-line="2">    boolean isEnd = false;    // true if a word ends exactly at this node</span>
+<span class="codeline" data-line="3">}</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">class Trie {</span>
+<span class="codeline" data-line="6">    TrieNode root = new TrieNode();   // the empty-prefix starting point</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">    void insert(String word) {</span>
+<span class="codeline" data-line="9">        TrieNode node = root;</span>
+<span class="codeline" data-line="10">        for (char ch : word.toCharArray()) {</span>
+<span class="codeline" data-line="11">            node = node.children.computeIfAbsent(ch, c -&gt; new TrieNode()); // create if missing</span>
+<span class="codeline" data-line="12">        }</span>
+<span class="codeline" data-line="13">        node.isEnd = true;   // mark the final node as a complete word</span>
+<span class="codeline" data-line="14">    }</span>
+<span class="codeline" data-line="15"></span>
+<span class="codeline" data-line="16">    List&lt;String&gt; startsWith(String prefix) {</span>
+<span class="codeline" data-line="17">        TrieNode node = root;</span>
+<span class="codeline" data-line="18">        for (char ch : prefix.toCharArray()) {</span>
+<span class="codeline" data-line="19">            if (!node.children.containsKey(ch)) return new ArrayList&lt;&gt;(); // not in the trie</span>
+<span class="codeline" data-line="20">            node = node.children.get(ch);   // descend one letter at a time</span>
+<span class="codeline" data-line="21">        }</span>
+<span class="codeline" data-line="22">        List&lt;String&gt; results = new ArrayList&lt;&gt;();</span>
+<span class="codeline" data-line="23">        collect(node, prefix, results);   // gather every word below this point</span>
+<span class="codeline" data-line="24">        return results;</span>
+<span class="codeline" data-line="25">    }</span>
+<span class="codeline" data-line="26"></span>
+<span class="codeline" data-line="27">    void collect(TrieNode node, String prefix, List&lt;String&gt; results) {</span>
+<span class="codeline" data-line="28">        if (node.isEnd) results.add(prefix);   // this node itself might be a word</span>
+<span class="codeline" data-line="29">        for (var entry : node.children.entrySet()) {   // recurse into every branch</span>
+<span class="codeline" data-line="30">            collect(entry.getValue(), prefix + entry.getKey(), results);</span>
+<span class="codeline" data-line="31">        }</span>
+<span class="codeline" data-line="32">    }</span>
+<span class="codeline" data-line="33">}</span></code></pre>
+  <pre class="codeblock" data-lang="cpp" style="display:none"><code><span class="codeline" data-line="0">struct TrieNode {</span>
+<span class="codeline" data-line="1">    unordered_map&lt;char, TrieNode*&gt; children;   // letter -&gt; child node</span>
+<span class="codeline" data-line="2">    bool isEnd = false;    // true if a word ends exactly at this node</span>
+<span class="codeline" data-line="3">};</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">class Trie {</span>
+<span class="codeline" data-line="6">    TrieNode* root = new TrieNode();   // the empty-prefix starting point</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">    void collect(TrieNode* node, string prefix, vector&lt;string&gt;&amp; out) {</span>
+<span class="codeline" data-line="9">        if (node-&gt;isEnd) out.push_back(prefix);   // this node itself might be a word</span>
+<span class="codeline" data-line="10">        for (auto&amp; [ch, child] : node-&gt;children) {  // recurse into every branch</span>
+<span class="codeline" data-line="11">            collect(child, prefix + ch, out);</span>
+<span class="codeline" data-line="12">        }</span>
+<span class="codeline" data-line="13">    }</span>
+<span class="codeline" data-line="14"></span>
+<span class="codeline" data-line="15">public:</span>
+<span class="codeline" data-line="16">    void insert(const string&amp; word) {</span>
+<span class="codeline" data-line="17">        TrieNode* node = root;</span>
+<span class="codeline" data-line="18">        for (char ch : word) {</span>
+<span class="codeline" data-line="19">            if (!node-&gt;children.count(ch)) node-&gt;children[ch] = new TrieNode(); // create if missing</span>
+<span class="codeline" data-line="20">            node = node-&gt;children[ch];   // descend into that branch</span>
+<span class="codeline" data-line="21">        }</span>
+<span class="codeline" data-line="22">        node-&gt;isEnd = true;   // mark the final node as a complete word</span>
+<span class="codeline" data-line="23">    }</span>
+<span class="codeline" data-line="24"></span>
+<span class="codeline" data-line="25">    vector&lt;string&gt; startsWith(const string&amp; prefix) {</span>
+<span class="codeline" data-line="26">        TrieNode* node = root;</span>
+<span class="codeline" data-line="27">        for (char ch : prefix) {</span>
+<span class="codeline" data-line="28">            if (!node-&gt;children.count(ch)) return {};   // prefix isn't in the trie at all</span>
+<span class="codeline" data-line="29">            node = node-&gt;children[ch];                    // descend one letter at a time</span>
+<span class="codeline" data-line="30">        }</span>
+<span class="codeline" data-line="31">        vector&lt;string&gt; results;</span>
+<span class="codeline" data-line="32">        collect(node, prefix, results);   // gather every word below this point</span>
+<span class="codeline" data-line="33">        return results;</span>
+<span class="codeline" data-line="34">    }</span>
+<span class="codeline" data-line="35">};</span></code></pre>
+  <div class="code-explain" id="codeExplainBar"><span class="ico">💡</span><span id="codeExplainText"></span></div>
+</div>
+</main>
+</div>
+</div>
+<script>
+let __lastHighlightMap = null;
+
+function highlightLine(mapping) {
+  __lastHighlightMap = mapping;
+  applyHighlight();
+}
+
+function commentInLine(text) {
+  let idx = text.indexOf('//');
+  if (idx !== -1) return text.slice(idx + 2).trim();
+  idx = text.indexOf('#');
+  if (idx !== -1) return text.slice(idx + 1).trim();
+  return null;
+}
+
+function extractExplanation(target) {
+  const own = commentInLine(target.textContent);
+  if (own) return own;
+  const next = target.nextElementSibling;
+  if (next && next.classList.contains('codeline')) {
+    const fromNext = commentInLine(next.textContent);
+    if (fromNext) return fromNext;
+  }
+  const prev = target.previousElementSibling;
+  if (prev && prev.classList.contains('codeline')) {
+    const fromPrev = commentInLine(prev.textContent);
+    if (fromPrev) return fromPrev;
+  }
+  return null;
+}
+
+function applyHighlight() {
+  const box = document.querySelector('.codebox');
+  const bar = document.getElementById('codeExplainBar');
+  const barText = document.getElementById('codeExplainText');
+  if (!box || !__lastHighlightMap) { if (bar) bar.classList.remove('show'); return; }
+  const activeTab = box.querySelector('.codetab.active');
+  const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+  const lineNum = __lastHighlightMap[lang];
+  box.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  if (lineNum === undefined || lineNum === null) { if (bar) bar.classList.remove('show'); return; }
+  const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+  if (!activeBlock) return;
+  const target = activeBlock.querySelector('.codeline[data-line="' + lineNum + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (bar && barText) {
+      const explanation = extractExplanation(target);
+      if (explanation) { barText.textContent = explanation; bar.classList.add('show'); }
+      else { bar.classList.remove('show'); }
+    }
+  }
+}
+
+function clearHighlight() {
+  __lastHighlightMap = null;
+  document.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  const bar = document.getElementById('codeExplainBar');
+  if (bar) bar.classList.remove('show');
+}
+
+document.querySelectorAll('.codetabs').forEach(tabs=>{
+  tabs.addEventListener('click', e=>{
+    const btn = e.target.closest('.codetab');
+    if(!btn) return;
+    const box = tabs.parentElement;
+    tabs.querySelectorAll('.codetab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    box.querySelectorAll('.codeblock').forEach(p=>{
+      p.style.display = p.dataset.lang===btn.dataset.lang ? 'block' : 'none';
+    });
+    applyHighlight();
+  });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.closest('.codebox');
+    if (!box) return;
+    const activeTab = box.querySelector('.codetab.active');
+    const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+    const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+    if (!activeBlock) return;
+    const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.classList.add('copied');
+      btn.textContent = '\u2713 Copied';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+    }).catch(() => {});
+  });
+});
+
+function syntaxHighlight(text) {
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const pattern = /(\/\/.*$|#(?![a-zA-Z]).*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b\d+\.?\d*n?\b)|(\b(?:function|def|return|if|else|elif|while|for|in|not|and|or|class|struct|new|const|let|var|async|await|import|from|export|default|static|public|private|protected|void|int|long|double|float|boolean|bool|char|string|String|true|false|True|False|None|null|nullptr|this|self|break|continue|switch|case|try|catch|throw|extends|implements|interface|enum|namespace|using|template|typename|auto|is|lambda|global|raise|except|finally|yield|del|pass|with|as|instanceof|typeof|super|package)\b)|(\b[A-Za-z_$][\w$]*)(?=\s*\()/gm;
+  return text.replace(pattern, (m, comment, str, num, kw, fn) => {
+    if (comment) return '<span class="tok-comment">'+comment+'</span>';
+    if (str) return '<span class="tok-string">'+str+'</span>';
+    if (num) return '<span class="tok-number">'+num+'</span>';
+    if (kw) return '<span class="tok-keyword">'+kw+'</span>';
+    if (fn) return '<span class="tok-function">'+fn+'</span>';
+    return m;
+  });
+}
+document.querySelectorAll('.codeline').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+document.querySelectorAll('.explain code').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+
+document.querySelectorAll('.navgroup-label').forEach(label => {
+  label.addEventListener('click', () => {
+    label.parentElement.classList.toggle('collapsed');
+  });
+});
+
+(() => {
+  const layout = document.querySelector('.layout');
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (!layout || !sidebar || !toggle) return;
+  const KEY = 'studylab-sidebar-collapsed';
+  if (localStorage.getItem(KEY) === '1') {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('active');
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = sidebar.classList.toggle('collapsed');
+    toggle.classList.toggle('active', collapsed);
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  });
+})();
+</script>
+<script>
+
+let root = { children:{}, end:false };
+let words = [];
+
+function insert(word){
+  let node = root;
+  for(const ch of word){
+    if(!node.children[ch]) node.children[ch] = { children:{}, end:false };
+    node = node.children[ch];
+  }
+  node.end = true;
+  if(!words.includes(word)) words.push(word);
+}
+
+function renderWordlist(){
+  document.getElementById('wordlist').innerHTML = words.map(w=>`<span class="wordchip">${w}</span>`).join('');
+}
+
+function layoutTrie(){
+  const positions = [];
+  let leafCounter = { n: 0 };
+  function countLeaves(node){
+    const keys = Object.keys(node.children);
+    if(keys.length===0) return 1;
+    let sum = 0;
+    for(const k of keys) sum += countLeaves(node.children[k]);
+    return sum;
+  }
+  function layout(node, depth, xMin, xMax, label){
+    const x = (xMin+xMax)/2;
+    const y = 40 + depth*64;
+    node._x = x; node._y = y; node._label = label;
+    positions.push(node);
+    const keys = Object.keys(node.children).sort();
+    if(keys.length===0) return;
+    const totalLeaves = keys.reduce((s,k)=>s+countLeaves(node.children[k]),0);
+    let cursor = xMin;
+    for(const k of keys){
+      const share = countLeaves(node.children[k]) / totalLeaves * (xMax-xMin);
+      layout(node.children[k], depth+1, cursor, cursor+share, k);
+      cursor += share;
+    }
+  }
+  layout(root, 0, 20, 620, 'root');
+  return positions;
+}
+
+function renderTree(highlightPrefix){
+  const positions = layoutTrie();
+  let edges = '', nodes = '';
+  const highlightPath = new Set();
+  if(highlightPrefix){
+    let node = root;
+    highlightPath.add(node);
+    for(const ch of highlightPrefix){
+      if(!node.children[ch]) break;
+      node = node.children[ch];
+      highlightPath.add(node);
+    }
+  }
+  function draw(node){
+    const keys = Object.keys(node.children).sort();
+    for(const k of keys){
+      const child = node.children[k];
+      const onPath = highlightPath.has(node) && highlightPath.has(child);
+      edges += `<line class="tedge ${onPath?'path':''}" x1="${node._x}" y1="${node._y}" x2="${child._x}" y2="${child._y}"/>`;
+      draw(child);
+    }
+  }
+  draw(root);
+  positions.forEach(n=>{
+    const cls = ['tnode'];
+    if(highlightPath.has(n)) cls.push('path');
+    if(n.end) cls.push('end');
+    nodes += `<g class="${cls.join(' ')}"><circle cx="${n._x}" cy="${n._y}" r="16"/><text x="${n._x}" y="${n._y+4}" text-anchor="middle">${n._label==='root'?'•':n._label}</text></g>`;
+  });
+  const maxY = Math.max(...positions.map(n=>n._y)) + 40;
+  document.getElementById('tree').innerHTML = `<svg viewBox="0 0 640 ${maxY}" width="100%" height="${Math.min(maxY,340)}">${edges}${nodes}</svg>`;
+}
+
+function collectWords(node, prefix, out){
+  if(node.end) out.push(prefix);
+  for(const k of Object.keys(node.children).sort()) collectWords(node.children[k], prefix+k, out);
+}
+
+function updateSuggestions(){
+  const prefix = document.getElementById('prefix').value.trim();
+  let node = root;
+  let found = true;
+  for(const ch of prefix){
+    if(!node.children[ch]){ found=false; break; }
+    node = node.children[ch];
+  }
+  const out = [];
+  if(found) collectWords(node, prefix, out);
+  document.getElementById('suggestions').innerHTML = out.length
+    ? out.map(w=>`<span class="sugg">${w}</span>`).join('')
+    : '<span style="color:var(--dim);font-size:13px;">no matches</span>';
+  renderTree(prefix);
+}
+
+document.getElementById('insert').onclick = ()=>{
+  const w = document.getElementById('word').value.trim().toLowerCase();
+  if(w){ insert(w); renderWordlist(); updateSuggestions(); }
+  document.getElementById('word').value='';
+};
+document.getElementById('reset').onclick = ()=>{
+  root = { children:{}, end:false }; words=[];
+  renderWordlist(); updateSuggestions();
+};
+document.getElementById('prefix').addEventListener('input', updateSuggestions);
+
+['cat','car','card','care','dog','do'].forEach(insert);
+renderWordlist();
+updateSuggestions();
+
+</script>
+</body>
+</html>

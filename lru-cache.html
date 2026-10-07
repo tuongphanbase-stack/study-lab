@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lru-cache — study://lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f7fb; --card:#ffffff; --border:#e5e7eb;
+    --text:#14151a; --muted:#5c5e68; --dim:#9598a3;
+    --accent:#2563eb; --accent-soft:#eff6ff; --accent-dark:#1d4ed8;
+    --good:#16a34a; --good-soft:#e6f7ec;
+    --bad:#e11d48; --bad-soft:#fdeaee;
+    --warn:#f59e0b; --warn-soft:#fef3e0;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+    --sans:'Inter',system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(16,24,40,.04);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-soft);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+  .navbar-outer{background:var(--card);border-bottom:1px solid var(--border);}
+  nav{display:flex;align-items:center;gap:10px;padding:14px 24px;}
+  nav .tile{width:26px;height:26px;border-radius:7px;background:var(--accent-dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;}
+  nav a.back{font-weight:600;font-size:13.5px;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:100px;border:1px solid var(--border);transition:all .15s ease;}
+  nav a.back:hover{color:var(--accent-dark);border-color:var(--accent);}
+  nav .navsearch{
+    display:flex;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--border);
+    border-radius:8px;padding:8px 12px;color:var(--dim);font-size:13px;max-width:260px;margin-left:auto;
+  }
+  nav .navsearch .kbd{
+    margin-left:auto;font-family:var(--mono);font-size:10.5px;background:var(--card);border:1px solid var(--border);
+    border-radius:4px;padding:2px 6px;color:var(--dim);
+  }
+  @media (max-width:700px){ nav .navsearch{display:none;} }
+  nav .crumb{color:var(--dim);font-size:13px;}
+  nav .crumb-current{font-weight:600;color:var(--text);font-size:13px;}
+  header{margin:0;padding:20px 32px 12px;}
+  h1{font-weight:700;font-size:22px;letter-spacing:-0.01em;margin:0 0 6px;color:var(--text);}
+  h1 span{color:var(--text);}
+  p.sub{color:var(--muted);max-width:68ch;line-height:1.5;font-size:14px;margin-top:0;}
+  main{margin:0;padding:8px 32px 80px;}
+
+  .explain{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 28px;margin:22px 0;box-shadow:var(--shadow);}
+  .explain h2{font-weight:700;font-size:16px;margin:0 0 12px;}
+  .explain p{color:var(--muted);font-size:15px;line-height:1.75;margin:0 0 12px;}
+  .explain p:last-child{margin-bottom:0;}
+  .explain ul{margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75;}
+  .explain li{margin-bottom:8px;}
+  .explain code{background:var(--accent-soft);border-radius:5px;padding:2px 7px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+  .example-box{background:var(--bg-soft);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:14px;}
+  .example-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:8px;}
+  .example-box p{margin:0 0 8px;font-size:14px;color:var(--text);line-height:1.65;}
+  .example-box p:last-child{margin-bottom:0;}
+  .example-box code{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:13px;color:var(--accent-dark);}
+
+  .tabs{display:flex;gap:8px;margin:20px 0 16px;font-size:14px;flex-wrap:wrap;}
+  .tab{background:var(--card);border:1px solid var(--border);color:var(--muted);font-weight:600;padding:10px 16px;border-radius:100px;cursor:pointer;box-shadow:var(--shadow);transition:all .15s ease;}
+  .tab.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 16px;font-size:14px;}
+  input, select{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-size:14px;padding:11px 14px;border-radius:10px;box-shadow:var(--shadow);
+  }
+  button{
+    background:var(--card);border:1px solid var(--border);color:var(--text);
+    font-family:var(--sans);font-weight:600;font-size:14px;padding:11px 18px;border-radius:100px;
+    cursor:pointer;transition:all .15s ease;box-shadow:var(--shadow);
+  }
+  button:hover{border-color:var(--accent);color:var(--accent);}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);}
+  button.primary:hover{background:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+  button:disabled{opacity:.4;cursor:not-allowed;}
+
+  .panel, .stage{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow);}
+  .status{font-size:13px;color:var(--muted);margin-top:14px;}
+  .status b{color:var(--text);}
+  .hint{font-size:13px;color:var(--dim);margin-top:8px;}
+  svg text{font-family:var(--mono);}
+
+
+  .listview{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:20px;}
+  .litem{
+    font-family:var(--mono);font-size:13px;background:var(--accent-soft);border:1px solid var(--accent);
+    border-radius:10px;padding:10px 14px;color:var(--accent-dark);font-weight:600;transition:all .2s ease;
+  }
+  .litem.mru{border-color:var(--good);background:var(--good-soft);color:var(--good);}
+  .litem.evicting{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);}
+  .arrow2{color:var(--dim);font-weight:700;}
+  .maplabel{font-size:12px;color:var(--dim);margin-bottom:8px;font-weight:600;}
+
+
+  .layout{display:flex;align-items:flex-start;position:relative;}
+  .sidebar{transition:width .18s ease, padding .18s ease, opacity .18s ease;}
+  .sidebar.collapsed{width:0;padding:0;opacity:0;overflow:hidden;border-right:none;}
+  .sidebar::-webkit-scrollbar{width:6px;}
+  .sidebar::-webkit-scrollbar-track{background:transparent;}
+  .sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  .sidebar::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+  .sidebar{scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+  .navtoggle{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;color:var(--muted);font-size:13px;flex-shrink:0;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .navtoggle:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .navtoggle.active{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .sidebar{
+    width:230px;flex-shrink:0;background:var(--card);border-right:1px solid var(--border);
+    padding:18px 12px 40px;position:sticky;top:0;height:100vh;overflow-y:auto;
+  }
+  .sidebar a.navitem{
+    display:block;padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;
+    font-size:13.5px;font-weight:500;margin-bottom:2px;transition:all .12s ease;
+  }
+  .sidebar a.navitem:hover{background:var(--bg-soft);color:var(--text);}
+  .sidebar a.navitem.active{background:var(--accent-soft);color:var(--accent-dark);font-weight:700;}
+  .sidebar a.navitem.overview{font-weight:700;color:var(--text);margin-bottom:14px;padding-left:12px;}
+  .sidebar a.navitem.overview.active{background:var(--accent-soft);color:var(--accent-dark);}
+  .navgroup{margin-bottom:18px;}
+  .navgroup-label{
+    font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;
+    letter-spacing:.07em;padding:7px 12px;margin-bottom:2px;border-radius:8px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;user-select:none;transition:background .12s ease,color .12s ease;
+  }
+  .navgroup-label:hover{background:var(--bg-soft);color:var(--muted);}
+  .navgroup-label .chev{
+    font-size:14px;font-weight:700;color:var(--dim);text-transform:none;letter-spacing:0;
+    transition:transform .15s ease,color .12s ease;display:inline-block;line-height:1;
+  }
+  .navgroup-label:hover .chev{color:var(--accent-dark);}
+  .navgroup.collapsed .navitem{display:none;}
+  .navgroup.collapsed .chev{transform:rotate(-90deg);}
+  .main-content{flex:1;min-width:0;}
+  @media (max-width:820px){
+    .layout{flex-direction:column;}
+    .navtoggle{display:none;}
+    .sidebar{width:100%;height:auto;position:relative;border-right:none;border-bottom:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:4px;padding:12px;}
+    .navgroup{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-bottom:8px;}
+    .navgroup-label{width:100%;}
+    .sidebar a.navitem.overview{margin-bottom:0;}
+  }
+
+  .codebox{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0 8px;box-shadow:var(--shadow);}
+  .codetabs{display:flex;gap:2px;background:var(--bg-soft);padding:5px 6px 0;overflow-x:auto;}
+  .codetab{background:transparent;border:none;color:var(--dim);font-family:var(--mono);font-size:11.5px;font-weight:600;
+    padding:6px 11px;border-radius:5px 5px 0 0;cursor:pointer;white-space:nowrap;}
+  .codetab.active{background:var(--card);color:var(--text);}
+  .codetab:hover:not(.active){color:var(--text);}
+  pre.codeblock{margin:0;padding:12px 16px;overflow:auto;height:420px;min-height:160px;max-height:85vh;resize:vertical;}
+  pre.codeblock code{font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--text);white-space:pre;}
+  .code-heading{font-weight:700;font-size:14px;margin:32px 0 8px;color:var(--text);}
+
+  .speedctl{display:flex;align-items:center;gap:8px;margin-left:auto;font-size:13px;color:var(--muted);}
+  .speedctl select{padding:8px 10px;}
+  @media (max-width:640px){ .speedctl{margin-left:0;} }
+
+  .codeline{display:block;}
+  .tok-comment{color:#6a737d;}
+  .tok-string{color:#032f62;}
+  .tok-keyword{color:#d73a49;font-weight:600;}
+  .tok-number{color:#005cc5;}
+  .tok-function{color:#6f42c1;}
+  .code-explain{
+    display:none;align-items:flex-start;gap:8px;padding:10px 16px;
+    background:var(--accent-soft);color:var(--accent-dark);font-size:12.5px;
+    line-height:1.5;border-top:1px solid var(--border);font-family:var(--sans);
+  }
+  .code-explain.show{display:flex;}
+  .code-explain .ico{flex-shrink:0;}
+
+  .codebox{box-shadow:0 1px 2px rgba(16,24,40,.05),0 8px 20px rgba(16,24,40,.07);}
+  .code-dots{display:flex;gap:6px;padding:0 8px 0 2px;align-items:center;}
+  .code-dots span{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .code-dots span:nth-child(1){background:#ff5f56;}
+  .code-dots span:nth-child(2){background:#ffbd2e;}
+  .code-dots span:nth-child(3){background:#27c93f;}
+  .copy-btn{
+    margin-left:auto;background:var(--card);border:1px solid var(--border);color:var(--dim);
+    font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:6px;
+    cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;
+    transition:all .15s ease;
+  }
+  .copy-btn:hover{color:var(--accent-dark);border-color:var(--accent);background:var(--accent-soft);}
+  .copy-btn.copied{color:#16a34a;border-color:#16a34a;background:#e6f7ec;}
+  pre.codeblock code{counter-reset:line;display:block;}
+  .codeline{counter-increment:line;display:block;position:relative;padding-left:2.6em;border-radius:4px;}
+  .codeline::before{
+    content:counter(line);position:absolute;left:0;top:0;width:2em;text-align:right;
+    color:var(--dim);opacity:.45;font-size:11px;user-select:none;
+  }
+  .codeline.active{background:var(--accent-soft);}
+  .codeline.active::before{content:"\25b8";color:var(--accent);opacity:1;font-weight:700;text-align:center;font-size:12px;}
+  .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
+</style>
+</head>
+<body>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">lru-cache</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="layout">
+<aside class="sidebar">
+  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <div class="navgroup">
+    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html">Pathfinding</a>
+    <a class="navitem" href="searching.html">Searching</a>
+    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html">Recursion</a>
+    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html">Data Structures</a>
+    <a class="navitem" href="trie.html">Trie</a>
+    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html">Union-Find</a>
+    <a class="navitem" href="hashtable.html">Hash Table</a>
+    <a class="navitem active" href="lru-cache.html">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+  </div>
+  <div class="navgroup">
+    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html">Sliding Window</a>
+    <a class="navitem" href="dp.html">Dynamic Programming</a>
+    <a class="navitem" href="regex.html">Regex Engine</a>
+    <a class="navitem" href="fsm.html">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+  </div>
+</aside>
+<div class="main-content">
+<header>
+  <h1>LRU<span> Cache</span></h1>
+  <p class="sub">A hash map for O(1) lookup, plus an ordering for O(1) eviction. Access a key and watch it jump to the front — fill the cache past capacity and watch the oldest key get evicted.</p>
+</header>
+<main>
+  <div class="explain">
+    <h2>How it works</h2>
+    <p>An LRU cache needs two things to be fast: looking up a key, and knowing which key hasn't been used in the longest time. Neither structure does both well on its own — a hash map gives fast lookup but no sense of order, and a plain list gives order but slow lookup. So this cache combines both.</p>
+    <p>A <b style="color:var(--text)">doubly linked list</b> keeps every key ordered from most to least recently used. A <b style="color:var(--text)">hash map</b> stores each key's exact spot in that list, so you can jump straight to it instead of searching.</p>
+    <p>Every time a key is read or written, it gets moved to the front of the list — that's fast, since a linked list node already knows its neighbors. When the cache is full and a new key comes in, whatever's at the very back of the list — the least recently used key — gets removed.</p>
+    <div class="example-box">
+      <div class="example-label">Example</div>
+      <p>Cache capacity 2. Insert <code>a</code>, then <code>b</code> — cache holds <code>[b, a]</code> (most recent first). Access <code>a</code> again — it jumps to the front: <code>[a, b]</code>. Now insert <code>c</code> — the cache is full, so <code>b</code> (the least recently used) gets evicted, leaving <code>[c, a]</code>.</p>
+    </div>
+
+  </div>
+
+<div class="controls">
+    <label>capacity <input type="number" id="cap" value="4" min="2" max="8" style="width:70px"></label>
+    <input type="text" id="key" placeholder="key" value="a">
+    <button class="primary" id="access">get/put(key)</button>
+    <button id="reset">reset</button>
+    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+  </div>
+  <div class="maplabel">most recent ← → least recent</div>
+  <div class="listview" id="listview"></div>
+  <div class="status" id="status">cache is empty</div>
+
+<div class="code-heading">Code</div>
+<div class="codebox">
+  <div class="codetabs">
+    <span class="code-dots"><span></span><span></span><span></span></span>
+    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab" data-lang="python">Python</button>
+    <button class="codetab" data-lang="js">JavaScript</button>
+    <button class="codetab" data-lang="java">Java</button>
+    <button class="codetab" data-lang="cpp">C++</button>
+    <button class="copy-btn">⧉ Copy</button>
+  </div>
+  <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function get(cache, key):</span>
+<span class="codeline" data-line="1">    if key not in cache.map: return not found   // key was never cached, or already evicted</span>
+<span class="codeline" data-line="2">    moveToFront(cache, key)                      // touching a key marks it most-recently-used</span>
+<span class="codeline" data-line="3">    return cache.map[key]</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">function put(cache, key, value):</span>
+<span class="codeline" data-line="6">    if key in cache.map:</span>
+<span class="codeline" data-line="7">        moveToFront(cache, key)                    // already cached: just refresh its position</span>
+<span class="codeline" data-line="8">    else:</span>
+<span class="codeline" data-line="9">        if size(cache) == cache.capacity:</span>
+<span class="codeline" data-line="10">            evictLeastRecentlyUsed(cache)            // full: drop the back of the list first</span>
+<span class="codeline" data-line="11">        addToFront(cache, key, value)              // insert the new key as most-recently-used</span></code></pre>
+  <pre class="codeblock" data-lang="python" style="display:none"><code><span class="codeline" data-line="0">from collections import OrderedDict   # remembers insertion/access order</span>
+<span class="codeline" data-line="1"></span>
+<span class="codeline" data-line="2">class LRUCache:</span>
+<span class="codeline" data-line="3">    def __init__(self, capacity):</span>
+<span class="codeline" data-line="4">        self.capacity = capacity</span>
+<span class="codeline" data-line="5">        self.cache = OrderedDict()   # front = least recent, back = most recent</span>
+<span class="codeline" data-line="6"></span>
+<span class="codeline" data-line="7">    def get(self, key):</span>
+<span class="codeline" data-line="8">        if key not in self.cache:</span>
+<span class="codeline" data-line="9">            return -1                        # key was never cached, or already evicted</span>
+<span class="codeline" data-line="10">        self.cache.move_to_end(key)           # mark as most recently used</span>
+<span class="codeline" data-line="11">        return self.cache[key]</span>
+<span class="codeline" data-line="12"></span>
+<span class="codeline" data-line="13">    def put(self, key, value):</span>
+<span class="codeline" data-line="14">        if key in self.cache:</span>
+<span class="codeline" data-line="15">            self.cache.move_to_end(key)         # already cached: refresh its position</span>
+<span class="codeline" data-line="16">        self.cache[key] = value                # insert or overwrite</span>
+<span class="codeline" data-line="17">        if len(self.cache) &gt; self.capacity:</span>
+<span class="codeline" data-line="18">            self.cache.popitem(last=False)      # over capacity: evict the least recently used</span></code></pre>
+  <pre class="codeblock" data-lang="js" style="display:none"><code><span class="codeline" data-line="0">class LRUCache {</span>
+<span class="codeline" data-line="1">  constructor(capacity) {</span>
+<span class="codeline" data-line="2">    this.capacity = capacity;</span>
+<span class="codeline" data-line="3">    this.cache = new Map();   // Maps preserve insertion order in JS, which we exploit here</span>
+<span class="codeline" data-line="4">  }</span>
+<span class="codeline" data-line="5"></span>
+<span class="codeline" data-line="6">  get(key) {</span>
+<span class="codeline" data-line="7">    if (!this.cache.has(key)) return -1;   // key was never cached, or already evicted</span>
+<span class="codeline" data-line="8">    const value = this.cache.get(key);</span>
+<span class="codeline" data-line="9">    this.cache.delete(key);                 // remove and re-add to move it to the "recent" end</span>
+<span class="codeline" data-line="10">    this.cache.set(key, value);              // now it's the most recently used entry</span>
+<span class="codeline" data-line="11">    return value;</span>
+<span class="codeline" data-line="12">  }</span>
+<span class="codeline" data-line="13"></span>
+<span class="codeline" data-line="14">  put(key, value) {</span>
+<span class="codeline" data-line="15">    if (this.cache.has(key)) this.cache.delete(key);   // remove old position first, if any</span>
+<span class="codeline" data-line="16">    this.cache.set(key, value);                          // insert as most recently used</span>
+<span class="codeline" data-line="17">    if (this.cache.size &gt; this.capacity) {</span>
+<span class="codeline" data-line="18">      const oldest = this.cache.keys().next().value;      // Map iterates oldest-first</span>
+<span class="codeline" data-line="19">      this.cache.delete(oldest);                            // evict least recently used</span>
+<span class="codeline" data-line="20">    }</span>
+<span class="codeline" data-line="21">  }</span>
+<span class="codeline" data-line="22">}</span></code></pre>
+  <pre class="codeblock" data-lang="java" style="display:none"><code><span class="codeline" data-line="0">class LRUCache extends LinkedHashMap&lt;Integer, Integer&gt; {</span>
+<span class="codeline" data-line="1">    private int capacity;</span>
+<span class="codeline" data-line="2"></span>
+<span class="codeline" data-line="3">    LRUCache(int capacity) {</span>
+<span class="codeline" data-line="4">        super(capacity, 0.75f, true);   // accessOrder=true reorders entries on every get()</span>
+<span class="codeline" data-line="5">        this.capacity = capacity;</span>
+<span class="codeline" data-line="6">    }</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">    @Override</span>
+<span class="codeline" data-line="9">    protected boolean removeEldestEntry(Map.Entry&lt;Integer, Integer&gt; eldest) {</span>
+<span class="codeline" data-line="10">        return size() &gt; capacity;   // returning true here auto-evicts the least recently used</span>
+<span class="codeline" data-line="11">    }</span>
+<span class="codeline" data-line="12">}</span>
+<span class="codeline" data-line="13"></span>
+<span class="codeline" data-line="14">// usage:</span>
+<span class="codeline" data-line="15">// LRUCache cache = new LRUCache(4);</span>
+<span class="codeline" data-line="16">// cache.put(1, 100);</span>
+<span class="codeline" data-line="17">// cache.get(1); // marks key 1 as most recently used</span></code></pre>
+  <pre class="codeblock" data-lang="cpp" style="display:none"><code><span class="codeline" data-line="0">class LRUCache {</span>
+<span class="codeline" data-line="1">    int capacity;</span>
+<span class="codeline" data-line="2">    list&lt;pair&lt;int,int&gt;&gt; order;   // doubly linked list; front = most recently used</span>
+<span class="codeline" data-line="3">    unordered_map&lt;int, list&lt;pair&lt;int,int&gt;&gt;::iterator&gt; map;   // key -&gt; position in the list</span>
+<span class="codeline" data-line="4"></span>
+<span class="codeline" data-line="5">public:</span>
+<span class="codeline" data-line="6">    LRUCache(int capacity) : capacity(capacity) {}</span>
+<span class="codeline" data-line="7"></span>
+<span class="codeline" data-line="8">    int get(int key) {</span>
+<span class="codeline" data-line="9">        if (!map.count(key)) return -1;               // key was never cached, or evicted</span>
+<span class="codeline" data-line="10">        order.splice(order.begin(), order, map[key]);   // move this node to the front, O(1)</span>
+<span class="codeline" data-line="11">        return map[key]-&gt;second;</span>
+<span class="codeline" data-line="12">    }</span>
+<span class="codeline" data-line="13"></span>
+<span class="codeline" data-line="14">    void put(int key, int value) {</span>
+<span class="codeline" data-line="15">        if (map.count(key)) order.erase(map[key]);      // remove old entry first, if present</span>
+<span class="codeline" data-line="16">        order.push_front({key, value});                 // insert as most recently used</span>
+<span class="codeline" data-line="17">        map[key] = order.begin();                         // remember its new position</span>
+<span class="codeline" data-line="18">        if ((int)map.size() &gt; capacity) {</span>
+<span class="codeline" data-line="19">            auto last = order.back();                       // the least recently used entry</span>
+<span class="codeline" data-line="20">            map.erase(last.first);</span>
+<span class="codeline" data-line="21">            order.pop_back();                                 // evict it</span>
+<span class="codeline" data-line="22">        }</span>
+<span class="codeline" data-line="23">    }</span>
+<span class="codeline" data-line="24">};</span></code></pre>
+  <div class="code-explain" id="codeExplainBar"><span class="ico">💡</span><span id="codeExplainText"></span></div>
+</div>
+</main>
+</div>
+</div>
+<script>
+let __lastHighlightMap = null;
+
+function highlightLine(mapping) {
+  __lastHighlightMap = mapping;
+  applyHighlight();
+}
+
+function commentInLine(text) {
+  let idx = text.indexOf('//');
+  if (idx !== -1) return text.slice(idx + 2).trim();
+  idx = text.indexOf('#');
+  if (idx !== -1) return text.slice(idx + 1).trim();
+  return null;
+}
+
+function extractExplanation(target) {
+  const own = commentInLine(target.textContent);
+  if (own) return own;
+  const next = target.nextElementSibling;
+  if (next && next.classList.contains('codeline')) {
+    const fromNext = commentInLine(next.textContent);
+    if (fromNext) return fromNext;
+  }
+  const prev = target.previousElementSibling;
+  if (prev && prev.classList.contains('codeline')) {
+    const fromPrev = commentInLine(prev.textContent);
+    if (fromPrev) return fromPrev;
+  }
+  return null;
+}
+
+function applyHighlight() {
+  const box = document.querySelector('.codebox');
+  const bar = document.getElementById('codeExplainBar');
+  const barText = document.getElementById('codeExplainText');
+  if (!box || !__lastHighlightMap) { if (bar) bar.classList.remove('show'); return; }
+  const activeTab = box.querySelector('.codetab.active');
+  const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+  const lineNum = __lastHighlightMap[lang];
+  box.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  if (lineNum === undefined || lineNum === null) { if (bar) bar.classList.remove('show'); return; }
+  const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+  if (!activeBlock) return;
+  const target = activeBlock.querySelector('.codeline[data-line="' + lineNum + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    if (bar && barText) {
+      const explanation = extractExplanation(target);
+      if (explanation) { barText.textContent = explanation; bar.classList.add('show'); }
+      else { bar.classList.remove('show'); }
+    }
+  }
+}
+
+function clearHighlight() {
+  __lastHighlightMap = null;
+  document.querySelectorAll('.codeline').forEach(l => l.classList.remove('active'));
+  const bar = document.getElementById('codeExplainBar');
+  if (bar) bar.classList.remove('show');
+}
+
+document.querySelectorAll('.codetabs').forEach(tabs=>{
+  tabs.addEventListener('click', e=>{
+    const btn = e.target.closest('.codetab');
+    if(!btn) return;
+    const box = tabs.parentElement;
+    tabs.querySelectorAll('.codetab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    box.querySelectorAll('.codeblock').forEach(p=>{
+      p.style.display = p.dataset.lang===btn.dataset.lang ? 'block' : 'none';
+    });
+    applyHighlight();
+  });
+});
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.closest('.codebox');
+    if (!box) return;
+    const activeTab = box.querySelector('.codetab.active');
+    const lang = activeTab ? activeTab.dataset.lang : 'pseudo';
+    const activeBlock = box.querySelector('.codeblock[data-lang="' + lang + '"]');
+    if (!activeBlock) return;
+    const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.textContent;
+      btn.classList.add('copied');
+      btn.textContent = '\u2713 Copied';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+    }).catch(() => {});
+  });
+});
+
+function syntaxHighlight(text) {
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const pattern = /(\/\/.*$|#(?![a-zA-Z]).*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b\d+\.?\d*n?\b)|(\b(?:function|def|return|if|else|elif|while|for|in|not|and|or|class|struct|new|const|let|var|async|await|import|from|export|default|static|public|private|protected|void|int|long|double|float|boolean|bool|char|string|String|true|false|True|False|None|null|nullptr|this|self|break|continue|switch|case|try|catch|throw|extends|implements|interface|enum|namespace|using|template|typename|auto|is|lambda|global|raise|except|finally|yield|del|pass|with|as|instanceof|typeof|super|package)\b)|(\b[A-Za-z_$][\w$]*)(?=\s*\()/gm;
+  return text.replace(pattern, (m, comment, str, num, kw, fn) => {
+    if (comment) return '<span class="tok-comment">'+comment+'</span>';
+    if (str) return '<span class="tok-string">'+str+'</span>';
+    if (num) return '<span class="tok-number">'+num+'</span>';
+    if (kw) return '<span class="tok-keyword">'+kw+'</span>';
+    if (fn) return '<span class="tok-function">'+fn+'</span>';
+    return m;
+  });
+}
+document.querySelectorAll('.codeline').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+document.querySelectorAll('.explain code').forEach(el => {
+  el.innerHTML = syntaxHighlight(el.textContent);
+});
+
+document.querySelectorAll('.navgroup-label').forEach(label => {
+  label.addEventListener('click', () => {
+    label.parentElement.classList.toggle('collapsed');
+  });
+});
+
+(() => {
+  const layout = document.querySelector('.layout');
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (!layout || !sidebar || !toggle) return;
+  const KEY = 'studylab-sidebar-collapsed';
+  if (localStorage.getItem(KEY) === '1') {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('active');
+  }
+  toggle.addEventListener('click', () => {
+    const collapsed = sidebar.classList.toggle('collapsed');
+    toggle.classList.toggle('active', collapsed);
+    localStorage.setItem(KEY, collapsed ? '1' : '0');
+  });
+})();
+</script>
+<script>
+let animSpeed = 1;
+document.getElementById('speedSelect').addEventListener('change', (e) => {
+  animSpeed = parseFloat(e.target.value);
+});
+
+
+let cap = 4;
+let order = []; // front = most recent
+
+function sleep(ms){ return new Promise(r=>setTimeout(r, ms / animSpeed)); }
+
+function render(highlight, evicting){
+  document.getElementById('listview').innerHTML = order.map((k,i)=>{
+    let cls = 'litem';
+    if(i===0 && k===highlight) cls += ' mru';
+    if(k===evicting) cls += ' evicting';
+    return `<span class="${cls}">${k}</span>` + (i<order.length-1?'<span class="arrow2"> → </span>':'');
+  }).join('') || '<span style="color:var(--dim);font-size:13px;">empty</span>';
+}
+
+async function access(key){
+  clearHighlight();
+  cap = Math.max(2, Math.min(8, +document.getElementById('cap').value||4));
+  const idx = order.indexOf(key);
+  if(idx!==-1){
+    document.getElementById('status').innerHTML = `cache hit on "${key}" — moving it to the front (most recent)`;
+    order.splice(idx,1);
+    order.unshift(key);
+    render(key);
+    highlightLine({pseudo:2, python:10, js:10, cpp:10});
+    await sleep(500);
+  } else {
+    document.getElementById('status').innerHTML = `cache miss on "${key}" — inserting at the front`;
+    order.unshift(key);
+    render(key);
+    highlightLine({pseudo:11, python:16, js:16, cpp:16});
+    await sleep(500);
+    if(order.length > cap){
+      const evicted = order[order.length-1];
+      render(key, evicted);
+      document.getElementById('status').innerHTML = `cache full — evicting least-recently-used: "<b>${evicted}</b>"`;
+      highlightLine({pseudo:10, python:18, js:19, java:10, cpp:21});
+      await sleep(600);
+      order.pop();
+    }
+  }
+  render();
+  document.getElementById('status').innerHTML = `order (most → least recent): <b>${order.join(', ')}</b>`;
+}
+
+document.getElementById('access').onclick = ()=>{
+  const k = document.getElementById('key').value.trim();
+  if(k) access(k);
+};
+document.getElementById('reset').onclick = ()=>{ order=[]; render(); document.getElementById('status').textContent='cache is empty'; };
+render();
+
+</script>
+</body>
+</html>

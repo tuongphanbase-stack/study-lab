@@ -195,54 +195,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/pathfinding.js"></script>
+<script src="i18n/vi/pathfinding.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">pathfinding</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">pathfinding</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem active" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem active" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Path<span>finding</span></h1>
-  <p class="sub">Drag to draw walls, then race BFS, DFS, Dijkstra, or A* from the green cell to the red one. Tinted cells were explored; the solid indigo trail is the final path.</p>
+  <h1 data-i18n-html="title">Path<span>finding</span></h1>
+  <p class="sub" data-i18n-html="sub">Drag to draw walls, then race BFS, DFS, Dijkstra, or A* from the green cell to the red one. Tinted cells were explored; the solid indigo trail is the final path.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>All four algorithms do the same basic thing: start at the green cell, and spread out to nearby cells one step at a time until they reach the red cell. The difference is <b style="color:var(--text)">which cell each one picks next.</b></p>
     <ul>
@@ -260,38 +265,38 @@
   </div>
 <div class="controls">
     <select id="algo">
-      <option value="bfs">BFS (unweighted shortest path)</option>
-      <option value="dfs">DFS (explores, doesn't guarantee shortest)</option>
-      <option value="dijkstra">Dijkstra (weighted shortest path)</option>
-      <option value="astar">A* (heuristic-guided)</option>
+      <option value="bfs" data-i18n="optBfs">BFS (unweighted shortest path)</option>
+      <option value="dfs" data-i18n="optDfs">DFS (explores, doesn't guarantee shortest)</option>
+      <option value="dijkstra" data-i18n="optDijkstra">Dijkstra (weighted shortest path)</option>
+      <option value="astar" data-i18n="optAstar">A* (heuristic-guided)</option>
     </select>
-    <button class="primary" id="run">▶ Run</button>
-    <button id="clearWalls">Clear walls</button>
-    <button id="maze">Random maze</button>
-    <button id="reset">Reset grid</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <button class="primary" id="run" data-i18n="run">▶ Run</button>
+    <button id="clearWalls" data-i18n="clearWalls">Clear walls</button>
+    <button id="maze" data-i18n="maze">Random maze</button>
+    <button id="reset" data-i18n="resetGrid">Reset grid</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
   <div class="legend">
-    <span><span class="sw" style="background:var(--good)"></span>start</span>
-    <span><span class="sw" style="background:var(--bad)"></span>end</span>
-    <span><span class="sw" style="background:#2b2d33"></span>wall</span>
-    <span><span class="sw" style="background:var(--warn-soft);border:1px solid var(--warn)"></span>frontier</span>
-    <span><span class="sw" style="background:var(--accent-soft)"></span>visited</span>
-    <span><span class="sw" style="background:var(--accent)"></span>path</span>
+    <span><span class="sw" style="background:var(--good)"></span><span data-i18n="legendStart">start</span></span>
+    <span><span class="sw" style="background:var(--bad)"></span><span data-i18n="legendEnd">end</span></span>
+    <span><span class="sw" style="background:#2b2d33"></span><span data-i18n="legendWall">wall</span></span>
+    <span><span class="sw" style="background:var(--warn-soft);border:1px solid var(--warn)"></span><span data-i18n="legendFrontier">frontier</span></span>
+    <span><span class="sw" style="background:var(--accent-soft)"></span><span data-i18n="legendVisited">visited</span></span>
+    <span><span class="sw" style="background:var(--accent)"></span><span data-i18n="legendPath">path</span></span>
   </div>
   <div id="grid"></div>
-  <div class="stats" id="stats">cells visited: <b>0</b> · path length: <b>—</b></div>
-  <div class="hint">click-drag on empty cells to add/remove walls · drag the start or end cell to move them</div>
-<div class="code-heading">Code</div>
+  <div class="stats" id="stats" data-i18n-html="stats" data-i18n-vars='{"v":0,"len":"—"}'>cells visited: <b>0</b> · path length: <b>—</b></div>
+  <div class="hint" data-i18n="hint">click-drag on empty cells to add/remove walls · drag the start or end cell to move them</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function BFS(grid, start, end):</span>
 <span class="codeline" data-line="1">    queue &lt;- [start]              // cells waiting to be explored, oldest first</span>
@@ -491,10 +496,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -629,7 +633,7 @@ document.getElementById('clearWalls').onclick = ()=>{ if(running)return; walls.c
 document.getElementById('reset').onclick = ()=>{
   if(running)return;
   walls.clear(); start={r:3,c:3}; end={r:14,c:26}; render();
-  document.getElementById('stats').innerHTML = 'cells visited: <b>0</b> · path length: <b>—</b>';
+  I18N.html(document.getElementById('stats'), 'stats', {v: 0, len: '—'});
 };
 document.getElementById('maze').onclick = ()=>{
   if(running)return;
@@ -728,8 +732,9 @@ async function run(){
     }
   }
 
-  document.getElementById('stats').innerHTML =
-    `cells visited: <b>${visitedOrder.length}</b> · path length: <b>${found? path.length : 'no path found'}</b>`;
+  const visitedCount = visitedOrder.length, pathLength = found ? path.length : null;
+  I18N.html(document.getElementById('stats'), () =>
+    I18N.t('stats', {v: visitedCount, len: pathLength === null ? I18N.t('noPath') : pathLength}));
   running = false;
   document.getElementById('run').disabled = false;
 }

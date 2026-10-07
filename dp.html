@@ -189,54 +189,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/dp.js"></script>
+<script src="i18n/vi/dp.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">dynamic-programming</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">dynamic-programming</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem active" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem active" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Dynamic<span>-programming</span></h1>
-  <p class="sub">DP solves a big problem by filling in a table of smaller subproblems once each, then reusing those answers instead of recomputing them. Watch the table fill in, cell by cell.</p>
+  <h1 data-i18n-html="title">Dynamic<span>-programming</span></h1>
+  <p class="sub" data-i18n-html="sub">DP solves a big problem by filling in a table of smaller subproblems once each, then reusing those answers instead of recomputing them. Watch the table fill in, cell by cell.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>Dynamic programming (DP) is useful when a problem breaks down into smaller versions of itself, and those smaller versions repeat. Instead of solving the same smaller problem over and over (like plain recursion does), DP solves each one <b style="color:var(--text)">exactly once</b> and saves the answer in a table for later.</p>
     <p><b style="color:var(--text)">Fibonacci:</b> each cell is just the sum of the two cells before it — <code>dp[i] = dp[i-1] + dp[i-2]</code>. Fill the table left to right, starting from two known base values.</p>
@@ -251,16 +256,16 @@
 
   </div>
 <div class="tabs">
-    <div class="tab active" data-tab="fib">fibonacci (memoized)</div>
-    <div class="tab" data-tab="knapsack">0/1 knapsack</div>
-    <div class="tab" data-tab="edit">edit distance</div>
+    <div class="tab active" data-tab="fib" data-i18n="tabFib">fibonacci (memoized)</div>
+    <div class="tab" data-tab="knapsack" data-i18n="tabKnap">0/1 knapsack</div>
+    <div class="tab" data-tab="edit" data-i18n="tabEdit">edit distance</div>
   </div>
 
   <div class="view active" id="fibView">
     <div class="controls">
       <label>n <input type="number" id="fibN" value="10" min="2" max="15"></label>
-      <button class="primary" id="runFib">▶ Fill table</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+      <button class="primary" id="runFib" data-i18n="fill">▶ Fill table</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
     </div>
     <div class="panel"><table id="fibTable"></table></div>
     <div class="status" id="fibStatus"></div>
@@ -268,10 +273,10 @@
 
   <div class="view" id="knapsackView">
     <div class="controls">
-      <label>capacity <input type="number" id="cap" value="8" min="4" max="14"></label>
-      <button class="primary" id="runKnapsack">▶ Fill table</button>
+      <label><span data-i18n="capacity">capacity</span> <input type="number" id="cap" value="8" min="4" max="14"></label>
+      <button class="primary" id="runKnapsack" data-i18n="fill">▶ Fill table</button>
     </div>
-    <p style="font-size:13px;color:var(--dim);" id="itemsDisplay">items (weight/value): 2/3, 3/4, 4/5, 5/6</p>
+    <p style="font-size:13px;color:var(--dim);" id="itemsDisplay" data-i18n="items" data-i18n-vars='{"list":"2/3, 3/4, 4/5, 5/6"}'>items (weight/value): 2/3, 3/4, 4/5, 5/6</p>
     <div class="panel"><table id="knapsackTable"></table></div>
     <div class="status" id="knapsackStatus"></div>
   </div>
@@ -280,21 +285,21 @@
     <div class="controls">
       <input type="text" id="wordA" value="kitten">
       <input type="text" id="wordB" value="sitting">
-      <button class="primary" id="runEdit">▶ Fill table</button>
+      <button class="primary" id="runEdit" data-i18n="fill">▶ Fill table</button>
     </div>
     <div class="panel"><table id="editTable"></table></div>
     <div class="status" id="editStatus"></div>
   </div>
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function knapsack(weights[], values[], capacity):</span>
 <span class="codeline" data-line="1">    n &lt;- length(weights)</span>
@@ -461,10 +466,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -537,12 +541,12 @@ async function runFib(){
   dp[0]=0; dp[1]=1;
   document.getElementById('fib-0').textContent='0'; document.getElementById('fib-0').classList.add('filled');
   document.getElementById('fib-1').textContent='1'; document.getElementById('fib-1').classList.add('filled');
-  document.getElementById('fibStatus').innerHTML = 'base cases: dp[0]=0, dp[1]=1';
+  I18N.html(document.getElementById('fibStatus'), 'baseCases');
   await sleep(500);
   for(let i=2;i<=n;i++){
     document.getElementById(`fib-${i-1}`).classList.add('source');
     document.getElementById(`fib-${i-2}`).classList.add('source');
-    document.getElementById('fibStatus').innerHTML = `dp[${i}] = dp[${i-1}] + dp[${i-2}] = ${dp[i-1]} + ${dp[i-2]}`;
+    { const step = `dp[${i}] = dp[${i-1}] + dp[${i-2}] = ${dp[i-1]} + ${dp[i-2]}`; I18N.html(document.getElementById('fibStatus'), () => step); }
     await sleep(400);
     dp[i] = dp[i-1]+dp[i-2];
     const cell = document.getElementById(`fib-${i}`);
@@ -553,7 +557,7 @@ async function runFib(){
     document.getElementById(`fib-${i-1}`).classList.remove('source');
     document.getElementById(`fib-${i-2}`).classList.remove('source');
   }
-  document.getElementById('fibStatus').innerHTML = `done — fib(${n}) = <b>${dp[n]}</b>`;
+  I18N.html(document.getElementById('fibStatus'), 'fibDone', {n, v: dp[n]});
   document.getElementById('runFib').disabled = false;
 }
 
@@ -565,7 +569,7 @@ async function runKnapsack(){
   const cap = Math.max(4, Math.min(14, +document.getElementById('cap').value||8));
   const table = document.getElementById('knapsackTable');
   const rows = items.length;
-  let header = `<tr><th>item\\cap</th>${Array.from({length:cap+1},(_,c)=>`<th>${c}</th>`).join('')}</tr>`;
+  let header = `<tr><th data-i18n="itemCap">${I18N.t('itemCap')}</th>${Array.from({length:cap+1},(_,c)=>`<th>${c}</th>`).join('')}</tr>`;
   let body = '';
   for(let i=0;i<=rows;i++){
     body += `<tr><th>${i===0?'-':items[i-1].w+'/'+items[i-1].v}</th>${Array.from({length:cap+1},(_,c)=>`<td id="ks-${i}-${c}"></td>`).join('')}</tr>`;
@@ -589,12 +593,12 @@ async function runKnapsack(){
         takeCell.classList.add('source');
         const takeVal = dp[i-1][c-w]+v;
         if(takeVal>best){ best=takeVal; usedTake=true; }
-        document.getElementById('knapsackStatus').innerHTML = `item ${i} (w${w}/v${v}), cap ${c}: max(skip=${dp[i-1][c]}, take=${takeVal})`;
+        I18N.html(document.getElementById('knapsackStatus'), 'ksTake', {i, w, v, c, skip: dp[i-1][c], take: takeVal});
         highlightLine({pseudo:8, python:8, js:9, java:8, cpp:8});
         await sleep(180);
         takeCell.classList.remove('source');
       } else {
-        document.getElementById('knapsackStatus').innerHTML = `item ${i} (w${w}/v${v}), cap ${c}: too heavy, carry forward ${dp[i-1][c]}`;
+        I18N.html(document.getElementById('knapsackStatus'), 'ksHeavy', {i, w, v, c, keep: dp[i-1][c]});
         highlightLine({pseudo:6, python:6, js:7, java:6, cpp:6});
         await sleep(140);
       }
@@ -607,7 +611,7 @@ async function runKnapsack(){
       withoutCell.classList.remove('source');
     }
   }
-  document.getElementById('knapsackStatus').innerHTML = `done — best value with capacity ${cap}: <b>${dp[rows][cap]}</b>`;
+  I18N.html(document.getElementById('knapsackStatus'), 'ksDone', {cap, v: dp[rows][cap]});
   document.getElementById('runKnapsack').disabled = false;
 }
 
@@ -635,9 +639,8 @@ async function runEdit(){
       const cell = document.getElementById(`ed-${i}-${j}`);
       const srcs = [`ed-${i-1}-${j}`, `ed-${i}-${j-1}`, `ed-${i-1}-${j-1}`];
       srcs.forEach(id=>document.getElementById(id).classList.add('source'));
-      document.getElementById('editStatus').innerHTML = same
-        ? `'${a[i-1]}' == '${b[j-1]}' → copy diagonal: ${dp[i-1][j-1]}`
-        : `'${a[i-1]}' ≠ '${b[j-1]}' → 1 + min(delete ${dp[i-1][j]}, insert ${dp[i][j-1]}, replace ${dp[i-1][j-1]})`;
+      I18N.html(document.getElementById('editStatus'), same ? 'edSame' : 'edDiff',
+        {a: a[i-1], b: b[j-1], d: dp[i-1][j-1], del: dp[i-1][j], ins: dp[i][j-1]});
       await sleep(140);
       dp[i][j] = same ? dp[i-1][j-1] : 1+Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
       cell.textContent = dp[i][j];
@@ -647,7 +650,7 @@ async function runEdit(){
       srcs.forEach(id=>document.getElementById(id).classList.remove('source'));
     }
   }
-  document.getElementById('editStatus').innerHTML = `done — edit distance between "${a}" and "${b}": <b>${dp[a.length][b.length]}</b>`;
+  I18N.html(document.getElementById('editStatus'), 'edDone', {a, b, v: dp[a.length][b.length]});
   document.getElementById('runEdit').disabled = false;
 }
 
@@ -662,8 +665,7 @@ document.getElementById('runEdit').onclick = runEdit;
     w: 2 + Math.floor(Math.random()*5),
     v: 2 + Math.floor(Math.random()*8)
   }));
-  document.getElementById('itemsDisplay').textContent =
-    'items (weight/value): ' + knapsackItems.map(it => it.w+'/'+it.v).join(', ');
+  I18N.text(document.getElementById('itemsDisplay'), 'items', {list: knapsackItems.map(it => it.w+'/'+it.v).join(', ')});
   document.getElementById('cap').value = 8 + Math.floor(Math.random()*6);
 
   const wordPairs = [

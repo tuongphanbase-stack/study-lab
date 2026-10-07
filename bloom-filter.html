@@ -200,54 +200,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/bloom-filter.js"></script>
+<script src="i18n/vi/bloom-filter.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">bloom-filter</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">bloom-filter</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem active" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem active" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Bloom<span> Filter</span></h1>
-  <p class="sub">A fixed-size bit array that answers "have I seen this key before?" without storing any keys at all. Insert a few, then check one — watch how false positives can sneak in.</p>
+  <h1 data-i18n-html="title">Bloom<span> Filter</span></h1>
+  <p class="sub" data-i18n-html="sub">A fixed-size bit array that answers "have I seen this key before?" without storing any keys at all. Insert a few, then check one — watch how false positives can sneak in.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>A Bloom filter answers one question cheaply: <b style="color:var(--text)">"have I possibly seen this key before?"</b> It doesn't store the actual keys — just a row of bits — which is what makes it so small and fast. The tradeoff: it can say "definitely no," but it can only ever say "maybe yes."</p>
     <p><b style="color:var(--text)">Inserting</b> a key runs it through a few different hash functions. Each one points to a bit position, and all of those bits get flipped on.</p>
@@ -265,26 +270,26 @@
   </div>
 
 <div class="controls">
-    <input type="text" id="key" placeholder="key to add or check" value="apple">
-    <button class="primary" id="add">insert</button>
-    <button id="check">check membership</button>
-    <button id="reset">reset</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <input type="text" id="key" placeholder="key to add or check" data-i18n-attr="placeholder:keyPh" value="apple">
+    <button class="primary" id="add" data-i18n="insert">insert</button>
+    <button id="check" data-i18n="check">check membership</button>
+    <button id="reset" data-i18n="reset">reset</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
   <div class="bitsrow" id="bits"></div>
   <div class="wordlist" id="wordlist"></div>
-  <div class="status" id="status">bit array of size 24, 3 hash functions</div>
+  <div class="status" id="status" data-i18n="initial">bit array of size 24, 3 hash functions</div>
 
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function insert(bits, key):</span>
 <span class="codeline" data-line="1">    for each hashFunction in [h1, h2, h3]:      // run the key through every hash function</span>
@@ -494,10 +499,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -574,31 +578,29 @@ function render(hitSet){
 async function add(key){
   clearHighlight();
   const positions = [h1(key), h2(key), h3(key)];
-  document.getElementById('status').innerHTML = `hashing "${key}" → positions ${positions.join(', ')}`;
+  I18N.html(document.getElementById('status'), 'hashing', {k: key, p: positions.join(', ')});
   render(new Set(positions));
   highlightLine({pseudo:3, python:14, js:18, java:21, cpp:19});
   await sleep(600);
   positions.forEach(p=>bits[p]=1);
   inserted.push(key);
   render();
-  document.getElementById('status').innerHTML = `inserted "${key}" — set bits at ${positions.join(', ')}`;
+  I18N.html(document.getElementById('status'), 'inserted', {k: key, p: positions.join(', ')});
 }
 
 async function check(key){
   clearHighlight();
   const positions = [h1(key), h2(key), h3(key)];
-  document.getElementById('status').innerHTML = `checking "${key}" → positions ${positions.join(', ')}`;
+  I18N.html(document.getElementById('status'), 'checking', {k: key, p: positions.join(', ')});
   render(new Set(positions));
   highlightLine({pseudo:8, python:17, js:22, java:26, cpp:24});
   await sleep(600);
   const allSet = positions.every(p=>bits[p]===1);
   if(allSet){
     const actuallyInserted = inserted.includes(key);
-    document.getElementById('status').innerHTML = actuallyInserted
-      ? `all bits set — "${key}" is <b>probably present</b> (and it really was inserted)`
-      : `all bits set — "${key}" is <b>probably present</b>... but it was never inserted! This is a false positive caused by bit overlap with other keys.`;
+    I18N.html(document.getElementById('status'), actuallyInserted ? 'maybeTrue' : 'falsePositive', {k: key});
   } else {
-    document.getElementById('status').innerHTML = `at least one bit is 0 — "${key}" was <b>definitely never inserted</b>`;
+    I18N.html(document.getElementById('status'), 'definitelyNot', {k: key});
   }
 }
 
@@ -612,7 +614,7 @@ document.getElementById('check').onclick = ()=>{
 };
 document.getElementById('reset').onclick = ()=>{
   bits = new Array(SIZE).fill(0); inserted = []; render();
-  document.getElementById('status').textContent = 'bit array of size 24, 3 hash functions';
+  I18N.text(document.getElementById('status'), 'initial');
 };
 
 render();

@@ -193,54 +193,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/regex.js"></script>
+<script src="i18n/vi/regex.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">regex-engine</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">regex-engine</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem active" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem active" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Regex<span>-engine</span></h1>
-  <p class="sub">A simplified engine supporting literals, <code>.</code> (any char), <code>*</code> (zero or more of the previous token), and <code>+</code> (one or more). Watch it try to match the pattern against the string, position by position.</p>
+  <h1 data-i18n-html="title">Regex<span>-engine</span></h1>
+  <p class="sub" data-i18n-html="sub">A simplified engine supporting literals, <code>.</code> (any char), <code>*</code> (zero or more of the previous token), and <code>+</code> (one or more). Watch it try to match the pattern against the string, position by position.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>The pattern is broken into small pieces called <b style="color:var(--text)">tokens</b> — each one is either a literal character, a <code>.</code> (matches anything), or a character followed by <code>*</code>/<code>+</code>. The engine walks through the tokens left to right, comparing each one to the string.</p>
     <p>The tricky part is <code>*</code> and <code>+</code>, since "zero or more" or "one or more" doesn't say exactly how many characters to grab. This engine solves it with a strategy called <b style="color:var(--text)">greedy backtracking</b>:</p>
@@ -258,28 +263,28 @@
 
   </div>
 <div class="controls">
-    <input type="text" id="pattern" value="a.c*" placeholder="pattern">
-    <input type="text" id="text" value="abccc" placeholder="test string">
-    <button class="primary" id="run">▶ Step through</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <input type="text" id="pattern" value="a.c*" placeholder="pattern" data-i18n-attr="placeholder:patternPh">
+    <input type="text" id="text" value="abccc" placeholder="test string" data-i18n-attr="placeholder:textPh">
+    <button class="primary" id="run" data-i18n="run">▶ Step through</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
-  <div class="note">supported syntax: literals, <b style="color:var(--accent-dark)">.</b> any character, <b style="color:var(--accent-dark)">*</b> zero-or-more, <b style="color:var(--accent-dark)">+</b> one-or-more (applies to the token before it)</div>
+  <div class="note" data-i18n-html="note">supported syntax: literals, <b style="color:var(--accent-dark)">.</b> any character, <b style="color:var(--accent-dark)">*</b> zero-or-more, <b style="color:var(--accent-dark)">+</b> one-or-more (applies to the token before it)</div>
   <div class="panel">
     <div class="row" id="patternRow"></div>
     <div class="row" id="textRow"></div>
-    <div class="log" id="log">enter a pattern and string, then step through</div>
+    <div class="log" id="log" data-i18n="initial">enter a pattern and string, then step through</div>
     <div class="result" id="result"></div>
   </div>
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function match(text, pattern):</span>
 <span class="codeline" data-line="1">    if pattern is empty:</span>
@@ -438,10 +443,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -535,7 +539,7 @@ async function run(){
   const tokens = tokenize(pattern);
   const logEl = document.getElementById('log');
   const resultEl = document.getElementById('result');
-  resultEl.textContent = '';
+  I18N.text(resultEl, () => '');
   resultEl.className = 'result';
 
   renderRow('patternRow', tokens.map(t=>t.ch+(t.rep||'')), -1);
@@ -562,7 +566,7 @@ async function run(){
       // try longest match first, backtrack shorter
       for(let take=count; take>=minCount; take--){
         const endPos = positions[take];
-        logEl.innerHTML = `trying <b>${tok.ch}${tok.rep}</b> to consume ${take} char(s) (positions ${si}–${endPos-1})`;
+        I18N.html(logEl, 'trying', {tok: tok.ch + tok.rep, n: take, from: si, to: endPos-1});
         for(let k=si; k<endPos; k++) textStates[k]='consumed';
         renderRow('textRow', text.split(''), endPos, textStates);
         highlightLine({pseudo:8, python:8, js:7, java:8, cpp:8});
@@ -574,14 +578,14 @@ async function run(){
       return -1;
     } else {
       if(si<text.length && matchToken(tok.ch, text[si])){
-        logEl.innerHTML = `token <b>${tok.ch}</b> matches "<b>${text[si]}</b>" at position ${si}`;
+        I18N.html(logEl, 'matches', {tok: tok.ch, c: text[si], p: si});
         textStates[si]='match';
         renderRow('textRow', text.split(''), si+1, textStates);
         highlightLine({pseudo:11, python:11, js:11, java:12, cpp:12});
         await sleep(450);
         return await matchFrom(ti+1, si+1);
       } else {
-        logEl.innerHTML = `token <b>${tok.ch}</b> does not match position ${si} — dead end`;
+        I18N.html(logEl, 'noMatch', {tok: tok.ch, p: si});
         if(si<text.length){ textStates[si]='fail'; renderRow('textRow', text.split(''), si, textStates); }
         highlightLine({pseudo:11, python:11, js:11, java:12, cpp:12});
         await sleep(450);
@@ -595,7 +599,7 @@ async function run(){
   let matchedAt = -1;
   for(let start=0; start<=text.length; start++){
     for(let i=0;i<textStates.length;i++) textStates[i]=null;
-    logEl.innerHTML = `attempting match starting at position <b>${start}</b>`;
+    I18N.html(logEl, 'attempt', {p: start});
     renderRow('textRow', text.split(''), start, textStates);
     await sleep(400);
     const res = await matchFrom(0, start);
@@ -603,10 +607,10 @@ async function run(){
   }
 
   if(matchedAt!==-1){
-    resultEl.textContent = `✓ pattern found starting at position ${matchedAt}`;
+    I18N.text(resultEl, 'found', {p: matchedAt});
     resultEl.className = 'result ok';
   } else {
-    resultEl.textContent = `✗ no match anywhere in the string`;
+    I18N.text(resultEl, 'none');
     resultEl.className = 'result bad';
   }
   running = false;

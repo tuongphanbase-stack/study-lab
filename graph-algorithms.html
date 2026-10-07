@@ -187,54 +187,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/graph-algorithms.js"></script>
+<script src="i18n/vi/graph-algorithms.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">graph-algorithms</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">graph-algorithms</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem active" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem active" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Graph<span>-algorithms</span></h1>
-  <p class="sub">Same weighted graph, two different questions. Dijkstra finds the shortest path from one node to every other. Kruskal's finds the minimum-cost set of edges that connects every node with no cycles.</p>
+  <h1 data-i18n-html="title">Graph<span>-algorithms</span></h1>
+  <p class="sub" data-i18n-html="sub">Same weighted graph, two different questions. Dijkstra finds the shortest path from one node to every other. Kruskal's finds the minimum-cost set of edges that connects every node with no cycles.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p><b style="color:var(--text)">Dijkstra's algorithm</b> finds the shortest path from one starting node to every other node. Here's the process:</p>
     <ol style="margin:0 0 12px;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.75;">
@@ -259,26 +264,26 @@
   </div>
 <div class="controls">
     <select id="algo">
-      <option value="dijkstra">Dijkstra — shortest path from A</option>
-      <option value="kruskal">Kruskal — minimum spanning tree</option>
+      <option value="dijkstra" data-i18n="optDijkstra">Dijkstra — shortest path from A</option>
+      <option value="kruskal" data-i18n="optKruskal">Kruskal — minimum spanning tree</option>
     </select>
-    <button class="primary" id="run">▶ Run</button>
-    <button id="regen">New graph</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <button class="primary" id="run" data-i18n="run">▶ Run</button>
+    <button id="regen" data-i18n="newGraph">New graph</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
   <div class="stage"><svg id="svg" viewBox="0 0 640 400"></svg></div>
-  <div class="status" id="status">select an algorithm and hit run</div>
-  <div class="hint">edge labels are weights · green = finalized / included, amber = currently being considered</div>
-<div class="code-heading">Code</div>
+  <div class="status" id="status" data-i18n="initial">select an algorithm and hit run</div>
+  <div class="hint" data-i18n="hint">edge labels are weights · green = finalized / included, amber = currently being considered</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function dijkstra(graph, source):</span>
 <span class="codeline" data-line="1">    dist[source] &lt;- 0                        // zero distance to reach itself</span>
@@ -471,10 +476,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -597,7 +601,7 @@ async function runDijkstra(){
     if(u===-1) break;
     visited[u] = true;
     document.getElementById(`node-${u}`).classList.add('visited');
-    document.getElementById('status').innerHTML = `finalizing <b>${nodes[u].name}</b> at distance <b>${dist[u]}</b>`;
+    I18N.html(document.getElementById('status'), 'finalizing', {n: nodes[u].name, d: dist[u]});
     highlightLine({pseudo:6, python:8, js:9, java:8, cpp:7});
     await sleep(500);
     for(const {to,w,idx} of adj[u]){
@@ -614,7 +618,7 @@ async function runDijkstra(){
       if(!edgeEl.classList.contains('used')) edgeEl.classList.remove('used');
     }
   }
-  document.getElementById('status').innerHTML = `done — shortest distances from <b>${nodes[0].name}</b> shown above each node`;
+  I18N.html(document.getElementById('status'), 'dijkstraDone', {n: nodes[0].name});
 }
 
 async function runKruskal(){
@@ -627,7 +631,7 @@ async function runKruskal(){
   for(const e of order){
     const edgeEl = document.getElementById(`edge-${e.i}`);
     edgeEl.classList.add('consider');
-    document.getElementById('status').innerHTML = `considering ${nodes[e.a].name}–${nodes[e.b].name} (weight ${e.w})`;
+    I18N.html(document.getElementById('status'), 'considering', {a: nodes[e.a].name, b: nodes[e.b].name, w: e.w});
     await sleep(450);
     edgeEl.classList.remove('consider');
     if(find(e.a)!==find(e.b)){
@@ -642,7 +646,7 @@ async function runKruskal(){
     }
     if(used===nodes.length-1) break;
   }
-  document.getElementById('status').innerHTML = `done — minimum spanning tree total weight: <b>${totalWeight}</b>`;
+  I18N.html(document.getElementById('status'), 'kruskalDone', {w: totalWeight});
 }
 
 document.getElementById('run').onclick = async ()=>{

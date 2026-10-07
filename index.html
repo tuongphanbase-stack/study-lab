@@ -157,228 +157,232 @@
   }
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/vi/index.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
 <div class="navbar-outer">
 <nav>
-  <button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">☰</button>
+  <button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">☰</button>
   <a class="logo" href="index.html"><span class="tile">◆</span><span class="pill">study://lab</span></a>
-  <span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span>
+  <span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span>
   <a class="ghlink" href="https://github.com/tuongphanbase-stack" target="_blank" rel="noopener">GitHub ↗</a>
 </nav>
 </div>
 
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview active" href="index.html">◆ Overview</a>
+  <a class="navitem overview active" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <div class="hero">
-  <h1>Learn CS concepts by <span>watching them run</span></h1>
-  <p class="lede">22 interactive visualizers for algorithms and data structures — pick a topic below to get started.</p>
+  <h1 data-i18n-html="heroTitle">Learn CS concepts by <span>watching them run</span></h1>
+  <p class="lede" data-i18n="lede">22 interactive visualizers for algorithms and data structures — pick a topic below to get started.</p>
 </div>
 
 <main>
-  <div class="grid-heading" id="topics">all topics</div>
+  <div class="grid-heading" id="topics" data-i18n="allTopics">all topics</div>
   <div class="grid">
 
     <a class="card" href="pathfinding.html">
       <div class="num">01</div>
-      <h3>Pathfinding</h3>
-      <p>BFS, DFS, Dijkstra &amp; A* racing across a grid you draw walls on.</p>
-      <div class="foot"><span class="tag">O(V+E)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.pathfinding">Pathfinding</h3>
+      <p data-i18n="card.pathfinding">BFS, DFS, Dijkstra &amp; A* racing across a grid you draw walls on.</p>
+      <div class="foot"><span class="tag">O(V+E)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="searching.html">
       <div class="num">02</div>
-      <h3>Searching</h3>
-      <p>Linear vs. binary search, step by step, side by side.</p>
-      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.searching">Searching</h3>
+      <p data-i18n="card.searching">Linear vs. binary search, step by step, side by side.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="data-structures.html">
       <div class="num">03</div>
-      <h3>Data Structures</h3>
-      <p>Stack, queue, linked list &amp; binary tree — push, pop, insert, live.</p>
-      <div class="foot"><span class="tag">O(1)–O(n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.data-structures">Data Structures</h3>
+      <p data-i18n="card.data-structures">Stack, queue, linked list &amp; binary tree — push, pop, insert, live.</p>
+      <div class="foot"><span class="tag">O(1)–O(n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="recursion.html">
       <div class="num">04</div>
-      <h3>Recursion</h3>
-      <p>Watch the call stack grow and shrink: fibonacci &amp; N-Queens backtracking.</p>
-      <div class="foot"><span class="tag">O(2ⁿ)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.recursion">Recursion</h3>
+      <p data-i18n="card.recursion">Watch the call stack grow and shrink: fibonacci &amp; N-Queens backtracking.</p>
+      <div class="foot"><span class="tag">O(2ⁿ)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="graph-algorithms.html">
       <div class="num">05</div>
-      <h3>Graph Algorithms</h3>
-      <p>Dijkstra's shortest path &amp; Kruskal's MST on a node-edge graph.</p>
-      <div class="foot"><span class="tag">O(E log V)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.graph-algorithms">Graph Algorithms</h3>
+      <p data-i18n="card.graph-algorithms">Dijkstra's shortest path &amp; Kruskal's MST on a node-edge graph.</p>
+      <div class="foot"><span class="tag">O(E log V)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="hashtable.html">
       <div class="num">06</div>
-      <h3>Hash Table</h3>
-      <p>Buckets, hash collisions, chaining &amp; live resizing.</p>
-      <div class="foot"><span class="tag">O(1) avg</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.hashtable">Hash Table</h3>
+      <p data-i18n="card.hashtable">Buckets, hash collisions, chaining &amp; live resizing.</p>
+      <div class="foot"><span class="tag">O(1) avg</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="regex.html">
       <div class="num">07</div>
-      <h3>Regex Engine</h3>
-      <p>Step through a pattern matching a string, character by character.</p>
-      <div class="foot"><span class="tag">O(nm)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.regex">Regex Engine</h3>
+      <p data-i18n="card.regex">Step through a pattern matching a string, character by character.</p>
+      <div class="foot"><span class="tag">O(nm)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="dp.html">
       <div class="num">08</div>
-      <h3>Dynamic Programming</h3>
-      <p>Memoization tables filling in live: fibonacci, knapsack, edit distance.</p>
-      <div class="foot"><span class="tag">O(n·W)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.dp">Dynamic Programming</h3>
+      <p data-i18n="card.dp">Memoization tables filling in live: fibonacci, knapsack, edit distance.</p>
+      <div class="foot"><span class="tag">O(n·W)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="bitwise.html">
       <div class="num">09</div>
-      <h3>Bitwise Ops</h3>
-      <p>AND / OR / XOR / shifts, one bit at a time, on an 8-bit grid.</p>
-      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.bitwise">Bitwise Ops</h3>
+      <p data-i18n="card.bitwise">AND / OR / XOR / shifts, one bit at a time, on an 8-bit grid.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
   </div>
 
-  <div class="grid-heading">more topics</div>
+  <div class="grid-heading" data-i18n="moreTopics">more topics</div>
   <div class="grid">
 
     <a class="card" href="sorting-comparison.html">
       <div class="num">10</div>
-      <h3>Sorting Comparison</h3>
-      <p>Quicksort, merge sort &amp; heap sort race on the same array, side by side.</p>
-      <div class="foot"><span class="tag">O(n log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.sorting-comparison">Sorting Comparison</h3>
+      <p data-i18n="card.sorting-comparison">Quicksort, merge sort &amp; heap sort race on the same array, side by side.</p>
+      <div class="foot"><span class="tag">O(n log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="trie.html">
       <div class="num">11</div>
-      <h3>Trie</h3>
-      <p>A prefix tree with live autocomplete — type a prefix, see matching words light up.</p>
-      <div class="foot"><span class="tag">O(k)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.trie">Trie</h3>
+      <p data-i18n="card.trie">A prefix tree with live autocomplete — type a prefix, see matching words light up.</p>
+      <div class="foot"><span class="tag">O(k)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="heap.html">
       <div class="num">12</div>
-      <h3>Heap / Priority Queue</h3>
-      <p>Insert and extract-min with live sift-up / sift-down animations.</p>
-      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.heap">Heap / Priority Queue</h3>
+      <p data-i18n="card.heap">Insert and extract-min with live sift-up / sift-down animations.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="union-find.html">
       <div class="num">13</div>
-      <h3>Union-Find</h3>
-      <p>Union groups together and watch path compression flatten the tree.</p>
-      <div class="foot"><span class="tag">~O(1)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.union-find">Union-Find</h3>
+      <p data-i18n="card.union-find">Union groups together and watch path compression flatten the tree.</p>
+      <div class="foot"><span class="tag">~O(1)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="sliding-window.html">
       <div class="num">14</div>
-      <h3>Sliding Window</h3>
-      <p>Two pointers sweep a string to find the longest substring without repeats.</p>
-      <div class="foot"><span class="tag">O(n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.sliding-window">Sliding Window</h3>
+      <p data-i18n="card.sliding-window">Two pointers sweep a string to find the longest substring without repeats.</p>
+      <div class="foot"><span class="tag">O(n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="topological-sort.html">
       <div class="num">15</div>
-      <h3>Topological Sort</h3>
-      <p>Kahn's algorithm schedules tasks in dependency order on a live DAG.</p>
-      <div class="foot"><span class="tag">O(V+E)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.topological-sort">Topological Sort</h3>
+      <p data-i18n="card.topological-sort">Kahn's algorithm schedules tasks in dependency order on a live DAG.</p>
+      <div class="foot"><span class="tag">O(V+E)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="lru-cache.html">
       <div class="num">16</div>
-      <h3>LRU Cache</h3>
-      <p>Hash map + linked list combo — watch eviction happen when the cache overflows.</p>
-      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.lru-cache">LRU Cache</h3>
+      <p data-i18n="card.lru-cache">Hash map + linked list combo — watch eviction happen when the cache overflows.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="segment-tree.html">
       <div class="num">17</div>
-      <h3>Segment Tree</h3>
-      <p>Range-sum queries answered in log time by pre-combining ranges into a tree.</p>
-      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.segment-tree">Segment Tree</h3>
+      <p data-i18n="card.segment-tree">Range-sum queries answered in log time by pre-combining ranges into a tree.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="bloom-filter.html">
       <div class="num">18</div>
-      <h3>Bloom Filter</h3>
-      <p>Multiple hash functions light up bits — no keys stored, but false positives possible.</p>
-      <div class="foot"><span class="tag">O(k)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.bloom-filter">Bloom Filter</h3>
+      <p data-i18n="card.bloom-filter">Multiple hash functions light up bits — no keys stored, but false positives possible.</p>
+      <div class="foot"><span class="tag">O(k)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="consistent-hashing.html">
       <div class="num">19</div>
-      <h3>Consistent Hashing</h3>
-      <p>Servers and keys share a ring, so adding a server barely disturbs the rest.</p>
-      <div class="foot"><span class="tag">O(1/N)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.consistent-hashing">Consistent Hashing</h3>
+      <p data-i18n="card.consistent-hashing">Servers and keys share a ring, so adding a server barely disturbs the rest.</p>
+      <div class="foot"><span class="tag">O(1/N)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="big-number-exponentiation.html">
       <div class="num">20</div>
-      <h3>Fast Exponentiation</h3>
-      <p>Exponentiation by squaring — walking the exponent's binary digits.</p>
-      <div class="foot"><span class="tag">O(log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</h3>
+      <p data-i18n="card.big-number-exponentiation">Exponentiation by squaring — walking the exponent's binary digits.</p>
+      <div class="foot"><span class="tag">O(log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="fsm.html">
       <div class="num">21</div>
-      <h3>Finite State Machine</h3>
-      <p>A turnstile simulator — states plus a transition table, one input at a time.</p>
-      <div class="foot"><span class="tag">O(1)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.fsm">Finite State Machine</h3>
+      <p data-i18n="card.fsm">A turnstile simulator — states plus a transition table, one input at a time.</p>
+      <div class="foot"><span class="tag">O(1)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
     <a class="card" href="huffman-coding.html">
       <div class="num">22</div>
-      <h3>Huffman Coding</h3>
-      <p>Build a compression tree live from character frequencies, then see the encoded bits.</p>
-      <div class="foot"><span class="tag">O(n log n)</span><span class="go">Open →</span></div>
+      <h3 data-i18n="lesson.huffman-coding">Huffman Coding</h3>
+      <p data-i18n="card.huffman-coding">Build a compression tree live from character frequencies, then see the encoded bits.</p>
+      <div class="foot"><span class="tag">O(n log n)</span><span class="go" data-i18n="open">Open →</span></div>
     </a>
 
   </div>
 </main>
 
-<footer>
+<footer data-i18n-html="footer">
   Built to sit alongside <a href="https://github.com/tuongphanbase-stack/big-o-explained">big-o-explained</a> and <a href="https://github.com/tuongphanbase-stack/sorting-algorithms">sorting-algorithms</a> — plain HTML/CSS/JS, no frameworks.
 </footer>
 </div>

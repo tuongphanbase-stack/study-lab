@@ -193,54 +193,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/consistent-hashing.js"></script>
+<script src="i18n/vi/consistent-hashing.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">consistent-hashing</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">consistent-hashing</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem active" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem active" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Consistent<span> Hashing</span></h1>
-  <p class="sub">Servers and keys share one ring instead of a plain hash % N. Add or remove a server and watch how little needs to be remapped, compared to a plain modulo scheme where almost everything would move.</p>
+  <h1 data-i18n-html="title">Consistent<span> Hashing</span></h1>
+  <p class="sub" data-i18n-html="sub">Servers and keys share one ring instead of a plain hash % N. Add or remove a server and watch how little needs to be remapped, compared to a plain modulo scheme where almost everything would move.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>A simple way to split data across servers is <code>hash(key) % number_of_servers</code>. It works fine — until you add or remove a server. The moment the server count changes, almost <b style="color:var(--text)">every</b> key's target server changes too, forcing a huge amount of data to move around.</p>
     <p>Consistent hashing fixes this with a different setup: imagine a circle (a "ring"). Both <b style="color:var(--text)">servers</b> and <b style="color:var(--text)">keys</b> get placed somewhere on that same ring, based on their hash. A key belongs to whichever server is the <b style="color:var(--text)">next one clockwise</b> from it.</p>
@@ -253,24 +258,24 @@
   </div>
 
 <div class="controls">
-    <button class="primary" id="addServer">add server</button>
-    <button id="removeServer">remove a server</button>
-    <button id="addKey">add key</button>
-    <button id="reset">reset</button>
+    <button class="primary" id="addServer" data-i18n="addServer">add server</button>
+    <button id="removeServer" data-i18n="removeServer">remove a server</button>
+    <button id="addKey" data-i18n="addKey">add key</button>
+    <button id="reset" data-i18n="reset">reset</button>
   </div>
   <div class="stage"><svg id="svg" viewBox="0 0 400 400"></svg></div>
-  <div class="status" id="status">servers and keys share one ring — a key belongs to the next server clockwise</div>
+  <div class="status" id="status" data-i18n="initial">servers and keys share one ring — a key belongs to the next server clockwise</div>
 
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function addServer(ring, serverName):</span>
 <span class="codeline" data-line="1">    position &lt;- hash(serverName) mod ringSize      // where this server lands on the ring</span>
@@ -469,10 +474,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -568,13 +572,13 @@ document.getElementById('addServer').onclick = ()=>{
   const name = 'S'+serverCount;
   servers.push({name, hash: hashOf(name)});
   render();
-  document.getElementById('status').innerHTML = `added server ${name} — only keys between it and the previous server on the ring get reassigned`;
+  I18N.html(document.getElementById('status'), 'added', {n: name});
 };
 document.getElementById('removeServer').onclick = ()=>{
   if(servers.length===0) return;
   const removed = servers.pop();
   render();
-  document.getElementById('status').innerHTML = `removed ${removed.name} — its keys fall to the next server clockwise; nothing else moves`;
+  I18N.html(document.getElementById('status'), 'removed', {n: removed.name});
 };
 document.getElementById('addKey').onclick = ()=>{
   keyCount++;
@@ -582,13 +586,11 @@ document.getElementById('addKey').onclick = ()=>{
   keys.push({name, hash: hashOf(name)});
   render();
   const owner = findServerFor(name);
-  document.getElementById('status').innerHTML = owner
-    ? `key ${name} maps to server ${owner.name} (next clockwise on the ring)`
-    : `key ${name} added — add a server to see where it maps`;
+  I18N.html(document.getElementById('status'), owner ? 'maps' : 'keyAdded', {k: name, s: owner ? owner.name : ''});
 };
 document.getElementById('reset').onclick = ()=>{
   servers=[]; keys=[]; serverCount=0; keyCount=0; render();
-  document.getElementById('status').textContent = 'servers and keys share one ring — a key belongs to the next server clockwise';
+  I18N.text(document.getElementById('status'), 'initial');
 };
 
 const initServerNames = ['S1','S2','S3','S4'].slice(0, 3+Math.floor(Math.random()*2));

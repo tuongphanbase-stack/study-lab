@@ -198,54 +198,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/heap.js"></script>
+<script src="i18n/vi/heap.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">heap</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">heap</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem active" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem active" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Heap<span> / Priority Queue</span></h1>
-  <p class="sub">A binary min-heap always keeps the smallest value at the root. Insert a value and watch it sift up; extract the min and watch the last element sift back down into place.</p>
+  <h1 data-i18n-html="title">Heap<span> / Priority Queue</span></h1>
+  <p class="sub" data-i18n-html="sub">A binary min-heap always keeps the smallest value at the root. Insert a value and watch it sift up; extract the min and watch the last element sift back down into place.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>A binary min-heap follows one simple rule everywhere in the tree: <b style="color:var(--text)">every parent is smaller than or equal to both of its children.</b> Because of that rule, the smallest value in the whole heap is always sitting right at the top — no searching needed.</p>
     <p><b style="color:var(--text)">Insert:</b></p>
@@ -270,26 +275,26 @@
   </div>
 
 <div class="controls">
-    <input type="number" id="val" value="5" placeholder="value">
-    <button class="primary" id="insert">insert</button>
-    <button id="extract">extract-min</button>
-    <button id="reset">reset</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <input type="number" id="val" value="5" placeholder="value" data-i18n-attr="placeholder:value">
+    <button class="primary" id="insert" data-i18n="insert">insert</button>
+    <button id="extract" data-i18n="extract">extract-min</button>
+    <button id="reset" data-i18n="reset">reset</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
   <div class="panel"><div id="tree"></div></div>
   <div class="arrview" id="arrview"></div>
-  <div class="status" id="status">heap is empty</div>
+  <div class="status" id="status" data-i18n="heapEmpty">heap is empty</div>
 
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function insert(heap, value):</span>
 <span class="codeline" data-line="1">    heap.append(value)                          // add at the next open spot (keeps it balanced)</span>
@@ -510,10 +515,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -573,11 +577,11 @@ function sleep(ms){ return new Promise(r=>setTimeout(r, ms / animSpeed)); }
 
 function renderArr(activeIdx){
   document.getElementById('arrview').innerHTML = heap.map((v,i)=>
-    `<div class="aitem ${i===activeIdx?'active':''}">[${i}] ${v}</div>`).join('') || '<span style="color:var(--dim);font-size:13px;">empty</span>';
+    `<div class="aitem ${i===activeIdx?'active':''}">[${i}] ${v}</div>`).join('') || `<span style="color:var(--dim);font-size:13px;" data-i18n="empty">${I18N.t('empty')}</span>`;
 }
 
 function renderTree(activeIdx){
-  if(heap.length===0){ document.getElementById('tree').innerHTML = '<span style="color:var(--dim);font-size:13px;">empty heap</span>'; return; }
+  if(heap.length===0){ document.getElementById('tree').innerHTML = `<span style="color:var(--dim);font-size:13px;" data-i18n="emptyHeap">${I18N.t('emptyHeap')}</span>`; return; }
   const positions = [];
   function layout(i, depth, xMin, xMax){
     if(i>=heap.length) return;
@@ -603,7 +607,7 @@ async function siftUp(i){
   while(i>0){
     const parent = Math.floor((i-1)/2);
     renderTree(i);
-    document.getElementById('status').innerHTML = `comparing new value at index ${i} with parent at index ${parent}`;
+    I18N.html(document.getElementById('status'), 'cmpParent', {i, p: parent});
     highlightLine({pseudo:3, js:9});
     await sleep(450);
     if(heap[i] < heap[parent]){
@@ -624,7 +628,7 @@ async function siftDown(i){
     if(l<n && heap[l]<heap[smallest]) smallest=l;
     if(r<n && heap[r]<heap[smallest]) smallest=r;
     renderTree(i);
-    document.getElementById('status').innerHTML = `checking children of index ${i} for the smaller value`;
+    I18N.html(document.getElementById('status'), 'checkChildren', {i});
     highlightLine({pseudo:16, python:24, js:30, java:12, cpp:13});
     await sleep(450);
     if(smallest!==i){
@@ -643,18 +647,18 @@ document.getElementById('insert').onclick = async ()=>{
   const v = +document.getElementById('val').value || Math.floor(Math.random()*90);
   heap.push(v);
   renderArr(heap.length-1); renderTree(heap.length-1);
-  document.getElementById('status').innerHTML = `inserted ${v} at the end, now sifting up`;
+  I18N.html(document.getElementById('status'), 'inserted', {v});
   highlightLine({pseudo:1, python:4, js:5, java:2, cpp:3});
   await sleep(350);
   await siftUp(heap.length-1);
-  document.getElementById('status').innerHTML = `done — heap property restored`;
+  I18N.html(document.getElementById('status'), 'restored');
 };
 
 document.getElementById('extract').onclick = async ()=>{
   clearHighlight();
-  if(heap.length===0){ document.getElementById('status').textContent = 'heap is empty'; return; }
+  if(heap.length===0){ I18N.text(document.getElementById('status'), 'heapEmpty'); return; }
   const min = heap[0];
-  document.getElementById('status').innerHTML = `extracting min (${min}) from the root`;
+  I18N.html(document.getElementById('status'), 'extracting', {m: min});
   highlightLine({pseudo:8, python:8, js:17, java:6, cpp:7});
   const last = heap.pop();
   if(heap.length>0){
@@ -663,12 +667,12 @@ document.getElementById('extract').onclick = async ()=>{
     await sleep(400);
     await siftDown(0);
   } else { renderArr(); renderTree(); }
-  document.getElementById('status').innerHTML = `extracted <b>${min}</b> — heap property restored`;
+  I18N.html(document.getElementById('status'), 'extracted', {m: min});
 };
 
 document.getElementById('reset').onclick = ()=>{
   heap = []; renderArr(); renderTree();
-  document.getElementById('status').textContent = 'heap is empty';
+  I18N.text(document.getElementById('status'), 'heapEmpty');
 };
 
 Array.from({length: 6 + Math.floor(Math.random()*3)}, () => Math.floor(Math.random()*45)+1).forEach(v=>heap.push(v));
@@ -683,7 +687,7 @@ for(let i=Math.floor(heap.length/2)-1;i>=0;i--){
   }
 }
 renderArr(); renderTree();
-document.getElementById('status').textContent = 'starting heap ready — try insert or extract-min';
+I18N.text(document.getElementById('status'), 'ready');
 
 </script>
 <script src="lab-quizzes.js"></script>

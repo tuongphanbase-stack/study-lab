@@ -198,54 +198,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/segment-tree.js"></script>
+<script src="i18n/vi/segment-tree.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">segment-tree</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">segment-tree</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem active" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem active" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Segment<span> Tree</span></h1>
-  <p class="sub">A tree that pre-combines array ranges so range-sum queries take O(log n) instead of O(n). Build the tree, then query any range and watch it decide which nodes it can trust directly.</p>
+  <h1 data-i18n-html="title">Segment<span> Tree</span></h1>
+  <p class="sub" data-i18n-html="sub">A tree that pre-combines array ranges so range-sum queries take O(log n) instead of O(n). Build the tree, then query any range and watch it decide which nodes it can trust directly.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p>A plain array can answer "what's the sum of this range?" but it has to add up every number each time, which gets slow for large ranges. A segment tree answers the same question much faster by pre-calculating sums ahead of time and storing them in a tree.</p>
     <p><b style="color:var(--text)">Building the tree:</b> each leaf holds one number from the array. Every node above a leaf holds the sum of its two children. Keep combining upward until the very top node holds the sum of the whole array.</p>
@@ -264,28 +269,28 @@
   </div>
 
 <div class="controls">
-    <input type="text" id="array" value="2,4,5,7,8,9" placeholder="comma-separated numbers">
-    <button id="build">build tree</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <input type="text" id="array" value="2,4,5,7,8,9" placeholder="comma-separated numbers" data-i18n-attr="placeholder:arrayPh">
+    <button id="build" data-i18n="build">build tree</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
   <div class="leaves" id="leaves"></div>
   <div class="controls">
-    <label>range [<input type="number" id="ql" value="1" style="width:60px">, <input type="number" id="qr" value="4" style="width:60px">]</label>
-    <button class="primary" id="query">▶ Query sum</button>
+    <label><span data-i18n="range">range</span> [<input type="number" id="ql" value="1" style="width:60px">, <input type="number" id="qr" value="4" style="width:60px">]</label>
+    <button class="primary" id="query" data-i18n="query">▶ Query sum</button>
   </div>
   <div class="panel"><div id="tree"></div></div>
-  <div class="status" id="status">build the tree, then query a range</div>
+  <div class="status" id="status" data-i18n="initial">build the tree, then query a range</div>
 
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function build(tree, arr, node, start, end):</span>
 <span class="codeline" data-line="1">    if start == end:                       // a single-element range: this is a leaf</span>
@@ -494,10 +499,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -608,13 +612,13 @@ async function query(node, l, r, visited, result){
   if(r < t.start || t.end < l) return 0;
   visited.add(node);
   layoutAndDraw(visited, result);
-  document.getElementById('status').innerHTML = `visiting node covering [${t.start}, ${t.end}] for query [${l}, ${r}]`;
+  I18N.html(document.getElementById('status'), 'visiting', {s: t.start, e: t.end, l, r});
   highlightLine({pseudo:10, python:19, js:16, java:19, cpp:20});
   await sleep(500);
   if(l <= t.start && t.end <= r){
     result.add(node);
     layoutAndDraw(visited, result);
-    document.getElementById('status').innerHTML = `[${t.start}, ${t.end}] is fully inside [${l}, ${r}] — use precomputed sum ${t.sum} directly`;
+    I18N.html(document.getElementById('status'), 'inside', {s: t.start, e: t.end, l, r, sum: t.sum});
     highlightLine({pseudo:11, python:21, js:17, java:20, cpp:21});
     await sleep(500);
     return t.sum;
@@ -633,18 +637,18 @@ document.getElementById('build').onclick = ()=>{
   layoutAndDraw();
   document.getElementById('ql').max = n-1;
   document.getElementById('qr').max = n-1;
-  document.getElementById('status').textContent = 'tree built — try a range query';
+  I18N.text(document.getElementById('status'), 'built');
 };
 
 document.getElementById('query').onclick = async ()=>{
-  if(tree.length===0){ document.getElementById('status').textContent = 'build the tree first'; return; }
+  if(tree.length===0){ I18N.text(document.getElementById('status'), 'buildFirst'); return; }
   document.getElementById('query').disabled = true;
   clearHighlight();
   const l = Math.max(0, Math.min(n-1, +document.getElementById('ql').value||0));
   const r = Math.max(0, Math.min(n-1, +document.getElementById('qr').value||0));
   const visited = new Set(), result = new Set();
   const sum = await query(0, Math.min(l,r), Math.max(l,r), visited, result);
-  document.getElementById('status').innerHTML = `sum of range [${Math.min(l,r)}, ${Math.max(l,r)}] = <b>${sum}</b>`;
+  I18N.html(document.getElementById('status'), 'sum', {l: Math.min(l,r), r: Math.max(l,r), sum});
   document.getElementById('query').disabled = false;
 };
 

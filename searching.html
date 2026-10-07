@@ -189,54 +189,59 @@
   .run-hint{font-size:12px;color:var(--dim);margin-top:-4px;margin-bottom:10px;}
 </style>
 <link rel="stylesheet" href="lab.css">
+<script src="i18n/en.js"></script>
+<script src="i18n/vi.js"></script>
+<script src="i18n/en/searching.js"></script>
+<script src="i18n/vi/searching.js"></script>
+<script src="i18n/i18n.js"></script>
 </head>
 <body>
-<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">searching</span><span class="navsearch">⌕ Search topics... <span class="kbd">Ctrl K</span></span></nav></div>
+<div class="navbar-outer"><nav><span class="tile">◆</span><button class="navtoggle" id="sidebarToggle" title="Toggle sidebar" data-i18n-attr="title:nav.toggleSidebar">≡</button><a class="back" href="index.html">study://lab</a><span class="crumb">/</span><span class="crumb-current">searching</span><span class="navsearch"><span data-i18n="nav.search">⌕ Search topics...</span> <span class="kbd">Ctrl K</span></span></nav></div>
 <div class="layout">
 <aside class="sidebar">
-  <a class="navitem overview" href="index.html">◆ Overview</a>
+  <a class="navitem overview" href="index.html" data-i18n="nav.overview">◆ Overview</a>
   <div class="navgroup">
-    <div class="navgroup-label">Fundamentals <span class="chev">⌄</span></div>
-    <a class="navitem" href="pathfinding.html">Pathfinding</a>
-    <a class="navitem active" href="searching.html">Searching</a>
-    <a class="navitem" href="sorting-comparison.html">Sorting Comparison</a>
-    <a class="navitem" href="recursion.html">Recursion</a>
-    <a class="navitem" href="bitwise.html">Bitwise Ops</a>
-    <a class="navitem" href="big-number-exponentiation.html">Fast Exponentiation</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.fundamentals">Fundamentals</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="pathfinding.html" data-i18n="lesson.pathfinding">Pathfinding</a>
+    <a class="navitem active" href="searching.html" data-i18n="lesson.searching">Searching</a>
+    <a class="navitem" href="sorting-comparison.html" data-i18n="lesson.sorting-comparison">Sorting Comparison</a>
+    <a class="navitem" href="recursion.html" data-i18n="lesson.recursion">Recursion</a>
+    <a class="navitem" href="bitwise.html" data-i18n="lesson.bitwise">Bitwise Ops</a>
+    <a class="navitem" href="big-number-exponentiation.html" data-i18n="lesson.big-number-exponentiation">Fast Exponentiation</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Data Structures <span class="chev">⌄</span></div>
-    <a class="navitem" href="data-structures.html">Data Structures</a>
-    <a class="navitem" href="trie.html">Trie</a>
-    <a class="navitem" href="heap.html">Heap / Priority Queue</a>
-    <a class="navitem" href="union-find.html">Union-Find</a>
-    <a class="navitem" href="hashtable.html">Hash Table</a>
-    <a class="navitem" href="lru-cache.html">LRU Cache</a>
-    <a class="navitem" href="segment-tree.html">Segment Tree</a>
-    <a class="navitem" href="bloom-filter.html">Bloom Filter</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.dataStructures">Data Structures</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="data-structures.html" data-i18n="lesson.data-structures">Data Structures</a>
+    <a class="navitem" href="trie.html" data-i18n="lesson.trie">Trie</a>
+    <a class="navitem" href="heap.html" data-i18n="lesson.heap">Heap / Priority Queue</a>
+    <a class="navitem" href="union-find.html" data-i18n="lesson.union-find">Union-Find</a>
+    <a class="navitem" href="hashtable.html" data-i18n="lesson.hashtable">Hash Table</a>
+    <a class="navitem" href="lru-cache.html" data-i18n="lesson.lru-cache">LRU Cache</a>
+    <a class="navitem" href="segment-tree.html" data-i18n="lesson.segment-tree">Segment Tree</a>
+    <a class="navitem" href="bloom-filter.html" data-i18n="lesson.bloom-filter">Bloom Filter</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Graphs <span class="chev">⌄</span></div>
-    <a class="navitem" href="graph-algorithms.html">Graph Algorithms</a>
-    <a class="navitem" href="topological-sort.html">Topological Sort</a>
-    <a class="navitem" href="consistent-hashing.html">Consistent Hashing</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.graphs">Graphs</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="graph-algorithms.html" data-i18n="lesson.graph-algorithms">Graph Algorithms</a>
+    <a class="navitem" href="topological-sort.html" data-i18n="lesson.topological-sort">Topological Sort</a>
+    <a class="navitem" href="consistent-hashing.html" data-i18n="lesson.consistent-hashing">Consistent Hashing</a>
   </div>
   <div class="navgroup">
-    <div class="navgroup-label">Patterns <span class="chev">⌄</span></div>
-    <a class="navitem" href="sliding-window.html">Sliding Window</a>
-    <a class="navitem" href="dp.html">Dynamic Programming</a>
-    <a class="navitem" href="regex.html">Regex Engine</a>
-    <a class="navitem" href="fsm.html">Finite State Machine</a>
-    <a class="navitem" href="huffman-coding.html">Huffman Coding</a>
+    <div class="navgroup-label"><span data-i18n="nav.group.patterns">Patterns</span> <span class="chev">⌄</span></div>
+    <a class="navitem" href="sliding-window.html" data-i18n="lesson.sliding-window">Sliding Window</a>
+    <a class="navitem" href="dp.html" data-i18n="lesson.dp">Dynamic Programming</a>
+    <a class="navitem" href="regex.html" data-i18n="lesson.regex">Regex Engine</a>
+    <a class="navitem" href="fsm.html" data-i18n="lesson.fsm">Finite State Machine</a>
+    <a class="navitem" href="huffman-coding.html" data-i18n="lesson.huffman-coding">Huffman Coding</a>
   </div>
 </aside>
 <div class="main-content">
 <header>
-  <h1>Search<span>ing</span></h1>
-  <p class="sub">Linear search checks every box in order — O(n). Binary search only works on a sorted array, but halves the search space each step — O(log n). Same array, same target, run both.</p>
+  <h1 data-i18n-html="title">Search<span>ing</span></h1>
+  <p class="sub" data-i18n-html="sub">Linear search checks every box in order — O(n). Binary search only works on a sorted array, but halves the search space each step — O(log n). Same array, same target, run both.</p>
 </header>
 <main>
-  <div class="explain">
+  <div class="explain" data-i18n-html="explain">
     <h2>How it works</h2>
     <p><b style="color:var(--text)">Linear search</b> is the simple way: check index 0, then 1, then 2, and so on, until you find the target or run out of items. It never skips anything, so in the worst case it checks all <code>n</code> items.</p>
     <p><b style="color:var(--text)">Binary search</b> is much faster, but only works on a sorted array. Here's the idea:</p>
@@ -257,36 +262,36 @@
 
   </div>
 <div class="controls">
-    <label>size <input type="number" id="size" value="24" min="6" max="40"></label>
-    <label>target <input type="number" id="target" value="0"></label>
-    <button id="regen">New array</button>
-    <button class="primary" id="run">▶ Run both</button>
-    <span class="speedctl">speed <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
+    <label><span data-i18n="size">size</span> <input type="number" id="size" value="24" min="6" max="40"></label>
+    <label><span data-i18n="target">target</span> <input type="number" id="target" value="0"></label>
+    <button id="regen" data-i18n="newArray">New array</button>
+    <button class="primary" id="run" data-i18n="runBoth">▶ Run both</button>
+    <span class="speedctl"><span data-i18n="ui.speed">speed</span> <select id="speedSelect"><option value="0.25">0.25x</option><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="2">2x</option><option value="4">4x</option></select></span>
   </div>
 
   <div class="panel">
-    <h2>linear search — O(n)</h2>
-    <p class="desc">Steps through the array left to right until it finds the target or runs out of boxes.</p>
+    <h2 data-i18n="linearTitle">linear search — O(n)</h2>
+    <p class="desc" data-i18n="linearDesc">Steps through the array left to right until it finds the target or runs out of boxes.</p>
     <div class="array" id="linearArr"></div>
-    <div class="status" id="linearStatus">comparisons: <b>0</b></div>
+    <div class="status" id="linearStatus" data-i18n-html="cmp" data-i18n-vars='{"c":0}'>comparisons: <b>0</b></div>
   </div>
 
   <div class="panel">
-    <h2>binary search — O(log n)</h2>
-    <p class="desc">Array is sorted first. Each step checks the middle of the remaining range and throws away the half that can't contain the target.</p>
+    <h2 data-i18n="binaryTitle">binary search — O(log n)</h2>
+    <p class="desc" data-i18n="binaryDesc">Array is sorted first. Each step checks the middle of the remaining range and throws away the half that can't contain the target.</p>
     <div class="array" id="binaryArr"></div>
-    <div class="status" id="binaryStatus">comparisons: <b>0</b></div>
+    <div class="status" id="binaryStatus" data-i18n-html="cmp" data-i18n-vars='{"c":0}'>comparisons: <b>0</b></div>
   </div>
-<div class="code-heading">Code</div>
+<div class="code-heading" data-i18n="ui.code">Code</div>
 <div class="codebox">
   <div class="codetabs">
     <span class="code-dots"><span></span><span></span><span></span></span>
-    <button class="codetab active" data-lang="pseudo">Pseudocode</button>
+    <button class="codetab active" data-lang="pseudo" data-i18n="ui.pseudocode">Pseudocode</button>
     <button class="codetab" data-lang="python">Python</button>
     <button class="codetab" data-lang="js">JavaScript</button>
     <button class="codetab" data-lang="java">Java</button>
     <button class="codetab" data-lang="cpp">C++</button>
-    <button class="copy-btn">⧉ Copy</button>
+    <button class="copy-btn" data-i18n="ui.copy">⧉ Copy</button>
   </div>
   <pre class="codeblock" data-lang="pseudo"><code><span class="codeline" data-line="0">function binarySearch(array, target):</span>
 <span class="codeline" data-line="1">    low &lt;- 0                          // left edge of the range still worth checking</span>
@@ -443,10 +448,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (!activeBlock) return;
     const text = [...activeBlock.querySelectorAll('.codeline')].map(l => l.textContent).join('\n');
     navigator.clipboard.writeText(text).then(() => {
-      const original = btn.textContent;
       btn.classList.add('copied');
-      btn.textContent = '\u2713 Copied';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = original; }, 1500);
+      btn.textContent = I18N.t('ui.copied');
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = I18N.t('ui.copy'); }, 1500);
     }).catch(() => {});
   });
 });
@@ -539,18 +543,18 @@ async function runLinear(t){
   for(let i=0;i<arr.length;i++){
     boxes[i].classList.add('check');
     comps++;
-    statusEl.innerHTML = `comparisons: <b>${comps}</b> — checking index ${i}`;
+    I18N.html(statusEl, 'cmpChecking', {c: comps, i});
     await sleep(180);
     if(arr[i]===t){
       boxes[i].classList.remove('check');
       boxes[i].classList.add('found');
-      statusEl.innerHTML = `comparisons: <b>${comps}</b> — found at index <b>${i}</b>`;
+      I18N.html(statusEl, 'cmpFound', {c: comps, i});
       return;
     }
     boxes[i].classList.remove('check');
     boxes[i].classList.add('dead');
   }
-  statusEl.innerHTML = `comparisons: <b>${comps}</b> — not found`;
+  I18N.html(statusEl, 'cmpNotFound', {c: comps});
 }
 
 async function runBinary(t, sorted){
@@ -561,13 +565,13 @@ async function runBinary(t, sorted){
     const mid = Math.floor((lo+hi)/2);
     boxes[mid].classList.add('check');
     comps++;
-    statusEl.innerHTML = `comparisons: <b>${comps}</b> — range [${lo}, ${hi}], mid ${mid}`;
+    I18N.html(statusEl, 'cmpRange', {c: comps, lo, hi, mid});
     highlightLine({pseudo:5, python:4, js:4, java:4, cpp:4});
     await sleep(500);
     if(sorted[mid]===t){
       boxes[mid].classList.remove('check');
       boxes[mid].classList.add('found');
-      statusEl.innerHTML = `comparisons: <b>${comps}</b> — found at index <b>${mid}</b>`;
+      I18N.html(statusEl, 'cmpFound', {c: comps, i: mid});
       return;
     }
     for(let i=lo;i<=hi;i++){
@@ -577,7 +581,7 @@ async function runBinary(t, sorted){
     boxes[mid].classList.add('dead');
     if(sorted[mid]<t) lo = mid+1; else hi = mid-1;
   }
-  statusEl.innerHTML = `comparisons: <b>${comps}</b> — not found`;
+  I18N.html(statusEl, 'cmpNotFound', {c: comps});
 }
 
 document.getElementById('regen').onclick = genArray;

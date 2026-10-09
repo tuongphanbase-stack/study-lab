@@ -31,6 +31,6 @@
     'card.big-number-exponentiation': 'Lũy thừa bằng bình phương liên tiếp — duyệt qua các chữ số nhị phân của số mũ.',
     'card.fsm': 'Mô phỏng cửa xoay — các trạng thái cộng một bảng chuyển trạng thái, xử lý từng đầu vào một.',
     'card.huffman-coding': 'Dựng cây nén từ tần suất ký tự ngay trước mắt, rồi xem chuỗi bit đã mã hóa.',
-    footer: 'Được làm để đi cùng <a href="https://github.com/tuongphanbase-stack/big-o-explained">big-o-explained</a> và <a href="https://github.com/tuongphanbase-stack/sorting-algorithms">sorting-algorithms</a> — HTML/CSS/JS thuần, không dùng framework.'
+    footer: 'Được làm để đi cùng <a href="https://github.com/tuongphanbase/big-o-explained">big-o-explained</a> và <a href="https://github.com/tuongphanbase/sorting-algorithms">sorting-algorithms</a> — HTML/CSS/JS thuần, không dùng framework.'
   }
 });
